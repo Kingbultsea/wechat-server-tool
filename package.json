@@ -1,0 +1,52 @@
+{
+  "name": "wechat-activity",
+  "version": "0.1.0",
+  "description": "微信工具",
+  "main": "dist/node/index.js",
+  "types": "dist/node/index.d.ts",
+  "files": [
+    "bin",
+    "dist"
+  ],
+  "bin": {
+    "run": "bin/run.js"
+  },
+  "scripts": {
+    "dev": "run-p dev-node",
+    "dev-client": "tsc -w --p src/client",
+    "dev-node": "tsc -w --p src/node",
+    "build": "tsc -p src/client && tsc -p src/node",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "prettier --write --parser typescript \"src/**/*.ts\""
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write"
+    ],
+    "*.ts": [
+      "prettier --parser=typescript --write"
+    ]
+  },
+  "author": "Kingbultsea",
+  "license": "ISC",
+  "dependencies": {
+    "@types/koa": "^2.13.3",
+    "koa": "^2.13.1",
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^10.0.0",
+    "minimist": "^1.2.5",
+    "superagent": "^6.1.0"
+  },
+  "devDependencies": {
+    "@types/koa-bodyparser": "^4.3.1",
+    "@types/koa-router": "^7.4.2",
+    "@types/superagent": "^4.1.11",
+    "chalk": "^4.1.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.3.1",
+    "yorkie": "^2.0.0"
+  }
+}

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>晚安睡务局</title>
+    <style>
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
+        .contain {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        body {
+            background-color: black;
+        }
+        .bg {
+            position: fixed;
+            width: 100vw;
+            filter: blur(5px);
+        }
+        .bt {
+            width: 100vw;
+            height: 13vh;
+            position: fixed;
+            bottom: 1vh;
+            left: 0px;
+        }
+    </style>
+</head>
+<body>
+<script src="https://res.psy-1.com/heartide/jquery_1592464054.js" async></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+<script>
+  var authorization_code = null
+  var baseURL = null
+
+  var pre_auth_code = null
+
+  setTimeout(function() {
+    getComponentAccessToken()
+    setTimeout(function() {
+      try {
+        if (window.location.href.includes('auth_code')) {
+          alert('授权成功 ')
+          var url_string = window.location.href
+          var url = new URL(url_string)
+          var c = url.searchParams.get("auth_code")
+          console.log(c)
+          authorization_code = c
+          $.get(`/wechat_open_platform/submitac?ac=${c}`, function(res) {
+            console.log(res)
+          })
+        }
+
+      } catch (e){
+
+      }
+    }, 1000)
+  }, 300)
+
+  function getComponentAccessToken () {
+    $.get('/wechat_open_platform/preauthcode', function(res, asd) {
+      pre_auth_code = res
+      baseURL = `https://mp.weixin.qq.com/safe/bindcomponent?
+        &action=bindcomponent
+        &auth_type=3
+        &no_scan=1
+        &component_appid=wxbaf03b7acb3c993a
+        &pre_auth_code=${pre_auth_code}
+        &redirect_uri=http://wop.heartide.com
+        &auth_type=3
+        #wechat_redirect`.replace(/(\s*)/g, "")
+      console.log(res)
+    })
+  }
+  // wxbaf03b7acb3c993a 正式服
+  function submit() {
+    baseURL = `https://mp.weixin.qq.com/cgi-bin/componentloginpage?
+        &auth_type=3
+        &no_scan=1
+        &component_appid=wxbaf03b7acb3c993a
+        &pre_auth_code=${pre_auth_code}
+        &redirect_uri=http://wop.heartide.com
+        &auth_type=3
+        #wechat_redirect`.replace(/(\s*)/g, "")
+    console.log(baseURL)
+    // window.location.href = baseURL
+  }
+</script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vConsole/3.2.0/vconsole.min.js"></script>
+<script>
+    // init vConsole
+    var vConsole = new VConsole();
+    console.log('2019年02月21日15:16:02');
+</script> -->
+<!-- <img class="bg" src="./sleepStationImg/pcBg.jpg"> -->
+<script>
+  class Share {
+    constructor ({ url, title, desc, pic, dataUrl = null }) {
+      console.log('??')
+      this.url = url
+      this.title = title
+      this.desc = desc
+      this.pic = pic
+      this.dataUrl = dataUrl // 第一次启动的是appInit
+    }
+
+    appShare () {
+      const share_data = {
+        type1: {
+          title: this.title,
+          desc: this.desc,
+          link: this.url,
+          imgUrl: this.pic,
+          shareType: 1
+        },
+        type2: {
+          title: this.title,
+          link: this.url,
+          imgUrl: this.pic,
+          shareType: 2
+        },
+        type3: {
+          imgUrl: '', // 空出来 不然优先分享图片
+          shareType: 3
+        }
+      }
+      document.getElementById('share').value = JSON.stringify(share_data)
+      document.getElementById('share2').value = JSON.stringify(share_data.type1)
+      document.getElementById('share3').value = JSON.stringify(share_data.type2)
+    }
+    callAppRouter (method, params={}, callback) {
+      let req = {
+        'Method': method,
+        'Data': params
+      }, cbName = `CB_${Date.now()}_${Math.ceil(Math.random() * 10)}`
+      req = JSON.stringify(req)
+      Xinchao.Web[cbName] = (err, result) => {
+        if (callback) {
+          callback(err, result)
+        }
+        delete Xinchao.Web[cbName]
+      }
+      if (/(iPhone|iPad|iPod)/i.test(navigator.userAgent)) {
+        window.webkit.messageHandlers.XinchaoApp.postMessage({
+          req,
+          cbName
+        })
+      } else {
+        XinchaoApp.callRouter(req, cbName)
+      }
+    }
+
+    appGetName () {
+      this.callAppRouter('isLogin', {}, (err, result) => {
+        if (JSON.parse(result).msg === '已登录') {
+          this.callAppRouter('Login', {}, (err, result) => {
+            try {
+              const r = JSON.parse(result)
+              localStorage.setItem('name', r.data.name)
+              console.log(r.data.name)
+            } catch (e) {
+              localStorage.setItem('name', result.data.name)
+              console.log(result.data.name)
+            }
+          })
+        }
+      })
+    }
+
+    weiXinShare () {
+      const that = this
+      const message = {
+        title: that.title,
+        desc: that.desc,
+        link: that.url,
+        img_url: that.pic+'?imageView&thumbnail=400x0&quality=75&tostatic=0'
+      }
+      if (this.dataUrl) {
+        // message.type = 'music'
+        // message.dataUrl = this.dataUrl
+      }
+      wx.ready(function (res) {
+        wx.onMenuShareAppMessage(message)
+        wx.onMenuShareQQ(message)
+        wx.onMenuShareQZone(message)
+        wx.onMenuShareTimeline(message)
+        wx.error((res) => {
+          // alert(res)
+        })
+      })
+    }
+
+    weiXinSDK (url, bl) {
+      const getappid = new XMLHttpRequest()
+      const that = this
+      getappid.open('GET', url + '/web/v1/wechat/config?debug=1&url=' + encodeURIComponent(location.href.split('#')[0]))
+
+      getappid.onreadystatechange = function () {
+        if (getappid.readyState === 4 && getappid.status === 200) {
+          console.log('sdk ok')
+          let getSDK = JSON.parse(getappid.response)
+          console.log(getSDK.data.wechat_config)
+          getSDK.data.wechat_config.debug = false
+
+          if (bl && !localStorage.getItem('name')) window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx632d4c99bd681cf3&redirect_uri=' + encodeURI(location.href.split('#')[0]) +'&response_type=code&scope=snsapi_userinfo#wechart_redirect'
+          if (!bl || localStorage.getItem('name')) {
+            wx.config(getSDK.data.wechat_config)
+            that.weiXinShare()
+            that.weiXinGetName(url)
+          }
+        }
+      }
+      getappid.send()
+    }
+
+    weatherCode () {
+      const QRblock = /code=(.+?)&/
+      const code = window.location.href.match(QRblock)
+      sessionStorage.setItem('code', code)
+      if (code) { return code } else {
+        return false
+      }
+    }
+
+    weiXinGetName (url) {
+      if (!localStorage.getItem('name')) {
+        console.log(code + 'asd你想要的' + sessionStorage.getItem('code'))
+        const code = sessionStorage.getItem('code').replace(/code=/, '').replace(/\&.+/, '')
+
+        $.get(url + '/web/v1/wechat/user', { code }, (data) => {
+          console.log('jq都不行？'); console.log(data.data.nickname)
+          localStorage.setItem('name', data.data.nickname)
+        })
+      }
+    }
+
+    weiXinInit (url) {
+      const code = this.weatherCode()
+      code ? this.weiXinSDK(url, false) : this.weiXinSDK(url, true)
+    }
+
+    appInit () {
+      this.appShare()
+      this.appGetName()
+    }
+
+    rawWeiXinShare (url) {
+      const getappid = new XMLHttpRequest()
+      const that = this
+      getappid.open('GET', url + '/web/v1/wechat/config?debug=1&url=' + encodeURIComponent(location.href.split('#')[0]))
+      getappid.onreadystatechange = function () {
+        if (getappid.readyState === 4 && getappid.status === 200) {
+          console.log('sdk ok')
+          let getSDK = JSON.parse(getappid.response)
+          console.log(getSDK.data.wechat_config)
+          getSDK.data.wechat_config.debug = false
+
+          wx.config(getSDK.data.wechat_config)
+          that.weiXinShare()
+        }
+      }
+      getappid.send()
+    }
+
+    rawGetName () {
+      if (!localStorage.getItem('name')) {
+        console.log(code + 'asd你想要的' + sessionStorage.getItem('code'))
+        const code = sessionStorage.getItem('code').replace(/code=/, '').replace(/\&.+/, '')
+
+        $.get(url + '/web/v1/wechat/user', { code }, (data) => {
+          console.log('jq都不行？'); console.log(data.data.nickname)
+          localStorage.setItem('name', data.data.nickname)
+        })
+      }
+    }
+  }
+
+  const share = new Share({ pic: 'http://wx1.sinaimg.cn/mw690/006Zdy2vgy1fz52y1mnfnj309x09adg6.jpg', url: window.location.href.split('#')[0], title: '心声房间', desc: '心动时刻' })
+  // share.appShare()
+  share.rawWeiXinShare('https://api.psy-1.com')
+</script>
+<div class="contain">
+    <div class="combind" style='height: 100%;position: relative'>
+        <img  style='height: 100%' onclick="window.location.href = baseURL" src="https://webres.psy-1.com/sgy/dist/img/dd2.97b00bc7.jpg">
+        <img  style='height: 100%;position: absolute;top: 0px;left: 0px' src="https://webres.psy-1.com/sgy/dist/img/dd1.c050b7b8.png">
+    </div>
+</div>
+<div class="bt" onclick="window.location.href = baseURL"></div>
+<!-- <button onclick="window.location.href = baseURL">授权按钮</button> -->
+</body>
+</html>
