@@ -20,7 +20,6 @@
     "lint": "prettier --write --parser typescript \"src/**/*.ts\""
   },
   "gitHooks": {
-    "pre-commit": "lint-staged"
   },
   "lint-staged": {
     "*.js": [
@@ -38,7 +37,8 @@
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.0.0",
     "minimist": "^1.2.5",
-    "superagent": "^6.1.0"
+    "superagent": "^6.1.0",
+    "typescript": "^4.3.2"
   },
   "devDependencies": {
     "@types/koa-bodyparser": "^4.3.1",
