@@ -1,4 +1,8 @@
 const app = require('express')()
 const convert = require('../dist/api/index')
 
-module.exports = convert(app)
+app.get('/wechat_open_platform/preauthcode', (req, res) => {
+    res.end('????')
+})
+
+module.exports = app
