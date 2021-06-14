@@ -9,4 +9,6 @@ export default function convert(app: any) {
         }
 
     ;[...internalPlugins].forEach(m => m(serverContext))
+
+    return app
 }
