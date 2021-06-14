@@ -20,7 +20,7 @@
     "dev-client": "tsc -w --p src/client",
     "dev-node": "tsc -w --p src/node",
     "dev-bin": "tsc -w --p src/api",
-    "build": "tsc -p src/client && tsc -p src/node && tsc -p src/bin",
+    "build": "tsc -p src/client && tsc -p src/node && tsc -p src/api",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "prettier --write --parser typescript \"src/**/*.ts\""
   },
