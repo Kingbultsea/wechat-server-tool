@@ -1,18 +1,41 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getPreCode = exports.getComponentAccessToken = exports.EnctypeTicket = void 0;
-const Log_1 = __importDefault(require("../util/Log"));
+const Log_1 = __importStar(require("../util/Log"));
 const superagent_1 = __importDefault(require("superagent"));
-const Log = Log_1.default('自身平台');
+// import { app } from '@api/index.ts'
+const Log = Log_1.default('Message from 自身平台：');
 exports.EnctypeTicket = '';
 // 微信第三方自身授权
-const SelfWeChatPlugin = ({ root, app, server, Router }) => {
-    app.use(async (ctx, next) => { });
+const SelfWeChatPlugin = ({ app, Router, type }) => {
+    if (app) {
+        app.use(async (ctx, next) => { });
+    }
     // 每10分钟会有请求进来
-    Router.post('/wechat_open_platform/auth/callback', async (ctx) => {
+    Router.post('/wechat_open_platform/auth/callback', async (_ctx, res) => {
+        let ctx = Log_1.convertPlugins(_ctx, res, type);
         // @ts-ignore
         exports.EnctypeTicket = ctx.request.body.xml.Encrypt[0];
         Log(`微信端接收EnctypeTicket：${exports.EnctypeTicket}`);

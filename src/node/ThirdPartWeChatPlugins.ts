@@ -1,19 +1,26 @@
 import SuperAgent from 'superagent'
-import _Log from '../util/Log'
-import { Plugin, Router } from './server'
+import _Log, { convertPlugins } from '../util/Log'
+import { Plugin } from './server'
 import {
   EnctypeTicket,
   getComponentAccessToken,
   getPreCode
 } from './SelfWeChatPlugin'
+// import {app} from '@api/index';
 
-const Log = _Log('第三方')
+const Log = _Log('Message from 第三方：')
 
-const ThirdPartWeChatPlugins: Plugin = ({ appid, secret }) => {
+const ThirdPartWeChatPlugins: Plugin = ({ appid, secret, Router, type }) => {
   let ACCESS_TOKEN = ''
 
+  if (type === 'express') {
+
+  }
+
   // step1 发送第三方的预授权码
-  Router.get('/wechat_open_platform/preauthcode', async (ctx) => {
+  Router.get('/wechat_open_platform/preauthcode', async (_ctx: any, res: any) => {
+    let ctx: any = convertPlugins(_ctx, res, type)
+
     if (!EnctypeTicket) {
       Log(`EnctypeTicket(${EnctypeTicket})错误，发送预授权码失败`)
       ctx.response.body = 'error'
@@ -30,7 +37,9 @@ const ThirdPartWeChatPlugins: Plugin = ({ appid, secret }) => {
   })
 
   // step2 接收从前端页面跳转发来的authorization_code
-  Router.get(`/wechat_open_platform/submitac`, async (ctx) => {
+  Router.get(`/wechat_open_platform/submitac`, async (_ctx: any, res: any) => {
+    let ctx: any = convertPlugins(_ctx, res, type)
+
     if (!ACCESS_TOKEN) {
       Log(
         `ACCESS_TOKEN(${ACCESS_TOKEN})令牌为空，需要获取自身平台的令牌，才可以进行授权。`

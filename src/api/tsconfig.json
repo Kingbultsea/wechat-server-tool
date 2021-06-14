@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "../../",
+    "module": "esnext",
+    "lib": ["ESNext"]
+  },
+  "include": ["./"],
+  "exclude": ["../src/client", "../src/node"]
+}

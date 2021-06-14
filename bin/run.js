@@ -23,3 +23,5 @@ server.on('listening', () => {
 })
 
 server.listen(port)
+
+module.exports = server
