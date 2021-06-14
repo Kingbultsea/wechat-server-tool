@@ -1,5 +1,5 @@
 import _app from 'express'
-import {internalPlugins, PluginContext } from '@node/server'
+import {internalPlugins, PluginContext } from '../node/server'
 
 export const app = _app()
 
@@ -10,10 +10,6 @@ const serverContext: PluginContext = {
     type: 'express'
 }
 
-// 转换接口
-function convert() {
-   ;[...internalPlugins].forEach(m => m(serverContext))
-}
-convert()
+;[...internalPlugins].forEach(m => m(serverContext))
 
 module.exports = app
