@@ -1,15 +1,12 @@
-import _app from 'express'
 import {internalPlugins, PluginContext } from '../node/server'
 
-export const app = _app()
+export default function convert(app: any) {
+    const serverContext: PluginContext = {
+            appid: '',
+            secret: '',
+            Router: app,
+            type: 'express'
+        }
 
-const serverContext: PluginContext = {
-    appid: '',
-    secret: '',
-    Router: app,
-    type: 'express'
+    ;[...internalPlugins].forEach(m => m(serverContext))
 }
-
-;[...internalPlugins].forEach(m => m(serverContext))
-
-module.exports = app

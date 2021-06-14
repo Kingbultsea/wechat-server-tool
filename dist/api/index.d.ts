@@ -1,1 +1,1 @@
-export declare const app: import("express-serve-static-core").Express;
+export default function convert(app: any): void;
