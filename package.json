@@ -16,7 +16,7 @@
     "run": "bin/run.js"
   },
   "scripts": {
-    "run": "node ./bin/run.js --appid 123 --secret sc",
+    "run": "node ./bin/run.js --appid wx0ea308250417bd30 --secret 3e0c28388123d4cccf56db459a2baf68",
     "dev": "run-p dev-node",
     "dev-client": "tsc -w --p src/client",
     "dev-node": "tsc -w --p src/node",
