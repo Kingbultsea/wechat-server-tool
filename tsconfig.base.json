@@ -10,6 +10,13 @@
     "noUnusedLocals": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
-    "removeComments": false
+    "removeComments": false,
+
+    "baseUrl": "./",
+    "paths": {
+      "@node/*": ["src/node/*"],
+      "@api/*": ["src/api/*"],
+      "@util/*": ["src/util/*"]
+    }
   }
 }

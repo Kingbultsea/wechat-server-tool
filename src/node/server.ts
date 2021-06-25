@@ -4,6 +4,8 @@ import SelfWeChatPlugin from './SelfWeChatPlugin'
 import ThirdPartWeChatPlugins from './ThirdPartWeChatPlugins'
 import _Router from 'koa-router'
 import _BodyParser from 'koa-bodyparser'
+// import { app } from '@api/index'
+
 export type Plugin = (ctx: PluginContext) => void
 export const Router = new _Router()
 
@@ -15,20 +17,18 @@ export interface ServerConfig {
 }
 
 export interface PluginContext {
-  root: string
   appid: string
   secret: string
-  app: Koa
-  server: Server
-  Router: typeof Router
+  app?: Koa
+  type: 'express' | 'koa'
+  Router: any // typeof Router | typeof app
 }
 
-const internalPlugins: Plugin[] = [SelfWeChatPlugin, ThirdPartWeChatPlugins]
+export const internalPlugins: Plugin[] = [SelfWeChatPlugin, ThirdPartWeChatPlugins]
 
 export function createServer({
   appid = '',
   secret = '',
-  root = process.cwd(),
   plugins = []
 }: ServerConfig = {}): Server {
   const app = new Koa()
@@ -39,11 +39,10 @@ export function createServer({
 
   ;[...plugins, ...internalPlugins].forEach((m) =>
     m({
-      root,
       appid,
       secret,
       app,
-      server,
+      type: 'koa',
       Router
     })
   )
