@@ -19,4 +19,4 @@ export interface PluginContext {
     Router: any;
 }
 export declare const internalPlugins: Plugin[];
-export declare function createServer({ appid, secret, plugins }?: ServerConfig): Server;
+export declare function createServer({ root, appid, secret, plugins }?: ServerConfig): Server;

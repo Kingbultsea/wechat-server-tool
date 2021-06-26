@@ -9,6 +9,6 @@ function convert(app) {
         type: 'express'
     };
     [...server_1.internalPlugins].forEach(m => m(serverContext));
-    return app
+    return app;
 }
 exports.default = convert;

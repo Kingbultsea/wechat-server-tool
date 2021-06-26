@@ -1,1 +1,1 @@
-export default function convert(app: any): void;
+export default function convert(app: any): any;

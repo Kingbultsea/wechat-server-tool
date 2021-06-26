@@ -27,6 +27,7 @@ export interface PluginContext {
 export const internalPlugins: Plugin[] = [SelfWeChatPlugin, ThirdPartWeChatPlugins]
 
 export function createServer({
+  root = process.cwd(),
   appid = '',
   secret = '',
   plugins = []
@@ -35,6 +36,8 @@ export function createServer({
 
   app.use(Router.routes())
   app.use(_BodyParser())
+  app.use(require('koa-static')(root))
+
   const server = http.createServer(app.callback())
 
   ;[...plugins, ...internalPlugins].forEach((m) =>

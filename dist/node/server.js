@@ -12,10 +12,11 @@ const koa_router_1 = __importDefault(require("koa-router"));
 const koa_bodyparser_1 = __importDefault(require("koa-bodyparser"));
 exports.Router = new koa_router_1.default();
 exports.internalPlugins = [SelfWeChatPlugin_1.default, ThirdPartWeChatPlugins_1.default];
-function createServer({ appid = '', secret = '', plugins = [] } = {}) {
+function createServer({ root = process.cwd(), appid = '', secret = '', plugins = [] } = {}) {
     const app = new koa_1.default();
     app.use(exports.Router.routes());
     app.use(koa_bodyparser_1.default());
+    app.use(require('koa-static')(root));
     const server = http_1.default.createServer(app.callback());
     [...plugins, ...exports.internalPlugins].forEach((m) => m({
         appid,
