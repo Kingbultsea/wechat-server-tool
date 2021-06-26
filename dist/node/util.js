@@ -5,10 +5,10 @@ const getPostData = (ctx) => {
     return new Promise(function (resolve, reject) {
         try {
             let str = '';
-            ctx.request.on('data', function (data) {
+            ctx.req.on('data', function (data) {
                 str += data;
             });
-            ctx.request.on('end', function () {
+            ctx.req.on('end', function () {
                 resolve(str);
             });
         }
