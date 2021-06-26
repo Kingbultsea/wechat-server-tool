@@ -49,6 +49,7 @@
   "devDependencies": {
     "@types/koa-bodyparser": "^4.3.1",
     "@types/koa-router": "^7.4.2",
+    "@types/koa-xml-body": "^2.0.2",
     "@types/superagent": "^4.1.11",
     "chalk": "^4.1.1",
     "npm-run-all": "^4.1.5",
