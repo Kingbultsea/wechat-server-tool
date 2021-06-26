@@ -1,39 +1,20 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const superagent_1 = __importDefault(require("superagent"));
-const Log_1 = __importStar(require("../util/Log"));
+const Log_1 = __importDefault(require("../util/Log"));
 const SelfWeChatPlugin_1 = require("./SelfWeChatPlugin");
 // import {app} from '@api/index';
+// router.post(`/wechat_open_platform/${id}/message`, async (ctx) => {
 const Log = Log_1.default('Message from 第三方：');
 const ThirdPartWeChatPlugins = ({ appid, secret, Router, type }) => {
     let ACCESS_TOKEN = '';
     if (type === 'express') {
     }
     // step1 发送第三方的预授权码
-    Router.get('/wechat_open_platform/preauthcode', async (_ctx, res) => {
-        let ctx = Log_1.convertPlugins(_ctx, res, type);
+    Router.get('/wechat_open_platform/preauthcode', async (ctx, res) => {
         if (!SelfWeChatPlugin_1.EnctypeTicket) {
             Log(`EnctypeTicket(${SelfWeChatPlugin_1.EnctypeTicket})错误，发送预授权码失败`);
             ctx.response.body = 'error';
@@ -48,8 +29,7 @@ const ThirdPartWeChatPlugins = ({ appid, secret, Router, type }) => {
         ctx.response.body = code;
     });
     // step2 接收从前端页面跳转发来的authorization_code
-    Router.get(`/wechat_open_platform/submitac`, async (_ctx, res) => {
-        let ctx = Log_1.convertPlugins(_ctx, res, type);
+    Router.get(`/wechat_open_platform/submitac`, async (ctx, res) => {
         if (!ACCESS_TOKEN) {
             Log(`ACCESS_TOKEN(${ACCESS_TOKEN})令牌为空，需要获取自身平台的令牌，才可以进行授权。`);
             ctx.response.body = 'error';
@@ -58,6 +38,7 @@ const ThirdPartWeChatPlugins = ({ appid, secret, Router, type }) => {
         Authorization(ctx.query.ac, ACCESS_TOKEN, appid);
         ctx.response.body = 'success';
     });
+    // step3 接受信息 router.post(`/wechat_open_platform/${id}/message`, async (ctx) => {
 };
 function Authorization(authorization_code, ACCESS_TOKEN, appid) {
     Log(`授权开始，authorization_code: ${authorization_code}`);

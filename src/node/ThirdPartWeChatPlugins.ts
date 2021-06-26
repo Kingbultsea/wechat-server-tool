@@ -1,5 +1,5 @@
 import SuperAgent from 'superagent'
-import _Log, { convertPlugins } from '../util/Log'
+import _Log from '../util/Log'
 import { Plugin } from './server'
 import {
   EnctypeTicket,
@@ -7,6 +7,7 @@ import {
   getPreCode
 } from './SelfWeChatPlugin'
 // import {app} from '@api/index';
+// router.post(`/wechat_open_platform/${id}/message`, async (ctx) => {
 
 const Log = _Log('Message from 第三方：')
 
@@ -18,9 +19,7 @@ const ThirdPartWeChatPlugins: Plugin = ({ appid, secret, Router, type }) => {
   }
 
   // step1 发送第三方的预授权码
-  Router.get('/wechat_open_platform/preauthcode', async (_ctx: any, res: any) => {
-    let ctx: any = convertPlugins(_ctx, res, type)
-
+  Router.get('/wechat_open_platform/preauthcode', async (ctx: any, res: any) => {
     if (!EnctypeTicket) {
       Log(`EnctypeTicket(${EnctypeTicket})错误，发送预授权码失败`)
       ctx.response.body = 'error'
@@ -37,8 +36,7 @@ const ThirdPartWeChatPlugins: Plugin = ({ appid, secret, Router, type }) => {
   })
 
   // step2 接收从前端页面跳转发来的authorization_code
-  Router.get(`/wechat_open_platform/submitac`, async (_ctx: any, res: any) => {
-    let ctx: any = convertPlugins(_ctx, res, type)
+  Router.get(`/wechat_open_platform/submitac`, async (ctx: any, res: any) => {
 
     if (!ACCESS_TOKEN) {
       Log(
@@ -51,6 +49,8 @@ const ThirdPartWeChatPlugins: Plugin = ({ appid, secret, Router, type }) => {
     Authorization(ctx.query.ac as string, ACCESS_TOKEN, appid)
     ctx.response.body = 'success'
   })
+
+  // step3 接受信息 router.post(`/wechat_open_platform/${id}/message`, async (ctx) => {
 }
 
 function Authorization(
@@ -78,6 +78,7 @@ function Authorization(
       let authorizer_access_token = AUTHORIZATION_INFO.authorizer_access_token
       let refresh_authorizer_refresh_token =
         AUTHORIZATION_INFO.authorizer_refresh_token
+
       Log(
         `获取成功！\r\nauthorizer_access_token：${authorizer_access_token}\r\nrefresh_authorizer_refresh_token：${refresh_authorizer_refresh_token}`
       )
@@ -99,7 +100,9 @@ function Authorization(
       Log(
         `${platFormInfo.nick_name}第三方授权完成，将凭借refresh_authorizer_refresh_token，每一个小时刷新一次authorizer_access_token`
       )
+
       // todo 数据库保存平台的信息 与刷新token
+
     })
 }
 
