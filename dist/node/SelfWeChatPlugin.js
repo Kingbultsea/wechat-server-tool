@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getPreCode = exports.getComponentAccessToken = exports.EnctypeTicket = void 0;
 const Log_1 = __importDefault(require("../util/Log"));
 const superagent_1 = __importDefault(require("superagent"));
-// import { app } from '@api/index.ts'
 const Log = Log_1.default('Message from 自身平台：');
 exports.EnctypeTicket = '';
 // 微信第三方自身授权
@@ -16,7 +15,6 @@ const SelfWeChatPlugin = ({ app, Router, type }) => {
     }
     // 每10分钟会有请求进来
     Router.post('/wechat_open_platform/auth/callback', async (ctx, res) => {
-        console.log(ctx.request);
         // @ts-ignore
         exports.EnctypeTicket = ctx.request.body.xml.Encrypt[0];
         Log(`微信端接收EnctypeTicket：${exports.EnctypeTicket}`);

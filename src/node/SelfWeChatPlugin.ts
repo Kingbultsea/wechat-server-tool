@@ -2,6 +2,7 @@ import { Plugin } from './server'
 import _Log from '../util/Log'
 import SuperAgent from 'superagent'
 // import { app } from '@api/index.ts'
+import { getPostData } from '@node/util';
 
 const Log = _Log('Message from 自身平台：')
 
@@ -15,7 +16,6 @@ const SelfWeChatPlugin: Plugin = ({  app, Router, type }) => {
 
   // 每10分钟会有请求进来
   Router.post('/wechat_open_platform/auth/callback', async (ctx: any, res: any) => {
-    console.log(ctx.request)
     // @ts-ignore
     EnctypeTicket = ctx.request.body.xml.Encrypt[0]
     Log(`微信端接收EnctypeTicket：${EnctypeTicket}`)
