@@ -16,6 +16,7 @@ const SelfWeChatPlugin = ({ app, Router, type }) => {
     }
     // 每10分钟会有请求进来
     Router.post('/wechat_open_platform/auth/callback', async (ctx, res) => {
+        console.log(ctx.request);
         // @ts-ignore
         exports.EnctypeTicket = ctx.request.body.xml.Encrypt[0];
         Log(`微信端接收EnctypeTicket：${exports.EnctypeTicket}`);
