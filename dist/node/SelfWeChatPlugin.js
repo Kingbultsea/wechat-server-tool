@@ -20,8 +20,6 @@ const SelfWeChatPlugin = ({ app, Router, type }) => {
         // @ts-ignore
         exports.EnctypeTicket = ctx.request.body.xml.Encrypt[0];
         Log(`微信端接收EnctypeTicket：${exports.EnctypeTicket}`);
-    }).catch((e) => {
-        Log(e);
     });
 };
 // 获取自身平台的令牌

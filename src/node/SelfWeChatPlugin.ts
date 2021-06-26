@@ -19,8 +19,6 @@ const SelfWeChatPlugin: Plugin = ({  app, Router, type }) => {
     // @ts-ignore
     EnctypeTicket = ctx.request.body.xml.Encrypt[0]
     Log(`微信端接收EnctypeTicket：${EnctypeTicket}`)
-  }).catch((e: string) => {
-    Log(e)
   })
 }
 
