@@ -27,6 +27,7 @@ const ParsePlatFormMessagePlugins: Plugin = ({ Router, encrypt, root }) => {
         const Log = _Log(`收到来自${target.name}(${platFormId})的消息：`)
 
         Log(Content)
+        Log(result)
 
         ctx.response.body = 'success'
 

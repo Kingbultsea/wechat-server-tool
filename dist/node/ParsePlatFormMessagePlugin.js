@@ -24,6 +24,7 @@ const ParsePlatFormMessagePlugins = ({ Router, encrypt, root }) => {
         const FromUserName = (/<FromUserName\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/FromUserName>/gm.exec(result) || [])[1];
         const Log = Log_1.default(`收到来自${target.name}(${platFormId})的消息：`);
         Log(Content);
+        Log(result);
         ctx.response.body = 'success';
         // todo 消息插件
         if (['百年', '100年', '头像', '我要头像', '党旗', '建党'].includes(Content)) {
