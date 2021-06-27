@@ -50,6 +50,8 @@ export function getComponentAccessToken({
     component_verify_ticket: enctypeTicket
   }
 
+  console.log(params)
+
   return new Promise((resolve) => {
     // 这个方法怎么不是返回promise?
     // todo 改写为request
@@ -58,6 +60,7 @@ export function getComponentAccessToken({
     )
       .send(params)
       .end((err, res) => {
+        console.log(res.body)
         Log(`获取令牌access_token:${res.body.component_access_token}`)
         resolve(res.body.component_access_token)
       })

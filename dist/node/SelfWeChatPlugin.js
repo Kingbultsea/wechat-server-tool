@@ -43,12 +43,14 @@ function getComponentAccessToken({ appid, secret, enctypeTicket } = {}) {
         component_appsecret: secret,
         component_verify_ticket: enctypeTicket
     };
+    console.log(params);
     return new Promise((resolve) => {
         // 这个方法怎么不是返回promise?
         // todo 改写为request
         superagent_1.default.post(`https://api.weixin.qq.com/cgi-bin/component/api_component_token`)
             .send(params)
             .end((err, res) => {
+            console.log(res.body);
             Log(`获取令牌access_token:${res.body.component_access_token}`);
             resolve(res.body.component_access_token);
         });

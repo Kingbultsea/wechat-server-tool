@@ -3,7 +3,7 @@ import Koa from 'koa'
 import SelfWeChatPlugin from './SelfWeChatPlugin'
 import ThirdPartWeChatPlugins from './ThirdPartWeChatPlugins'
 import _Router from 'koa-router'
-// import _BodyParser from 'koa-bodyparser'
+import _BodyParser from 'koa-bodyparser'
 // import _xmlParser from 'koa-xml-body'
 // import { app } from '@api/index'
 
@@ -42,7 +42,7 @@ export function createServer({
 
   app.use(Router.routes())
   // app.use(_xmlParser())
-  // app.use(_BodyParser())
+  app.use(_BodyParser())
   app.use(require('koa-static')(root))
 
   const server = http.createServer(app.callback())
