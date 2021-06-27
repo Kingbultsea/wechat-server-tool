@@ -1,4 +1,5 @@
 import { promises as fs } from 'fs'
+import {EnctypeTicket} from '@node/SelfWeChatPlugin';
 const path = require('path')
 
 const getPostData = (ctx: any): Promise<string> => {
@@ -26,4 +27,21 @@ const writeFile = (ROOT: string = process.cwd(), data: Record<any, any>) => {
     )
 }
 
-export { getPostData, writeFile }
+const getData = async (ctx: any, encrypt: any, tagName?: string): Promise<{ result: any, bodyXML: any }> => {
+    const bodyXML: string = await getPostData(ctx)
+    let result = ''
+    let match: RegExpExecArray | null = null
+    if (match = /<Encrypt\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/Encrypt>/gm.exec(bodyXML)) {
+        result = encrypt.decode(match[1])
+        if (tagName === 'ComponentVerifyTicket') {
+            result = // (eval(`/<${tagName}\\b[^>]*>\\<\\!\\[CDATA\\[([\\s\\S]*?)\\]\\]\\><\\/${tagName}>/gm`)).exec(result)![1]
+                /<ComponentVerifyTicket\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/ComponentVerifyTicket>/gm.exec(EnctypeTicket)![1]
+        }
+    }
+    return {
+        result,
+        bodyXML
+    }
+}
+
+export { getPostData, writeFile, getData }

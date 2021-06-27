@@ -7,7 +7,6 @@ exports.getPreCode = exports.getComponentAccessToken = exports.EnctypeTicket = e
 const Log_1 = __importDefault(require("../util/Log"));
 const superagent_1 = __importDefault(require("superagent"));
 const util_1 = require("./util");
-const util_2 = require("./util");
 const DATA_json_1 = __importDefault(require("../../DATA.json"));
 exports.DATA = DATA_json_1.default;
 const Log = Log_1.default('Message from 自身平台：');
@@ -20,13 +19,9 @@ const SelfWeChatPlugin = ({ app, Router, root, encrypt }) => {
     }
     // 每10分钟会有请求进来
     Router.post('/wechat_open_platform/auth/callback', async (ctx, res) => {
-        const bodyXML = await util_2.getPostData(ctx);
-        let match = null;
-        if (match = /<Encrypt\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/Encrypt>/gm.exec(bodyXML)) {
-            exports.EnctypeTicket = encrypt.decode(match[1]);
-            console.log(exports.EnctypeTicket);
-            exports.EnctypeTicket = /<ComponentVerifyTicket\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/ComponentVerifyTicket>/gm.exec(exports.EnctypeTicket)[1];
-            // update
+        const { result: _EnctypeTicket, bodyXML } = await util_1.getData(ctx, encrypt, 'ComponentVerifyTicket');
+        if (_EnctypeTicket) {
+            exports.EnctypeTicket = _EnctypeTicket;
             // todo 抓获setter
             DATA_json_1.default.self.Encrypt = exports.EnctypeTicket;
             util_1.writeFile(root, DATA_json_1.default);

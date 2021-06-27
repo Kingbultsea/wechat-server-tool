@@ -1,8 +1,8 @@
 import { Plugin } from './server'
 import _Log from '../util/Log'
 import SuperAgent from 'superagent'
-import { writeFile } from './util';
-import { getPostData } from './util'
+import { writeFile, getData } from './util';
+
 import DATA from "../../DATA.json"
 export { DATA }
 
@@ -19,15 +19,11 @@ const SelfWeChatPlugin: Plugin = ({  app, Router, root, encrypt }) => {
 
   // 每10分钟会有请求进来
   Router.post('/wechat_open_platform/auth/callback', async (ctx: any, res: any) => {
-    const bodyXML: string = await getPostData(ctx)
+    const { result: _EnctypeTicket, bodyXML } = await getData(ctx, encrypt, 'ComponentVerifyTicket')
 
-    let match: RegExpExecArray | null = null
-    if (match = /<Encrypt\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/Encrypt>/gm.exec(bodyXML)) {
-      EnctypeTicket = encrypt.decode(match[1])
-      console.log(EnctypeTicket)
-      EnctypeTicket = /<ComponentVerifyTicket\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/ComponentVerifyTicket>/gm.exec(EnctypeTicket)![1]
+    if (_EnctypeTicket) {
+      EnctypeTicket = _EnctypeTicket
 
-      // update
       // todo 抓获setter
       DATA.self.Encrypt = EnctypeTicket
       writeFile(root, DATA)

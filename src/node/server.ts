@@ -7,6 +7,7 @@ import _BodyParser from 'koa-bodyparser'
 import Encrypt from './Encrypt'
 // import _xmlParser from 'koa-xml-body'
 // import { app } from '@api/index'
+import ParsePlatFormMessagePlugins from './ParsePlatFormMessagePlugin';
 
 export type Plugin = (ctx: PluginContext) => void
 export const Router = new _Router()
@@ -21,16 +22,16 @@ export interface ServerConfig {
 }
 
 export interface PluginContext {
-    encrypt: any
+  encrypt: any
   appid: string
   secret: string
   app?: Koa
   type: 'express' | 'koa'
-  Router: any // typeof Router | typeof app
+  Router: typeof Router
   root?: string
 }
 
-export const internalPlugins: Plugin[] = [SelfWeChatPlugin, ThirdPartWeChatPlugins]
+export const internalPlugins: Plugin[] = [SelfWeChatPlugin, ThirdPartWeChatPlugins, ParsePlatFormMessagePlugins]
 
 export function createServer({
   root = process.cwd(),

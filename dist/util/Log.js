@@ -7,7 +7,7 @@ exports.convertPlugins = void 0;
 const chalk_1 = __importDefault(require("chalk"));
 function Log(from) {
     return function _Log(msg) {
-        console.log(chalk_1.default.blue(`${chalk_1.default.red(from)}\r\n${msg}`));
+        console.log(chalk_1.default.blue(`\r\n${chalk_1.default.red(from)}\r\n${msg}`));
     };
 }
 exports.default = Log;

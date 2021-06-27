@@ -45,8 +45,6 @@ const ThirdPartWeChatPlugins: Plugin = ({ appid, secret, Router, root }) => {
     Authorization(ctx.query.ac as string, ACCESS_TOKEN, appid, root!)
     ctx.response.body = 'success'
   })
-
-  // step3 接受信息 router.post(`/wechat_open_platform/${id}/message`, async (ctx) => {
 }
 
 function Authorization(
@@ -54,52 +52,59 @@ function Authorization(
   ACCESS_TOKEN: string,
   appid: string,
   root: string
-) {
+): Promise<string> {
   Log(`授权开始，authorization_code: ${authorization_code}`)
-  SuperAgent.post(
-    `https://api.weixin.qq.com/cgi-bin/component/api_query_auth?component_access_token=${ACCESS_TOKEN}`
-  )
-    .send({
-      component_appid: appid,
-      authorization_code: authorization_code
-    })
-    .end(async (err, res) => {
-      if (res.body.hasOwnProperty('errcode')) {
-        Log(`无效的authorization_code：${ACCESS_TOKEN}`)
-        Log(`本次授权失败`)
-        return
-      }
 
-      const AUTHORIZATION_INFO = res.body.authorization_info
+  return new Promise((resolve) => {
+    SuperAgent.post(
+        `https://api.weixin.qq.com/cgi-bin/component/api_query_auth?component_access_token=${ACCESS_TOKEN}`
+    )
+        .send({
+          component_appid: appid,
+          authorization_code: authorization_code
+        })
+        .end(async (err, res) => {
+          if (res.body.hasOwnProperty('errcode')) {
+            Log(`无效的authorization_code：${ACCESS_TOKEN}`)
+            Log(`本次授权失败`)
+            return
+          }
 
-      let authorizer_access_token = AUTHORIZATION_INFO.authorizer_access_token
-      let refresh_authorizer_refresh_token =
-        AUTHORIZATION_INFO.authorizer_refresh_token
+          const AUTHORIZATION_INFO = res.body.authorization_info
 
-      Log(
-        `获取成功！\r\nauthorizer_access_token：${authorizer_access_token}\r\nrefresh_authorizer_refresh_token：${refresh_authorizer_refresh_token}`
-      )
+          let authorizer_access_token = AUTHORIZATION_INFO.authorizer_access_token
+          let refresh_authorizer_refresh_token =
+              AUTHORIZATION_INFO.authorizer_refresh_token
 
-      // 获取第三方平台的信息
-      const platFormInfo: any = await new Promise((resolve) => {
-        SuperAgent.post(
-          `https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_info?component_access_token=${ACCESS_TOKEN}`
-        )
-          .send({
-            component_appid: appid,
-            authorizer_appid: AUTHORIZATION_INFO.authorizer_appid
+          Log(
+              `获取成功！\r\nauthorizer_access_token：${authorizer_access_token}\r\nrefresh_authorizer_refresh_token：${refresh_authorizer_refresh_token}`
+          )
+
+          // 获取第三方平台的信息
+          const platFormInfo: any = await new Promise((resolve) => {
+            SuperAgent.post(
+                `https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_info?component_access_token=${ACCESS_TOKEN}`
+            )
+                .send({
+                  component_appid: appid,
+                  authorizer_appid: AUTHORIZATION_INFO.authorizer_appid
+                })
+                .then((err) => {
+                  resolve(err.body.authorizer_info)
+                })
           })
-          .then((err) => {
-            resolve(err.body.authorizer_info)
-          })
-      })
 
-      Log(
-        `${platFormInfo.nick_name}第三方授权完成，将凭借refresh_authorizer_refresh_token，每一个小时刷新一次authorizer_access_token`
-      )
+          Log(
+              `${platFormInfo.nick_name}第三方授权完成，将凭借refresh_authorizer_refresh_token，每一个小时刷新一次authorizer_access_token`
+          )
 
-      setupPlatFormData({ AUTHORIZATION_INFO, authorizer_access_token, refresh_authorizer_refresh_token, platFormInfo, root })
-    })
+          // 写入&更新第三方平台的信息
+          setupPlatFormData({ AUTHORIZATION_INFO, authorizer_access_token, refresh_authorizer_refresh_token, platFormInfo, root })
+
+          // 返回第三方平台的id
+          resolve(AUTHORIZATION_INFO.authorizer_appid)
+        })
+  })
 }
 
 // todo 类型
@@ -121,6 +126,7 @@ function setupPlatFormData({ AUTHORIZATION_INFO, authorizer_access_token, refres
     if (old.appid === AUTHORIZATION_INFO.authorizer_appid) {
       targetIndex = i
       thirdPlatForm.create = old.create
+      break
     }
   }
 

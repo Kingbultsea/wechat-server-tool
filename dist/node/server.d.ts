@@ -18,7 +18,7 @@ export interface PluginContext {
     secret: string;
     app?: Koa;
     type: 'express' | 'koa';
-    Router: any;
+    Router: typeof Router;
     root?: string;
 }
 export declare const internalPlugins: Plugin[];

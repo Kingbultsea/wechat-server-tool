@@ -11,9 +11,12 @@ const ThirdPartWeChatPlugins_1 = __importDefault(require("./ThirdPartWeChatPlugi
 const koa_router_1 = __importDefault(require("koa-router"));
 const koa_bodyparser_1 = __importDefault(require("koa-bodyparser"));
 const Encrypt_1 = __importDefault(require("./Encrypt"));
+// import _xmlParser from 'koa-xml-body'
+// import { app } from '@api/index'
+const ParsePlatFormMessagePlugin_1 = __importDefault(require("./ParsePlatFormMessagePlugin"));
 exports.Router = new koa_router_1.default();
 exports.ROOT = '';
-exports.internalPlugins = [SelfWeChatPlugin_1.default, ThirdPartWeChatPlugins_1.default];
+exports.internalPlugins = [SelfWeChatPlugin_1.default, ThirdPartWeChatPlugins_1.default, ParsePlatFormMessagePlugin_1.default];
 function createServer({ root = process.cwd(), appid = '', secret = '', plugins = [] } = {}) {
     exports.ROOT = root;
     const app = new koa_1.default();

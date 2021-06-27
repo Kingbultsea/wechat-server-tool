@@ -2,7 +2,7 @@ import chalk from 'chalk'
 
 export default function Log(from: string) {
   return function _Log(msg: string) {
-    console.log(chalk.blue(`${chalk.red(from)}\r\n${msg}`))
+    console.log(chalk.blue(`\r\n${chalk.red(from)}\r\n${msg}`))
   }
 }
 
