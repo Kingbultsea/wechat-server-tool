@@ -33,6 +33,8 @@ function sendMediaContent(toUser, mediaId, serveAccessToken, type) {
             'media_id': mediaId
         }
     };
-    superagent_1.default.post(`https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=${serveAccessToken}`).send(serviceData);
+    superagent_1.default.post(`https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=${serveAccessToken}`).send(serviceData).end((err, res) => {
+        console.log(res.body);
+    });
 }
 exports.default = sendMediaDataCopy;

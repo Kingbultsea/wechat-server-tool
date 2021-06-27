@@ -33,7 +33,9 @@ function sendMediaContent(toUser: any, mediaId: any, serveAccessToken: any, type
                 'media_id': mediaId
             }
     }
-    SuperAgent.post(`https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=${serveAccessToken}`).send(serviceData)
+    SuperAgent.post(`https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=${serveAccessToken}`).send(serviceData).end((err, res) => {
+        console.log(res.body)
+    })
 }
 
 export default sendMediaDataCopy
