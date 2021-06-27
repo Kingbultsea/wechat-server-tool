@@ -22,8 +22,9 @@ const SelfWeChatPlugin: Plugin = ({  app, Router, root }) => {
     const bodyXML: string = await getPostData(ctx)
 
     let match: RegExpExecArray | null = null
-    if (match = /<node\b[^>]*>([\s\S]*?)<\/node>/gm.exec(bodyXML)) {
+    if (match = /<Encrypt\b[^>]*><\!\[CDATA\[([\s\S]*?)\]\]<\/Encrypt>/gm.exec(bodyXML)) {
       EnctypeTicket = match[1]
+      console.log(EnctypeTicket)
 
       // update
       // todo 抓获setter
