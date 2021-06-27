@@ -10,6 +10,7 @@ const SelfWeChatPlugin_1 = __importDefault(require("./SelfWeChatPlugin"));
 const ThirdPartWeChatPlugins_1 = __importDefault(require("./ThirdPartWeChatPlugins"));
 const koa_router_1 = __importDefault(require("koa-router"));
 const koa_bodyparser_1 = __importDefault(require("koa-bodyparser"));
+const Encrypt = require('./Encrypt.js');
 exports.Router = new koa_router_1.default();
 exports.ROOT = '';
 exports.internalPlugins = [SelfWeChatPlugin_1.default, ThirdPartWeChatPlugins_1.default];
@@ -21,6 +22,11 @@ function createServer({ root = process.cwd(), appid = '', secret = '', plugins =
     app.use(koa_bodyparser_1.default());
     app.use(require('koa-static')(root));
     const server = http_1.default.createServer(app.callback());
+    const encrypt = new Encrypt({
+        appId: appid,
+        encodingAESKey: 'eUbVREqK4jh9XHeYTZPHRTCzFz8PDWL2nieCZzganJv',
+        token: 'kingbultsea'
+    });
     [...plugins, ...exports.internalPlugins].forEach((m) => m({
         appid,
         secret,

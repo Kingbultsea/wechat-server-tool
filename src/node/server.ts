@@ -4,6 +4,7 @@ import SelfWeChatPlugin from './SelfWeChatPlugin'
 import ThirdPartWeChatPlugins from './ThirdPartWeChatPlugins'
 import _Router from 'koa-router'
 import _BodyParser from 'koa-bodyparser'
+const Encrypt = require('./Encrypt.js')
 // import _xmlParser from 'koa-xml-body'
 // import { app } from '@api/index'
 
@@ -46,6 +47,12 @@ export function createServer({
   app.use(require('koa-static')(root))
 
   const server = http.createServer(app.callback())
+
+  const encrypt = new Encrypt({
+      appId: appid,
+      encodingAESKey: 'eUbVREqK4jh9XHeYTZPHRTCzFz8PDWL2nieCZzganJv',
+      token: 'kingbultsea'
+  })
 
   ;[...plugins, ...internalPlugins].forEach((m) =>
     m({
