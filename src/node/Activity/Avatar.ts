@@ -34,5 +34,7 @@ export async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '' }:
             }
             resolve(path.join(root, `./assets/avatar/${hash}.png`))
         })
+    }).catch((e) => {
+        console.log(e)
     })
 }
