@@ -1,2 +1,2 @@
-declare function sendMediaDataCopy(targetInfo: any, uid: any): Promise<unknown>;
+declare function sendMediaDataCopy({ targetInfo, uid, content }?: any): Promise<unknown>;
 export default sendMediaDataCopy;

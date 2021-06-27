@@ -19,7 +19,7 @@ const ParsePlatFormMessagePlugins = ({ Router, encrypt }) => {
                 break;
             }
         }
-        const { result, bodyXML } = await util_1.getData(ctx, encrypt);
+        const { result } = await util_1.getData(ctx, encrypt);
         const Content = (/<Content\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/Content>/gm.exec(result) || [])[1];
         const FromUserName = (/<FromUserName\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/FromUserName>/gm.exec(result) || [])[1];
         const Log = Log_1.default(`收到来自${target.name}(${platFormId})的消息：`);
@@ -27,7 +27,7 @@ const ParsePlatFormMessagePlugins = ({ Router, encrypt }) => {
         ctx.response.body = 'success';
         // todo 消息插件
         // 图片活动
-        pickParser_1.default(target, FromUserName);
+        pickParser_1.default({ target, FromUserName, content: result });
     });
 };
 exports.default = ParsePlatFormMessagePlugins;

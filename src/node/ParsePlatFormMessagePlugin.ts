@@ -19,7 +19,7 @@ const ParsePlatFormMessagePlugins: Plugin = ({ Router, encrypt }) => {
             }
         }
 
-        const { result, bodyXML } = await getData(ctx, encrypt)
+        const { result } = await getData(ctx, encrypt)
 
         const Content = (/<Content\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/Content>/gm.exec(result) || [])![1]
         const FromUserName = (/<FromUserName\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/FromUserName>/gm.exec(result) || [])![1]
@@ -31,7 +31,7 @@ const ParsePlatFormMessagePlugins: Plugin = ({ Router, encrypt }) => {
         // todo 消息插件
 
         // 图片活动
-        sendMediaDataCopy(target, FromUserName)
+        sendMediaDataCopy({ target, FromUserName, content: result })
     })
 }
 
