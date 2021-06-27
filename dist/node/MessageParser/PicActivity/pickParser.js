@@ -18,7 +18,7 @@ async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [] } = {})
         };
         // 获取用户信息头像
         const userInfo = await getUserInfo({ serveAccessToken: targetInfo.authorizer_access_token, uid, platFormName: targetInfo.name });
-        let timeDelay = 5000;
+        let timeDelay = 0;
         for (let i of frameName) {
             setTimeout(async () => {
                 if (userInfo && userInfo.picUrl) {
