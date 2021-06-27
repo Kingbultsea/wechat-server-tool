@@ -53,12 +53,13 @@ function sendMediaContent(toUser, mediaId, serveAccessToken, type) {
 async function getUserInfo({ serveAccessToken, uid }) {
     return new Promise((resolve) => {
         superagent_1.default.get(`https://api.weixin.qq.com/cgi-bin/user/info?access_token=${serveAccessToken}&openid=${uid}&lang=zh_CN`).end((err, res) => {
+            console.log(res.body);
             if (res.body) {
                 const data = { name: res.body.nickname, picUrl: res.body.headimgurl, unionid: res.body.unionid, sex: res.body.sex, all: res.body };
+                console.log('获取用户信息');
                 resolve(data);
                 return;
             }
-            console.log('获取用户信息');
             resolve(undefined);
         });
     });
