@@ -33,7 +33,7 @@ const getData = async (ctx, encrypt, tagName) => {
         result = encrypt.decode(match[1]);
         if (tagName === 'ComponentVerifyTicket') {
             result = // (eval(`/<${tagName}\\b[^>]*>\\<\\!\\[CDATA\\[([\\s\\S]*?)\\]\\]\\><\\/${tagName}>/gm`)).exec(result)![1]
-                /<ComponentVerifyTicket\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/ComponentVerifyTicket>/gm.exec(result)[1];
+                (/<ComponentVerifyTicket\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/ComponentVerifyTicket>/gm.exec(result) || [])[1];
         }
     }
     return {
