@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const SelfWeChatPlugin_1 = require("./SelfWeChatPlugin");
-const util_1 = require("@node/util");
+const util_1 = require("./util");
 const ParsePlatFormMessagePlugins = ({ Router, encrypt }) => {
     // 监听第三方平台信息
     Router.post(`/wechat_open_platform/:id/message`, async (ctx) => {

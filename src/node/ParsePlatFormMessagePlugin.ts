@@ -1,7 +1,7 @@
 // 处理第三方平台的信息
 import { Plugin } from './server';
 import { DATA } from './SelfWeChatPlugin'
-import { getData } from '@node/util';
+import { getData } from './util';
 
 const ParsePlatFormMessagePlugins: Plugin = ({ Router, encrypt }) => {
     // 监听第三方平台信息
