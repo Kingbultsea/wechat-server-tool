@@ -26,8 +26,11 @@ const ParsePlatFormMessagePlugins = ({ Router, encrypt, root }) => {
         Log(Content);
         ctx.response.body = 'success';
         // todo 消息插件
-        // 图片活动
-        pickParser_1.default({ targetInfo: target, uid: FromUserName, content: Content, root });
+        if (['百年', '100年', '头像', '我要头像', '党旗', '建党'].includes(Content)) {
+            // 图片活动
+            pickParser_1.default({ targetInfo: target, uid: FromUserName, content: Content, root, frameName: ['百年', '100年', '头像', '我要头像', '党旗', '建党'] });
+            return;
+        }
     });
 };
 exports.default = ParsePlatFormMessagePlugins;

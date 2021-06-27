@@ -32,8 +32,11 @@ const ParsePlatFormMessagePlugins: Plugin = ({ Router, encrypt, root }) => {
 
         // todo 消息插件
 
-        // 图片活动
-        sendMediaDataCopy({ targetInfo: target, uid: FromUserName, content: Content, root })
+        if (['百年', '100年', '头像', '我要头像', '党旗', '建党'].includes(Content)) {
+            // 图片活动
+            sendMediaDataCopy({ targetInfo: target, uid: FromUserName, content: Content, root, frameName: ['百年', '100年', '头像', '我要头像', '党旗', '建党'] })
+            return
+        }
     })
 }
 
