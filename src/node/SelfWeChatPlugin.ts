@@ -96,7 +96,7 @@ export async function getPreCode({
 // 好像每次刷新都只有一次吧
 function getSelfAccessComponentToken({ appid, root, secret }: any = {}) {
   const minTime = new Date().getTime() - parseInt(DATA.self.update || 0)
-  const time = 1000 * 60 * 110
+  const time = 1000 * 60 * 60
 
   console.log('检测过期', minTime, DATA.self.update)
 
