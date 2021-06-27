@@ -23,7 +23,7 @@ async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [] }: any 
             setTimeout(async () => {
                 let resultPath: any = ''
                 if (userInfo && userInfo.picUrl) {
-                    console.log(userInfo.picUrl)
+                    console.log(userInfo.picUrl, '查看url')
                     resultPath = await parseBlockTypeAvatar({ root, frameName: i + '.png', userPicUrl: (userInfo || {}).picUrl })
                     if (resultPath) {
                         formData.my_file =  fs.createReadStream(resultPath)
