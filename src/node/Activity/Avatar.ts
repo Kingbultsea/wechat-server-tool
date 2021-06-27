@@ -18,13 +18,14 @@ export async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '' }:
     })
 
     // 绘制叠加的框框
-    await loadImage(path.join(process.cwd(), './assets/avatar/xuesong/' + frameName)).then((image) => {
+    await loadImage(path.join(root, './assets/avatar/xuesong/' + frameName)).then((image) => {
         ctx.drawImage(image, 0, 0, width, height)
     })
 
     // todo 不要使用写进本地文件的方式
     return new Promise((resolve) => {
         const hash = randomString(6)
+        console.log(hash)
         // @ts-ignore
         fs.writeFile(path.join(root, `./assets/avatar/${hash}.png`), canvas.toBuffer('image/jpeg', { quality: 1 }), (err: any) => {
             if (err) {
