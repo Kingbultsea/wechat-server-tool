@@ -4,4 +4,5 @@ declare const getData: (ctx: any, encrypt: any, tagName?: string | undefined) =>
     result: any;
     bodyXML: any;
 }>;
+export declare function randomString(len: number): string;
 export { getPostData, writeFile, getData };

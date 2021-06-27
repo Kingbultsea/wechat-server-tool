@@ -38,6 +38,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/koa": "^2.13.3",
+    "canvas": "^2.7.0",
     "crypto": "^1.0.1",
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
