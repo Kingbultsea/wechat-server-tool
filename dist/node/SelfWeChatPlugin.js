@@ -13,7 +13,7 @@ const Log = Log_1.default('Message from 自身平台：');
 exports.EnctypeTicket = DATA_json_1.default && DATA_json_1.default.self && DATA_json_1.default.self.Encrypt;
 Log(`读取本地DATA文件，获取EnctypeTicket: ${exports.EnctypeTicket}`);
 // 微信第三方自身授权
-const SelfWeChatPlugin = ({ app, Router, root, encrypt, appid }) => {
+const SelfWeChatPlugin = ({ app, Router, root, encrypt, appid, secret }) => {
     if (app) {
         app.use(async (ctx, next) => { });
     }
@@ -32,7 +32,7 @@ const SelfWeChatPlugin = ({ app, Router, root, encrypt, appid }) => {
             Log(`微信端接收EnctypeTicket异常: ${bodyXML}`);
         }
     });
-    getSelfAccessComponentToken({ encrypt, appid, root });
+    getSelfAccessComponentToken({ appid, root, secret });
     refleash({ appid, root });
 };
 // 获取自身平台的令牌
@@ -78,20 +78,23 @@ exports.getPreCode = getPreCode;
 // 获取账号自身的AccessComponentToken 用于刷新
 // todo也需要刷新机制
 // 好像每次刷新都只有一次吧
-function getSelfAccessComponentToken({ appid, encrypt, root } = {}) {
+function getSelfAccessComponentToken({ appid, root, secret } = {}) {
     const params = {
         component_appid: appid,
-        component_appsecret: encrypt,
+        component_appsecret: secret,
         component_verify_ticket: DATA_json_1.default.self.Encrypt
     };
     // todo 做刷新机制
     superagent_1.default.post(`https://api.weixin.qq.com/cgi-bin/component/api_component_token`).send(params).end((err, res) => {
         Log(`获取自身access_token:${res.body.component_access_token}`);
+        console.log(res.body);
         DATA_json_1.default.self.component_access_token = res.body.component_access_token;
         util_1.writeFile(root, DATA_json_1.default);
     });
     // 每一小时请求一次
-    setTimeout(getSelfAccessComponentToken, 1000 * 60 * 60);
+    setTimeout((() => {
+        getSelfAccessComponentToken({ appid, root, secret });
+    }), 1000 * 60 * 60);
 }
 // 刷新机制
 // todo 删除
@@ -116,6 +119,8 @@ function refleash({ appid, root } = {}) {
         }
     });
     // 1小时请求一次
-    setTimeout(refleash, 1000 * 60 * 60);
+    setTimeout(() => {
+        refleash({ appid, root });
+    }, 1000 * 60 * 60);
 }
 exports.default = SelfWeChatPlugin;

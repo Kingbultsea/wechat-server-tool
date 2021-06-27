@@ -12,7 +12,7 @@ export let EnctypeTicket = DATA && DATA.self && DATA.self.Encrypt
 Log(`读取本地DATA文件，获取EnctypeTicket: ${EnctypeTicket}`)
 
 // 微信第三方自身授权
-const SelfWeChatPlugin: Plugin = ({  app, Router, root, encrypt, appid }) => {
+const SelfWeChatPlugin: Plugin = ({  app, Router, root, encrypt, appid, secret }) => {
   if (app) {
     app.use(async (ctx, next) => {})
   }
@@ -35,7 +35,7 @@ const SelfWeChatPlugin: Plugin = ({  app, Router, root, encrypt, appid }) => {
     }
   })
 
-  getSelfAccessComponentToken({ encrypt, appid, root })
+  getSelfAccessComponentToken({ appid, root, secret })
 
   refleash({ appid, root })
 }
@@ -94,10 +94,10 @@ export async function getPreCode({
 // 获取账号自身的AccessComponentToken 用于刷新
 // todo也需要刷新机制
 // 好像每次刷新都只有一次吧
-function getSelfAccessComponentToken({ appid, encrypt, root }: any = {}) {
+function getSelfAccessComponentToken({ appid, root, secret }: any = {}) {
   const params = {
     component_appid: appid,
-    component_appsecret: encrypt,
+    component_appsecret: secret,
     component_verify_ticket: DATA.self.Encrypt
   }
 
@@ -105,12 +105,15 @@ function getSelfAccessComponentToken({ appid, encrypt, root }: any = {}) {
 
   SuperAgent.post(`https://api.weixin.qq.com/cgi-bin/component/api_component_token`).send(params).end((err, res) => {
     Log(`获取自身access_token:${ res.body.component_access_token}`)
+    console.log(res.body)
     DATA.self.component_access_token = res.body.component_access_token
     writeFile(root, DATA)
   })
 
   // 每一小时请求一次
-  setTimeout(getSelfAccessComponentToken, 1000 * 60 * 60)
+  setTimeout((() => {
+    getSelfAccessComponentToken({ appid, root, secret })
+  }), 1000 * 60 * 60)
 }
 
 // 刷新机制
@@ -140,7 +143,9 @@ function refleash({ appid, root }: any = {}) {
   })
 
   // 1小时请求一次
-  setTimeout(refleash, 1000 * 60 * 60)
+  setTimeout(() => {
+    refleash({ appid, root })
+  }, 1000 * 60 * 60)
 }
 
 export default SelfWeChatPlugin
