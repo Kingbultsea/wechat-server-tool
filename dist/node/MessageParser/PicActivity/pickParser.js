@@ -42,7 +42,12 @@ async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [] } = {})
                     console.log(body);
                     // 删除文件 免得占用内存
                     if (resultPath) {
-                        fs.unlinkSync(resultPath);
+                        fs.unlink(resultPath, function (err) {
+                            if (err) {
+                                throw err;
+                            }
+                            console.log('文件删除成功！');
+                        });
                     }
                     if (JSON.parse(body).media_id) {
                         // 发送消息给用户
@@ -50,7 +55,7 @@ async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [] } = {})
                     }
                     resolve(null);
                 });
-            }, timeDelay += 1000);
+            }, timeDelay += 2000);
         }
     });
 }

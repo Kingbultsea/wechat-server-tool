@@ -43,7 +43,12 @@ async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [] }: any 
 
                     // 删除文件 免得占用内存
                     if (resultPath) {
-                        fs.unlinkSync(resultPath)
+                        fs.unlink(resultPath, function(err: any){
+                            if(err){
+                                throw err;
+                            }
+                            console.log('文件删除成功！');
+                        })
                     }
 
                     if (JSON.parse(body).media_id) {
@@ -53,7 +58,7 @@ async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [] }: any 
 
                     resolve(null)
                 })
-            }, timeDelay += 1000)
+            }, timeDelay += 2000)
         }
     })
 }
