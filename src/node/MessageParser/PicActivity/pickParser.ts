@@ -1,18 +1,28 @@
 import request from 'request'
 import SuperAgent from 'superagent'
+import { parseBlockTypeAvatar } from '../../Activity/Avatar'
+
 const path = require('path')
 const fs = require('fs')
 
-async function sendMediaDataCopy ({ targetInfo, uid, content }: any = {}) {
+async function sendMediaDataCopy({ targetInfo, uid, content, root }: any = {}) {
     if (!['请给我一张头像'].includes(content)) {
         return
     }
 
     // todo 用户繁忙设置
-    return new Promise((resolve) => {
+    return new Promise(async (resolve) => {
         let formData = {
             my_field: 'my_value',
             my_file:  fs.createReadStream(path.join(process.cwd(), `./test.jpg`))
+        }
+
+        // 获取用户信息头像
+        const userInfo = await getUserInfo({ serveAccessToken: targetInfo.authorizer_access_token, uid  })
+
+        if (userInfo && userInfo.picUrl) {
+            const resultPath = await parseBlockTypeAvatar({ root, frameName: '1.png', userPicUrl: userInfo.picUrl })
+            formData.my_file =  fs.createReadStream(resultPath)
         }
 
         // 上传图片 并发送
@@ -20,12 +30,15 @@ async function sendMediaDataCopy ({ targetInfo, uid, content }: any = {}) {
             if (err) {
                 return console.error('upload failed:', err)
             }
+
+            // 发送消息给用户
             sendMediaContent(uid, JSON.parse(body).media_id, targetInfo.authorizer_access_token, 'image')
             resolve(null)
         })
     })
 }
 
+// 发送媒体信息给用户
 function sendMediaContent(toUser: any, mediaId: any, serveAccessToken: any, type: any) { // type voice video image
     const serviceData = {
         'touser': toUser,
@@ -36,6 +49,23 @@ function sendMediaContent(toUser: any, mediaId: any, serveAccessToken: any, type
             }
     }
     SuperAgent.post(`https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=${serveAccessToken}`).send(serviceData).end(() => {
+    })
+}
+
+// todo 缓存
+
+// 获取用户信息
+export async function getUserInfo({ serveAccessToken, uid }: {serveAccessToken: string, uid: string}): Promise<{ name: string, picUrl: string } | undefined> {
+    return new Promise((resolve) => {
+        SuperAgent.get(`https://api.weixin.qq.com/cgi-bin/user/info?access_token=${serveAccessToken}&openid=${uid}&lang=zh_CN`).end((err, res) => {
+            if (res.body) {
+                const data = { name: res.body.nickname, picUrl: res.body.headimgurl, unionid: res.body.unionid, sex: res.body.sex, all: res.body }
+                resolve(data)
+                return
+            }
+            console.log('获取用户信息')
+            resolve(undefined)
+        })
     })
 }
 

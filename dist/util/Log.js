@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.convertPlugins = void 0;
+exports.WechatLog = exports.convertPlugins = void 0;
 const chalk_1 = __importDefault(require("chalk"));
 function Log(from) {
     return function _Log(msg) {
@@ -23,3 +23,6 @@ function convertPlugins(_ctx, res, type) {
     return ctx;
 }
 exports.convertPlugins = convertPlugins;
+function WechatLog() {
+}
+exports.WechatLog = WechatLog;

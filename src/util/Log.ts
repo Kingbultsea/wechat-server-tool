@@ -6,6 +6,8 @@ export default function Log(from: string) {
   }
 }
 
+
+
 export function convertPlugins(_ctx: any, res: any, type: 'express' | 'koa') {
   let ctx: any = {}
 
@@ -17,4 +19,8 @@ export function convertPlugins(_ctx: any, res: any, type: 'express' | 'koa') {
   }
 
   return ctx
+}
+
+export function WechatLog() {
+
 }

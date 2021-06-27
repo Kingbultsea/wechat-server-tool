@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getData = exports.writeFile = exports.getPostData = void 0;
+exports.getData = exports.writeFile = exports.getPostData = exports.randomString = void 0;
 const fs_1 = require("fs");
 const path = require('path');
 const getPostData = (ctx) => {
@@ -42,3 +42,14 @@ const getData = async (ctx, encrypt, tagName) => {
     };
 };
 exports.getData = getData;
+function randomString(len) {
+    len = len || 32;
+    let $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'; /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+    let maxPos = $chars.length;
+    let pwd = '';
+    for (let i = 0; i < len; i++) {
+        pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+    }
+    return pwd;
+}
+exports.randomString = randomString;
