@@ -125,7 +125,7 @@ function getSelfAccessComponentToken({ appid, root, secret }: any = {}) {
 // 刷新机制
 // todo 删除
 function refleash({ appid, root }: any = {}) {
-  DATA.thirdPart.forEach((v: any) => {
+  DATA.thirdPart.forEach((v: any, index: number) => {
     const minTime = new Date().getTime() - parseInt(v.update)
     const time = 1000 * 60 * 110
 
@@ -136,12 +136,13 @@ function refleash({ appid, root }: any = {}) {
     }
 
     if (v.appid && (minTime >= time) ) {
-      Log(`刷新${v.name}的accessToken`)
+      const target = DATA.thirdPart[index]
+      Log(`刷新${target.name}的accessToken`)
       SuperAgent.post(`https://api.weixin.qq.com/cgi-bin/component/api_authorizer_token?component_access_token=${DATA.self.component_access_token}`).send(params).end(async (err, res) => {
         if (res.body.authorizer_access_token) {
-          v.update = new Date().getTime()
-          v.authorizer_access_token = res.body.authorizer_access_token
-          v.refresh_authorizer_refresh_token = res.body.authorizer_refresh_token
+          target.update = new Date().getTime()
+          target.authorizer_access_token = res.body.authorizer_access_token
+          target.refresh_authorizer_refresh_token = res.body.authorizer_refresh_token
           writeFile(root, DATA)
         } else {
           Log(`刷新后，没有数据`)
