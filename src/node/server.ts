@@ -21,6 +21,7 @@ export interface ServerConfig {
 }
 
 export interface PluginContext {
+    encrypt: any
   appid: string
   secret: string
   app?: Koa
@@ -48,6 +49,7 @@ export function createServer({
 
   const server = http.createServer(app.callback())
 
+  // @ts-ignore
   const encrypt = new Encrypt({
       appId: appid,
       encodingAESKey: 'eUbVREqK4jh9XHeYTZPHRTCzFz8PDWL2nieCZzganJv',
@@ -56,6 +58,7 @@ export function createServer({
 
   ;[...plugins, ...internalPlugins].forEach((m) =>
     m({
+        encrypt,
       appid,
       secret,
       app,

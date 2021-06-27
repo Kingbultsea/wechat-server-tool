@@ -22,12 +22,14 @@ function createServer({ root = process.cwd(), appid = '', secret = '', plugins =
     app.use(koa_bodyparser_1.default());
     app.use(require('koa-static')(root));
     const server = http_1.default.createServer(app.callback());
+    // @ts-ignore
     const encrypt = new Encrypt_1.default({
         appId: appid,
         encodingAESKey: 'eUbVREqK4jh9XHeYTZPHRTCzFz8PDWL2nieCZzganJv',
         token: 'kingbultsea'
     });
     [...plugins, ...exports.internalPlugins].forEach((m) => m({
+        encrypt,
         appid,
         secret,
         app,

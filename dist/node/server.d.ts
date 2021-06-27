@@ -13,6 +13,7 @@ export interface ServerConfig {
     secret?: string;
 }
 export interface PluginContext {
+    encrypt: any;
     appid: string;
     secret: string;
     app?: Koa;
