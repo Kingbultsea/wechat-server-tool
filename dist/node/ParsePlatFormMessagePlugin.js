@@ -7,7 +7,7 @@ const SelfWeChatPlugin_1 = require("./SelfWeChatPlugin");
 const util_1 = require("./util");
 const Log_1 = __importDefault(require("../util/Log"));
 const pickParser_1 = __importDefault(require("./MessageParser/PicActivity/pickParser"));
-const ParsePlatFormMessagePlugins = ({ Router, encrypt }) => {
+const ParsePlatFormMessagePlugins = ({ Router, encrypt, root }) => {
     // 监听第三方平台信息
     Router.post(`/wechat_open_platform/:id/message`, async (ctx) => {
         const platFormId = ctx.params.id;
@@ -27,7 +27,7 @@ const ParsePlatFormMessagePlugins = ({ Router, encrypt }) => {
         ctx.response.body = 'success';
         // todo 消息插件
         // 图片活动
-        pickParser_1.default({ targetInfo: target, uid: FromUserName, content: Content });
+        pickParser_1.default({ targetInfo: target, uid: FromUserName, content: Content, root });
     });
 };
 exports.default = ParsePlatFormMessagePlugins;

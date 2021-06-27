@@ -5,7 +5,7 @@ import { getData } from './util';
 import _Log from '../util/Log'
 import sendMediaDataCopy from './MessageParser/PicActivity/pickParser'
 
-const ParsePlatFormMessagePlugins: Plugin = ({ Router, encrypt }) => {
+const ParsePlatFormMessagePlugins: Plugin = ({ Router, encrypt, root }) => {
     // 监听第三方平台信息
     Router.post(`/wechat_open_platform/:id/message`, async (ctx) => {
         const platFormId = ctx.params.id
@@ -33,7 +33,7 @@ const ParsePlatFormMessagePlugins: Plugin = ({ Router, encrypt }) => {
         // todo 消息插件
 
         // 图片活动
-        sendMediaDataCopy({ targetInfo: target, uid: FromUserName, content: Content })
+        sendMediaDataCopy({ targetInfo: target, uid: FromUserName, content: Content, root })
     })
 }
 
