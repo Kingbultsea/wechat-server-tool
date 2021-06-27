@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getData = exports.writeFile = exports.getPostData = void 0;
 const fs_1 = require("fs");
-const SelfWeChatPlugin_1 = require("@node/SelfWeChatPlugin");
+const SelfWeChatPlugin_1 = require("./SelfWeChatPlugin");
 const path = require('path');
 const getPostData = (ctx) => {
     return new Promise(function (resolve, reject) {
