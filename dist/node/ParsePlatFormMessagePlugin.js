@@ -27,7 +27,7 @@ const ParsePlatFormMessagePlugins = ({ Router, encrypt }) => {
         ctx.response.body = 'success';
         // todo 消息插件
         // 图片活动
-        pickParser_1.default({ target, FromUserName, content: result });
+        pickParser_1.default({ targetInfo: target, uid: FromUserName, content: result });
     });
 };
 exports.default = ParsePlatFormMessagePlugins;

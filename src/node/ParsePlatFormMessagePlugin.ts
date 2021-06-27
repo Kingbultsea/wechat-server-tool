@@ -31,7 +31,7 @@ const ParsePlatFormMessagePlugins: Plugin = ({ Router, encrypt }) => {
         // todo 消息插件
 
         // 图片活动
-        sendMediaDataCopy({ target, FromUserName, content: result })
+        sendMediaDataCopy({ targetInfo: target, uid: FromUserName, content: result })
     })
 }
 
