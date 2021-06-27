@@ -35,7 +35,7 @@ async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [] }: any 
 
                     // 删除文件 免得占用内存
                     if (resultPath) {
-                        fs.unlinkSync(formData.my_file)
+                        fs.unlinkSync(resultPath)
                     }
 
                     if (JSON.parse(body).media_id) {
