@@ -13,6 +13,8 @@ async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [] }: any 
             my_file:  '' // fs.createReadStream(path.join(process.cwd(), `./test.jpg`))
         }
 
+        console.log(uid)
+
         // 获取用户信息头像
         const userInfo = await getUserInfo({ serveAccessToken: targetInfo.authorizer_access_token, uid, platFormName: targetInfo.name  })
 
