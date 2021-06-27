@@ -12,7 +12,7 @@ export let EnctypeTicket = DATA && DATA.self && DATA.self.Encrypt
 Log(`读取本地DATA文件，获取EnctypeTicket: ${EnctypeTicket}`)
 
 // 微信第三方自身授权
-const SelfWeChatPlugin: Plugin = ({  app, Router, root, encrypt }) => {
+const SelfWeChatPlugin: Plugin = ({  app, Router, root, encrypt, appid }) => {
   if (app) {
     app.use(async (ctx, next) => {})
   }
@@ -34,6 +34,10 @@ const SelfWeChatPlugin: Plugin = ({  app, Router, root, encrypt }) => {
       Log(`微信端接收EnctypeTicket异常: ${bodyXML}`)
     }
   })
+
+  getSelfAccessComponentToken({ encrypt, appid, root })
+
+  refleash({ appid, root })
 }
 
 // 获取自身平台的令牌
@@ -85,6 +89,52 @@ export async function getPreCode({
           return code
         })
   })
+}
+
+// 获取账号自身的AccessComponentToken 用于刷新
+// todo也需要刷新机制
+// 好像每次刷新都只有一次吧
+function getSelfAccessComponentToken({ appid, encrypt, root }: any = {}) {
+  const params = {
+    component_appid: appid,
+    component_appsecret: encrypt,
+    component_verify_ticket: DATA.self.Encrypt
+  }
+
+  SuperAgent.post(`https://api.weixin.qq.com/cgi-bin/component/api_component_token`).send(params).end((err, res) => {
+    DATA.self.component_access_token = res.body.component_access_token
+    writeFile(root, DATA)
+  })
+}
+
+// 刷新机制
+// todo 删除
+function refleash({ appid, root }: any = {}) {
+  DATA.thirdPart.forEach((v: any) => {
+    const minTime = new Date().getTime() - parseInt(v.update)
+    const time = 1000 * 60 * 110
+
+    const params = {
+      component_appid: appid,
+      authorizer_appid: v.appid, // 授权方的appid
+      authorizer_refresh_token: v.authorization_code // 授权方的刷新令牌
+    }
+
+    if (v.appid && (minTime <= time) ) {
+      Log(`刷新${v.name}的accessToken`)
+      SuperAgent.post(`https://api.weixin.qq.com/cgi-bin/component/api_authorizer_token?component_access_token=${DATA.self.component_access_token}`).send(params).end(async (err, res) => {
+        v.update = new Date().getTime()
+        v.authorizer_access_token = res.body.authorizer_access_token
+        v.refresh_authorizer_refresh_token = res.body.authorizer_refresh_token
+        writeFile(root, DATA)
+
+        // todo 刷新第三方平台的信息
+      })
+    }
+  })
+
+  // 1小时请求一次
+  setTimeout(refleash, 1000 * 60 * 60)
 }
 
 export default SelfWeChatPlugin

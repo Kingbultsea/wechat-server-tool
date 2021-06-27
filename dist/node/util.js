@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getData = exports.writeFile = exports.getPostData = void 0;
 const fs_1 = require("fs");
-const SelfWeChatPlugin_1 = require("./SelfWeChatPlugin");
 const path = require('path');
 const getPostData = (ctx) => {
     return new Promise(function (resolve, reject) {
@@ -34,7 +33,7 @@ const getData = async (ctx, encrypt, tagName) => {
         result = encrypt.decode(match[1]);
         if (tagName === 'ComponentVerifyTicket') {
             result = // (eval(`/<${tagName}\\b[^>]*>\\<\\!\\[CDATA\\[([\\s\\S]*?)\\]\\]\\><\\/${tagName}>/gm`)).exec(result)![1]
-                /<ComponentVerifyTicket\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/ComponentVerifyTicket>/gm.exec(SelfWeChatPlugin_1.EnctypeTicket)[1];
+                /<ComponentVerifyTicket\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/ComponentVerifyTicket>/gm.exec(result)[1];
         }
     }
     return {

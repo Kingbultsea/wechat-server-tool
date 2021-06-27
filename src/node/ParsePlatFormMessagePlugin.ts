@@ -2,6 +2,8 @@
 import { Plugin } from './server';
 import { DATA } from './SelfWeChatPlugin'
 import { getData } from './util';
+import _Log from '../util/Log'
+import sendMediaDataCopy from './MessageParser/PicActivity/pickParser'
 
 const ParsePlatFormMessagePlugins: Plugin = ({ Router, encrypt }) => {
     // 监听第三方平台信息
@@ -19,10 +21,17 @@ const ParsePlatFormMessagePlugins: Plugin = ({ Router, encrypt }) => {
 
         const { result, bodyXML } = await getData(ctx, encrypt)
 
-        console.log(`收到来自${target.name}(${bodyXML})的消息：\r\n${result}`)
+        const Content = (/<Content\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/Content>/gm.exec(result) || [])![1]
+        const FromUserName = (/<FromUserName\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/FromUserName>/gm.exec(result) || [])![1]
+        const Log = _Log(`收到来自${target.name}(${bodyXML})的消息：`)
+        Log(Content)
+
         ctx.response.body = 'success'
 
         // todo 消息插件
+
+        // 图片活动
+        sendMediaDataCopy(target, FromUserName)
     })
 }
 

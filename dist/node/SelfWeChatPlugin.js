@@ -13,7 +13,7 @@ const Log = Log_1.default('Message from 自身平台：');
 exports.EnctypeTicket = DATA_json_1.default && DATA_json_1.default.self && DATA_json_1.default.self.Encrypt;
 Log(`读取本地DATA文件，获取EnctypeTicket: ${exports.EnctypeTicket}`);
 // 微信第三方自身授权
-const SelfWeChatPlugin = ({ app, Router, root, encrypt }) => {
+const SelfWeChatPlugin = ({ app, Router, root, encrypt, appid }) => {
     if (app) {
         app.use(async (ctx, next) => { });
     }
@@ -32,6 +32,8 @@ const SelfWeChatPlugin = ({ app, Router, root, encrypt }) => {
             Log(`微信端接收EnctypeTicket异常: ${bodyXML}`);
         }
     });
+    getSelfAccessComponentToken({ encrypt, appid, root });
+    refleash({ appid, root });
 };
 // 获取自身平台的令牌
 function getComponentAccessToken({ appid, secret, enctypeTicket } = {}) {
@@ -73,4 +75,43 @@ async function getPreCode({ appid, access_token } = {}) {
     });
 }
 exports.getPreCode = getPreCode;
+// 获取账号自身的AccessComponentToken 用于刷新
+// todo也需要刷新机制
+// 好像每次刷新都只有一次吧
+function getSelfAccessComponentToken({ appid, encrypt, root } = {}) {
+    const params = {
+        component_appid: appid,
+        component_appsecret: encrypt,
+        component_verify_ticket: DATA_json_1.default.self.Encrypt
+    };
+    superagent_1.default.post(`https://api.weixin.qq.com/cgi-bin/component/api_component_token`).send(params).end((err, res) => {
+        DATA_json_1.default.self.component_access_token = res.body.component_access_token;
+        util_1.writeFile(root, DATA_json_1.default);
+    });
+}
+// 刷新机制
+// todo 删除
+function refleash({ appid, root } = {}) {
+    DATA_json_1.default.thirdPart.forEach((v) => {
+        const minTime = new Date().getTime() - parseInt(v.update);
+        const time = 1000 * 60 * 110;
+        const params = {
+            component_appid: appid,
+            authorizer_appid: v.appid,
+            authorizer_refresh_token: v.authorization_code // 授权方的刷新令牌
+        };
+        if (v.appid && (minTime <= time)) {
+            Log(`刷新${v.name}的accessToken`);
+            superagent_1.default.post(`https://api.weixin.qq.com/cgi-bin/component/api_authorizer_token?component_access_token=${DATA_json_1.default.self.component_access_token}`).send(params).end(async (err, res) => {
+                v.update = new Date().getTime();
+                v.authorizer_access_token = res.body.authorizer_access_token;
+                v.refresh_authorizer_refresh_token = res.body.authorizer_refresh_token;
+                util_1.writeFile(root, DATA_json_1.default);
+                // todo 刷新第三方平台的信息
+            });
+        }
+    });
+    // 1小时请求一次
+    setTimeout(refleash, 1000 * 60 * 60);
+}
 exports.default = SelfWeChatPlugin;
