@@ -138,12 +138,16 @@ function refleash({ appid, root }: any = {}) {
     if (v.appid && (minTime >= time) ) {
       Log(`刷新${v.name}的accessToken`)
       SuperAgent.post(`https://api.weixin.qq.com/cgi-bin/component/api_authorizer_token?component_access_token=${DATA.authorizer_access_token}`).send(params).end(async (err, res) => {
-        v.update = new Date().getTime()
-        v.authorizer_access_token = res.body.authorizer_access_token
-        v.refresh_authorizer_refresh_token = res.body.authorizer_refresh_token
-        writeFile(root, DATA)
+        if (res.body.authorizer_access_token) {
+          v.update = new Date().getTime()
+          v.authorizer_access_token = res.body.authorizer_access_token
+          v.refresh_authorizer_refresh_token = res.body.authorizer_refresh_token
+          writeFile(root, DATA)
+        } else {
+          Log(`刷新后，没有数据`)
+          console.log(res.body)
+        }
 
-        // todo 刷新第三方平台的信息
       })
     }
   })
