@@ -23,13 +23,23 @@ export async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '' }:
     })
 
     // todo 不要使用写进本地文件的方式
-    return new Promise((resolve) => {
+    const promise = new Promise((resolve) => {
         const hash = randomString(6)
+        let done: boolean = false
         console.log(hash)
+        setTimeout(() => {
+            if (!done) {
+                resolve(undefined)
+            }
+        }, 5000)
+
         // @ts-ignore
         fs.writeFile(path.join(root, `./assets/avatar/${hash}.png`), canvas.toBuffer('image/jpeg', { quality: 1 }), (err: any) => {
+            done = true
             if (err) {
                 // console.log(err)
+                resolve(undefined)
+                return
             }
             resolve(path.join(root, `./assets/avatar/${hash}.png`))
         }).finally(() => {
@@ -38,4 +48,6 @@ export async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '' }:
     }).catch((e) => {
         console.log(e)
     })
+
+    return promise
 }

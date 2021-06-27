@@ -14,7 +14,7 @@ async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [] } = {})
     return new Promise(async (resolve) => {
         let formData = {
             my_field: 'my_value',
-            my_file: fs.createReadStream(path.join(process.cwd(), `./test.jpg`))
+            my_file: '' // fs.createReadStream(path.join(process.cwd(), `./test.jpg`))
         };
         // 获取用户信息头像
         const userInfo = await getUserInfo({ serveAccessToken: targetInfo.authorizer_access_token, uid, platFormName: targetInfo.name });
@@ -24,7 +24,13 @@ async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [] } = {})
                 let resultPath = '';
                 if (userInfo && userInfo.picUrl) {
                     resultPath = await Avatar_1.parseBlockTypeAvatar({ root, frameName: i + '.png', userPicUrl: (userInfo || {}).picUrl });
-                    formData.my_file = fs.createReadStream(resultPath);
+                    if (resultPath) {
+                        formData.my_file = fs.createReadStream(resultPath);
+                    }
+                    else {
+                        console.log('没有用户信息，不进行头像渲染');
+                        return;
+                    }
                 }
                 // 上传图片 并发送
                 request_1.default.post({ url: `https://api.weixin.qq.com/cgi-bin/media/upload?access_token=${targetInfo.authorizer_access_token}&type=image`, formData: formData }, async function (err, httpResponse, body) {
