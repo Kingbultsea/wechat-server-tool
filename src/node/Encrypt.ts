@@ -1,6 +1,6 @@
 var crypto = require('crypto')
 
-var Encrypt = function (options) {
+var Encrypt = function (options: any) {
     this.checkParams(options)
     this.appId = options.appId
     this.encodingAESKey = options.encodingAESKey
@@ -10,7 +10,7 @@ var Encrypt = function (options) {
 }
 
 Encrypt.prototype = {
-    checkParams: function (options) {
+    checkParams: function (options: any) {
         var keys = ['appId', 'encodingAESKey', 'token']
         keys.forEach(function (key) {
             if (typeof options[key] !== 'string') {
@@ -18,13 +18,13 @@ Encrypt.prototype = {
             }
         })
     },
-    getAesKey: function (encodingAESKey) {
+    getAesKey: function (encodingAESKey: any) {
         return Buffer.from(encodingAESKey + '=', 'base64')
     },
-    getIv: function (aesKey) {
+    getIv: function (aesKey: any) {
         return aesKey.slice(0, 16)
     },
-    encode: function (xmlMsg) {
+    encode: function (xmlMsg: any) {
         if (typeof xmlMsg !== 'string') {
             throw new TypeError('encode() required a String!')
         }
@@ -41,7 +41,7 @@ Encrypt.prototype = {
         var encryptBuf = Buffer.concat([cipher.update(totalBuf), cipher.final()])
         return encryptBuf.toString('base64')
     },
-    decode: function (encryptMsg) {
+    decode: function (encryptMsg: any) {
         if (typeof encryptMsg !== 'string') {
             throw new TypeError('decode() required a String!')
         }
@@ -53,7 +53,7 @@ Encrypt.prototype = {
         var result = decipherBuffer.slice(20, msgLength + 20).toString()
         return result
     },
-    getSignature: function (data) {
+    getSignature: function (data: any) {
         var str = ([
             data.nonce,
             data.timestamp,
@@ -62,19 +62,19 @@ Encrypt.prototype = {
 
         return crypto.createHash('sha1').update(str).digest('hex')
     },
-    verify: function (data) {
+    verify: function (data: any) {
         var msg_signature = data.msg_signature
         var result = this.getSignature(data)
         return result === msg_signature
     },
-    PKCS7Decode: function (buf) {
+    PKCS7Decode: function (buf: any) {
         var len = buf[buf.length - 1]
         if (len < 1 || len > 32) {
             len = 0
         }
         return buf.slice(0, buf.length - len)
     },
-    PKCS7Encode: function (buf) {
+    PKCS7Encode: function (buf: any) {
         var blockSize = 32
         var len = buf.length
         var paddingLength = blockSize - (len % blockSize)
@@ -83,4 +83,4 @@ Encrypt.prototype = {
     }
 }
 
-module.exports = Encrypt
+export default Encrypt

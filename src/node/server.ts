@@ -4,7 +4,7 @@ import SelfWeChatPlugin from './SelfWeChatPlugin'
 import ThirdPartWeChatPlugins from './ThirdPartWeChatPlugins'
 import _Router from 'koa-router'
 import _BodyParser from 'koa-bodyparser'
-const Encrypt = require('./Encrypt.js')
+import Encrypt from './Encrypt'
 // import _xmlParser from 'koa-xml-body'
 // import { app } from '@api/index'
 
