@@ -22,7 +22,7 @@ const SelfWeChatPlugin = ({ app, Router, root }) => {
     Router.post('/wechat_open_platform/auth/callback', async (ctx, res) => {
         const bodyXML = await util_2.getPostData(ctx);
         let match = null;
-        if (match = /<Encrypt\b[^>]*><\!\[CDATA\[([\s\S]*?)\]\]<\/Encrypt>/gm.exec(bodyXML)) {
+        if (match = /<Encrypt\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/Encrypt>/gm.exec(bodyXML)) {
             exports.EnctypeTicket = match[1];
             console.log(exports.EnctypeTicket);
             // update
