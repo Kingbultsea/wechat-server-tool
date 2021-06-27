@@ -137,7 +137,7 @@ function refleash({ appid, root }: any = {}) {
 
     if (v.appid && (minTime >= time) ) {
       Log(`刷新${v.name}的accessToken`)
-      SuperAgent.post(`https://api.weixin.qq.com/cgi-bin/component/api_authorizer_token?component_access_token=${DATA.self.authorizer_access_token}`).send(params).end(async (err, res) => {
+      SuperAgent.post(`https://api.weixin.qq.com/cgi-bin/component/api_authorizer_token?component_access_token=${DATA.self.component_access_token}`).send(params).end(async (err, res) => {
         if (res.body.authorizer_access_token) {
           v.update = new Date().getTime()
           v.authorizer_access_token = res.body.authorizer_access_token
