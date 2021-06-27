@@ -132,6 +132,8 @@ function setupPlatFormData({ AUTHORIZATION_INFO, authorizer_access_token, refres
 
   if (!targetIndex) {
     DATA.thirdPart.push(thirdPlatForm)
+  } else {
+    DATA.thirdPart[targetIndex] = thirdPlatForm
   }
 
   // todo 数据库保存平台的信息 与刷新token
