@@ -4,7 +4,7 @@ const path = require('path')
 const fs = require('fs')
 
 async function sendMediaDataCopy ({ targetInfo, uid, content }: any = {}) {
-    if (!['请给我一张头像'].indexOf(content)) {
+    if (!['请给我一张头像'].includes(content)) {
         return
     }
 

@@ -8,7 +8,7 @@ const superagent_1 = __importDefault(require("superagent"));
 const path = require('path');
 const fs = require('fs');
 async function sendMediaDataCopy({ targetInfo, uid, content } = {}) {
-    if (!['请给我一张头像'].indexOf(content)) {
+    if (!['请给我一张头像'].includes(content)) {
         return;
     }
     // todo 用户繁忙设置
