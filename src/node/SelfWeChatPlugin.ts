@@ -132,7 +132,7 @@ function refleash({ appid, root }: any = {}) {
     const params = {
       component_appid: appid,
       authorizer_appid: v.appid, // 授权方的appid
-      authorizer_refresh_token: v.authorization_code // 授权方的刷新令牌
+      authorizer_refresh_token: v.refresh_authorizer_refresh_token // 授权方的刷新令牌
     }
 
     if (v.appid && (minTime >= time) ) {
