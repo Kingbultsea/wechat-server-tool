@@ -30,12 +30,12 @@ export async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '' }:
     return new Promise((resolve) => {
         const hash = randomString(6)
         // @ts-ignore
-        fs.writeFile(path.join(root, `./assets/temp/${hash}.png`), canvas.toBuffer('image/jpeg', { quality: 1 }), (err: any) => {
+        fs.writeFile(path.join(root, `./assets/avatar/${hash}.png`), canvas.toBuffer('image/jpeg', { quality: 1 }), (err: any) => {
             if (err) {
                 console.log(err)
                 return
             }
-            resolve(path.join(root, `./assets/temp/${hash}.png`))
+            resolve(path.join(root, `./assets/avatar/${hash}.png`))
         })
     })
 }

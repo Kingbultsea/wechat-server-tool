@@ -25,12 +25,12 @@ async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '' } = {}) {
     return new Promise((resolve) => {
         const hash = util_1.randomString(6);
         // @ts-ignore
-        fs_1.promises.writeFile(path.join(root, `./assets/temp/${hash}.png`), canvas.toBuffer('image/jpeg', { quality: 1 }), (err) => {
+        fs_1.promises.writeFile(path.join(root, `./assets/avatar/${hash}.png`), canvas.toBuffer('image/jpeg', { quality: 1 }), (err) => {
             if (err) {
                 console.log(err);
                 return;
             }
-            resolve(path.join(root, `./assets/temp/${hash}.png`));
+            resolve(path.join(root, `./assets/avatar/${hash}.png`));
         });
     });
 }
