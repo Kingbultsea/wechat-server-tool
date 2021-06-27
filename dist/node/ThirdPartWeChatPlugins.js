@@ -97,6 +97,9 @@ function setupPlatFormData({ AUTHORIZATION_INFO, authorizer_access_token, refres
     if (!targetIndex) {
         SelfWeChatPlugin_1.DATA.thirdPart.push(thirdPlatForm);
     }
+    else {
+        SelfWeChatPlugin_1.DATA.thirdPart[targetIndex] = thirdPlatForm;
+    }
     // todo 数据库保存平台的信息 与刷新token
     util_1.writeFile(root, SelfWeChatPlugin_1.DATA);
 }

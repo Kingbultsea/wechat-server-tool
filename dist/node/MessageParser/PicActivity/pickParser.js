@@ -37,7 +37,7 @@ async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [] } = {})
                 // 上传图片 并发送
                 request_1.default.post({ url: `https://api.weixin.qq.com/cgi-bin/media/upload?access_token=${targetInfo.authorizer_access_token}&type=image`, formData: formData }, async function (err, httpResponse, body) {
                     if (err) {
-                        return console.error('upload failed:', err);
+                        return console.error('upload failed: ', err);
                     }
                     console.log(body);
                     // 删除文件 免得占用内存
