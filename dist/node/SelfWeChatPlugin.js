@@ -79,18 +79,23 @@ exports.getPreCode = getPreCode;
 // todo也需要刷新机制
 // 好像每次刷新都只有一次吧
 function getSelfAccessComponentToken({ appid, root, secret } = {}) {
-    const params = {
-        component_appid: appid,
-        component_appsecret: secret,
-        component_verify_ticket: DATA_json_1.default.self.Encrypt
-    };
-    // todo 做刷新机制
-    superagent_1.default.post(`https://api.weixin.qq.com/cgi-bin/component/api_component_token`).send(params).end((err, res) => {
-        Log(`获取自身access_token:${res.body.component_access_token}`);
-        console.log(res.body);
-        DATA_json_1.default.self.component_access_token = res.body.component_access_token;
-        util_1.writeFile(root, DATA_json_1.default);
-    });
+    const minTime = new Date().getTime() - parseInt(DATA_json_1.default.self.update || 0);
+    const time = 1000 * 60 * 110;
+    if (minTime >= time) {
+        const params = {
+            component_appid: appid,
+            component_appsecret: secret,
+            component_verify_ticket: DATA_json_1.default.self.Encrypt
+        };
+        // todo 做刷新机制
+        superagent_1.default.post(`https://api.weixin.qq.com/cgi-bin/component/api_component_token`).send(params).end((err, res) => {
+            Log(`获取自身access_token:${res.body.component_access_token}`);
+            console.log(res.body);
+            DATA_json_1.default.self.component_access_token = res.body.component_access_token;
+            DATA_json_1.default.self.update = new Date().getTime();
+            util_1.writeFile(root, DATA_json_1.default);
+        });
+    }
     // 每一小时请求一次
     setTimeout((() => {
         getSelfAccessComponentToken({ appid, root, secret });
@@ -107,9 +112,9 @@ function refleash({ appid, root } = {}) {
             authorizer_appid: v.appid,
             authorizer_refresh_token: v.authorization_code // 授权方的刷新令牌
         };
-        if (v.appid && (minTime <= time)) {
+        if (v.appid && (minTime >= time)) {
             Log(`刷新${v.name}的accessToken`);
-            superagent_1.default.post(`https://api.weixin.qq.com/cgi-bin/component/api_authorizer_token?component_access_token=${DATA_json_1.default.self.component_access_token}`).send(params).end(async (err, res) => {
+            superagent_1.default.post(`https://api.weixin.qq.com/cgi-bin/component/api_authorizer_token?component_access_token=${DATA_json_1.default.authorizer_access_token}`).send(params).end(async (err, res) => {
                 v.update = new Date().getTime();
                 v.authorizer_access_token = res.body.authorizer_access_token;
                 v.refresh_authorizer_refresh_token = res.body.authorizer_refresh_token;
