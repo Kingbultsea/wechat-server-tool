@@ -101,10 +101,16 @@ function getSelfAccessComponentToken({ appid, encrypt, root }: any = {}) {
     component_verify_ticket: DATA.self.Encrypt
   }
 
+  // todo 做刷新机制
+
   SuperAgent.post(`https://api.weixin.qq.com/cgi-bin/component/api_component_token`).send(params).end((err, res) => {
+    Log(`获取自身access_token:${ res.body.component_access_token}`)
     DATA.self.component_access_token = res.body.component_access_token
     writeFile(root, DATA)
   })
+
+  // 每一小时请求一次
+  setTimeout(getSelfAccessComponentToken, 1000 * 60 * 60)
 }
 
 // 刷新机制
