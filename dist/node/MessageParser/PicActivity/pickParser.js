@@ -21,8 +21,9 @@ async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [] } = {})
         let timeDelay = 0;
         for (let i of frameName) {
             setTimeout(async () => {
+                let resultPath = '';
                 if (userInfo && userInfo.picUrl) {
-                    const resultPath = await Avatar_1.parseBlockTypeAvatar({ root, frameName: i + '.png', userPicUrl: (userInfo || {}).picUrl });
+                    resultPath = await Avatar_1.parseBlockTypeAvatar({ root, frameName: i + '.png', userPicUrl: (userInfo || {}).picUrl });
                     formData.my_file = fs.createReadStream(resultPath);
                 }
                 // 上传图片 并发送
@@ -32,7 +33,9 @@ async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [] } = {})
                     }
                     console.log(body);
                     // 删除文件 免得占用内存
-                    fs.unlinkSync(formData.my_file);
+                    if (resultPath) {
+                        fs.unlinkSync(formData.my_file);
+                    }
                     if (JSON.parse(body).media_id) {
                         // 发送消息给用户
                         sendMediaContent(uid, JSON.parse(body).media_id, targetInfo.authorizer_access_token, 'image');

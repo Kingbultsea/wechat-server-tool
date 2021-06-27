@@ -19,8 +19,9 @@ async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [] }: any 
         let timeDelay = 0
         for (let i of frameName) {
             setTimeout(async () => {
+                let resultPath: any = ''
                 if (userInfo && userInfo.picUrl) {
-                    const resultPath = await parseBlockTypeAvatar({ root, frameName: i + '.png', userPicUrl: (userInfo || {}).picUrl })
+                    resultPath = await parseBlockTypeAvatar({ root, frameName: i + '.png', userPicUrl: (userInfo || {}).picUrl })
                     formData.my_file =  fs.createReadStream(resultPath)
                 }
 
@@ -33,7 +34,9 @@ async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [] }: any 
                     console.log(body)
 
                     // 删除文件 免得占用内存
-                    fs.unlinkSync(formData.my_file)
+                    if (resultPath) {
+                        fs.unlinkSync(formData.my_file)
+                    }
 
                     if (JSON.parse(body).media_id) {
                         // 发送消息给用户
