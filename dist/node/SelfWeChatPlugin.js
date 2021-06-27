@@ -25,12 +25,13 @@ const SelfWeChatPlugin = ({ app, Router, root, encrypt }) => {
         if (match = /<Encrypt\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/Encrypt>/gm.exec(bodyXML)) {
             exports.EnctypeTicket = encrypt.decode(match[1]);
             console.log(exports.EnctypeTicket);
-            exports.EnctypeTicket = /<ComponentVerifyTicket\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/ComponentVerifyTicket>/gm.exec(exports.EnctypeTicket);
+            exports.EnctypeTicket = /<ComponentVerifyTicket\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/ComponentVerifyTicket>/gm.exec(exports.EnctypeTicket)[1];
             // update
             // todo 抓获setter
             DATA_json_1.default.self.Encrypt = exports.EnctypeTicket;
             util_1.writeFile(root, DATA_json_1.default);
             Log(`微信端接收EnctypeTicket：${exports.EnctypeTicket}`);
+            ctx.response.body = 'success';
         }
         else {
             Log(`微信端接收EnctypeTicket异常: ${bodyXML}`);
