@@ -62,16 +62,19 @@ exports.getComponentAccessToken = getComponentAccessToken;
 // 获取预授权码
 // https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/ThirdParty/token/pre_auth_code.html
 async function getPreCode({ appid, access_token } = {}) {
-    const _URL = `https://api.weixin.qq.com/cgi-bin/component/api_create_preauthcode?component_access_token=${access_token}`;
-    const _Params = {
-        component_appid: appid
-    };
-    return superagent_1.default.post(_URL)
-        .send(_Params)
-        .end((err, res) => {
-        const code = res.body.pre_auth_code;
-        Log(`获取预授权码: ${code}`);
-        return code;
+    return new Promise((resolve) => {
+        const _URL = `https://api.weixin.qq.com/cgi-bin/component/api_create_preauthcode?component_access_token=${access_token}`;
+        const _Params = {
+            component_appid: appid
+        };
+        return superagent_1.default.post(_URL)
+            .send(_Params)
+            .end((err, res) => {
+            const code = res.body.pre_auth_code;
+            Log(`获取预授权码: ${code}`);
+            resolve(code);
+            return code;
+        });
     });
 }
 exports.getPreCode = getPreCode;
