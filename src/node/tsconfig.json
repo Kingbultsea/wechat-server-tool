@@ -5,5 +5,9 @@
     "module": "commonjs",
     "lib": ["ESNext"]
   },
-  "include": ["./"]
+  "typeRoots": [
+    "./root.d.ts"
+  ],
+  "include": ["./"],
+  "exclude": ["./__test__/*"]
 }

@@ -3,25 +3,36 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getPreCode = exports.getComponentAccessToken = exports.EnctypeTicket = void 0;
+exports.getPreCode = exports.getComponentAccessToken = exports.EnctypeTicket = exports.DATA = void 0;
 const Log_1 = __importDefault(require("../util/Log"));
 const superagent_1 = __importDefault(require("superagent"));
-// import { app } from '@api/index.ts'
 const util_1 = require("./util");
+const util_2 = require("./util");
+const DATA_json_1 = __importDefault(require("../../DATA.json"));
+exports.DATA = DATA_json_1.default;
 const Log = Log_1.default('Message from 自身平台：');
-exports.EnctypeTicket = '';
+exports.EnctypeTicket = DATA_json_1.default && DATA_json_1.default.self && DATA_json_1.default.self.Encrypt;
+Log(`读取本地DATA文件，获取EnctypeTicket: ${exports.EnctypeTicket}`);
 // 微信第三方自身授权
-const SelfWeChatPlugin = ({ app, Router, type }) => {
+const SelfWeChatPlugin = ({ app, Router, root }) => {
     if (app) {
         app.use(async (ctx, next) => { });
     }
     // 每10分钟会有请求进来
     Router.post('/wechat_open_platform/auth/callback', async (ctx, res) => {
-        const body = await util_1.getPostData(ctx);
-        console.log(body);
-        // @ts-ignore
-        exports.EnctypeTicket = ctx.request.body.xml.Encrypt[0];
-        Log(`微信端接收EnctypeTicket：${exports.EnctypeTicket}`);
+        const bodyXML = await util_2.getPostData(ctx);
+        let match = null;
+        if (match = /<node\b[^>]*>([\s\S]*?)<\/node>/gm.exec(bodyXML)) {
+            exports.EnctypeTicket = match[1];
+            // update
+            // todo 抓获setter
+            DATA_json_1.default.self.Encrypt = exports.EnctypeTicket;
+            util_1.writeFile(root, DATA_json_1.default);
+            Log(`微信端接收EnctypeTicket：${exports.EnctypeTicket}`);
+        }
+        else {
+            Log(`微信端接收EnctypeTicket异常: ${bodyXML}`);
+        }
     });
 };
 // 获取自身平台的令牌

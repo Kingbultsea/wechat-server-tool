@@ -1,4 +1,7 @@
-const getPostData = (ctx: any) => {
+import { promises as fs } from 'fs'
+const path = require('path')
+
+const getPostData = (ctx: any): Promise<string> => {
     return new Promise(function (resolve, reject) {
         try {
             let str = ''
@@ -14,4 +17,13 @@ const getPostData = (ctx: any) => {
     })
 }
 
-export { getPostData }
+const writeFile = (ROOT: string = process.cwd(), data: Record<any, any>) => {
+    let dataJSON = JSON.stringify(data)
+
+    fs.writeFile(
+        path.join(ROOT, 'DATA.json'),
+        dataJSON
+    )
+}
+
+export { getPostData, writeFile }

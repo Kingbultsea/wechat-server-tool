@@ -4,19 +4,15 @@ import { Plugin } from './server'
 import {
   EnctypeTicket,
   getComponentAccessToken,
-  getPreCode
+  getPreCode,
+  DATA
 } from './SelfWeChatPlugin'
-// import {app} from '@api/index';
-// router.post(`/wechat_open_platform/${id}/message`, async (ctx) => {
+import { writeFile } from './util';
 
 const Log = _Log('Message from 第三方：')
 
-const ThirdPartWeChatPlugins: Plugin = ({ appid, secret, Router, type }) => {
+const ThirdPartWeChatPlugins: Plugin = ({ appid, secret, Router, root }) => {
   let ACCESS_TOKEN = ''
-
-  if (type === 'express') {
-
-  }
 
   // step1 发送第三方的预授权码
   Router.get('/wechat_open_platform/preauthcode', async (ctx: any, res: any) => {
@@ -46,7 +42,7 @@ const ThirdPartWeChatPlugins: Plugin = ({ appid, secret, Router, type }) => {
       return
     }
 
-    Authorization(ctx.query.ac as string, ACCESS_TOKEN, appid)
+    Authorization(ctx.query.ac as string, ACCESS_TOKEN, appid, root!)
     ctx.response.body = 'success'
   })
 
@@ -56,7 +52,8 @@ const ThirdPartWeChatPlugins: Plugin = ({ appid, secret, Router, type }) => {
 function Authorization(
   authorization_code: string,
   ACCESS_TOKEN: string,
-  appid: string
+  appid: string,
+  root: string
 ) {
   Log(`授权开始，authorization_code: ${authorization_code}`)
   SuperAgent.post(
@@ -101,9 +98,38 @@ function Authorization(
         `${platFormInfo.nick_name}第三方授权完成，将凭借refresh_authorizer_refresh_token，每一个小时刷新一次authorizer_access_token`
       )
 
-      // todo 数据库保存平台的信息 与刷新token
-
+      setupPlatFormData({ AUTHORIZATION_INFO, authorizer_access_token, refresh_authorizer_refresh_token, platFormInfo, root })
     })
+}
+
+// todo 类型
+// 写入或更新第三方平台的信息
+function setupPlatFormData({ AUTHORIZATION_INFO, authorizer_access_token, refresh_authorizer_refresh_token, platFormInfo, root }: any = {}) {
+  let targetIndex: null | number = null
+  const thirdPlatForm = {
+    appid: AUTHORIZATION_INFO.authorizer_appid,
+    authorizer_access_token,
+    refresh_authorizer_refresh_token,
+    update: new Date().getTime(),
+    create: new Date().getTime(),
+    qrcode_url: platFormInfo.qrcode_url,
+    name: platFormInfo.nick_name
+  }
+
+  for (let i = 0; i < DATA.thirdPart.length; i++) {
+    const old = DATA.thirdPart[i]
+    if (old.appid === AUTHORIZATION_INFO.authorizer_appid) {
+      targetIndex = i
+      thirdPlatForm.create = old.create
+    }
+  }
+
+  if (!targetIndex) {
+    DATA.thirdPart.push(thirdPlatForm)
+  }
+
+  // todo 数据库保存平台的信息 与刷新token
+  writeFile(root, DATA)
 }
 
 export default ThirdPartWeChatPlugins

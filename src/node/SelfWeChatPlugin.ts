@@ -1,29 +1,39 @@
 import { Plugin } from './server'
 import _Log from '../util/Log'
 import SuperAgent from 'superagent'
-// import { app } from '@api/index.ts'
+import { writeFile } from './util';
 import { getPostData } from './util'
-
+import DATA from "../../DATA.json"
+export { DATA }
 
 const Log = _Log('Message from 自身平台：')
 
-export let EnctypeTicket = ''
+export let EnctypeTicket = DATA && DATA.self && DATA.self.Encrypt
+Log(`读取本地DATA文件，获取EnctypeTicket: ${EnctypeTicket}`)
 
 // 微信第三方自身授权
-const SelfWeChatPlugin: Plugin = ({  app, Router, type }) => {
+const SelfWeChatPlugin: Plugin = ({  app, Router, root }) => {
   if (app) {
     app.use(async (ctx, next) => {})
   }
 
   // 每10分钟会有请求进来
   Router.post('/wechat_open_platform/auth/callback', async (ctx: any, res: any) => {
-    const body = await getPostData(ctx)
+    const bodyXML: string = await getPostData(ctx)
 
-    console.log(body)
+    let match: RegExpExecArray | null = null
+    if (match = /<node\b[^>]*>([\s\S]*?)<\/node>/gm.exec(bodyXML)) {
+      EnctypeTicket = match[1]
 
-    // @ts-ignore
-    EnctypeTicket = ctx.request.body.xml.Encrypt[0]
-    Log(`微信端接收EnctypeTicket：${EnctypeTicket}`)
+      // update
+      // todo 抓获setter
+      DATA.self.Encrypt = EnctypeTicket
+      writeFile(root, DATA)
+
+      Log(`微信端接收EnctypeTicket：${EnctypeTicket}`)
+    } else {
+      Log(`微信端接收EnctypeTicket异常: ${bodyXML}`)
+    }
   })
 }
 

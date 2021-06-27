@@ -74,9 +74,9 @@
         &action=bindcomponent
         &auth_type=3
         &no_scan=1
-        &component_appid=wxbaf03b7acb3c993a
+        &component_appid=wxf9f1ff58b00d1c5a
         &pre_auth_code=${pre_auth_code}
-        &redirect_uri=http://wop.heartide.com
+        &redirect_uri=http://1.117.228.24
         &auth_type=3
         #wechat_redirect`.replace(/(\s*)/g, "")
     })
@@ -192,9 +192,7 @@
 
       getappid.onreadystatechange = function () {
         if (getappid.readyState === 4 && getappid.status === 200) {
-          console.log('sdk ok')
           let getSDK = JSON.parse(getappid.response)
-          console.log(getSDK.data.wechat_config)
           getSDK.data.wechat_config.debug = false
 
           if (bl && !localStorage.getItem('name')) window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx632d4c99bd681cf3&redirect_uri=' + encodeURI(location.href.split('#')[0]) +'&response_type=code&scope=snsapi_userinfo#wechart_redirect'
@@ -219,11 +217,9 @@
 
     weiXinGetName (url) {
       if (!localStorage.getItem('name')) {
-        console.log(code + 'asd你想要的' + sessionStorage.getItem('code'))
         const code = sessionStorage.getItem('code').replace(/code=/, '').replace(/\&.+/, '')
 
         $.get(url + '/web/v1/wechat/user', { code }, (data) => {
-          console.log('jq都不行？'); console.log(data.data.nickname)
           localStorage.setItem('name', data.data.nickname)
         })
       }
@@ -245,9 +241,7 @@
       getappid.open('GET', url + '/web/v1/wechat/config?debug=1&url=' + encodeURIComponent(location.href.split('#')[0]))
       getappid.onreadystatechange = function () {
         if (getappid.readyState === 4 && getappid.status === 200) {
-          console.log('sdk ok')
           let getSDK = JSON.parse(getappid.response)
-          console.log(getSDK.data.wechat_config)
           getSDK.data.wechat_config.debug = false
 
           wx.config(getSDK.data.wechat_config)
@@ -259,11 +253,9 @@
 
     rawGetName () {
       if (!localStorage.getItem('name')) {
-        console.log(code + 'asd你想要的' + sessionStorage.getItem('code'))
         const code = sessionStorage.getItem('code').replace(/code=/, '').replace(/\&.+/, '')
 
         $.get(url + '/web/v1/wechat/user', { code }, (data) => {
-          console.log('jq都不行？'); console.log(data.data.nickname)
           localStorage.setItem('name', data.data.nickname)
         })
       }
@@ -281,6 +273,6 @@
     </div>
 </div>
 <div class="bt" onclick="alert('敬请期待')"></div>
-<!-- <button onclick="window.location.href = baseURL">授权按钮</button> -->
+<button onclick="window.location.href = baseURL">授权按钮</button>
 </body>
 </html>
