@@ -34,7 +34,7 @@ const ParsePlatFormMessagePlugins: Plugin = ({ Router, encrypt, root }) => {
 
         if (['百年', '100年', '头像', '我要头像', '党旗', '建党'].includes(Content)) {
             // 图片活动
-            sendMediaDataCopy({ targetInfo: target, uid: FromUserName, content: Content, root, frameName: ['百年', '100年', '头像', '我要头像', '党旗', '建党'] })
+            sendMediaDataCopy({ targetInfo: target, uid: FromUserName, content: Content, root, frameName: ['1', '2', '3', '4', '5', '6','7','8', '9', '10'] })
             return
         }
     })
