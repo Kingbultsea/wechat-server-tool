@@ -23,7 +23,7 @@ const ParsePlatFormMessagePlugins: Plugin = ({ Router, encrypt }) => {
 
         const Content = (/<Content\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/Content>/gm.exec(result) || [])![1]
         const FromUserName = (/<FromUserName\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/FromUserName>/gm.exec(result) || [])![1]
-        const Log = _Log(`收到来自${target.name}(${bodyXML})的消息：`)
+        const Log = _Log(`收到来自${target.name}(${platFormId})的消息：`)
         Log(Content)
 
         ctx.response.body = 'success'

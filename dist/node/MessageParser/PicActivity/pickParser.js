@@ -18,6 +18,7 @@ async function sendMediaDataCopy(targetInfo, uid) {
             if (err) {
                 return console.error('upload failed:', err);
             }
+            console.log('上传图片', JSON.parse(body).media_id);
             sendMediaContent(uid, JSON.parse(body).media_id, targetInfo.authorizer_access_token, 'image');
             // await sendTouser.sendMediaContent(openid, JSON.parse(body).media_id, token, type)
             resolve(null);

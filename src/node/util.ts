@@ -1,5 +1,4 @@
 import { promises as fs } from 'fs'
-import {EnctypeTicket} from './SelfWeChatPlugin';
 const path = require('path')
 
 const getPostData = (ctx: any): Promise<string> => {
