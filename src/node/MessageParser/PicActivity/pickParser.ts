@@ -2,7 +2,7 @@ import request from 'request'
 import SuperAgent from 'superagent'
 import { parseBlockTypeAvatar } from '../../Activity/Avatar'
 
-const path = require('path')
+// const path = require('path')
 const fs = require('fs')
 
 async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [] }: any = {}) {
@@ -23,6 +23,7 @@ async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [] }: any 
             setTimeout(async () => {
                 let resultPath: any = ''
                 if (userInfo && userInfo.picUrl) {
+                    console.log(userInfo.picUrl)
                     resultPath = await parseBlockTypeAvatar({ root, frameName: i + '.png', userPicUrl: (userInfo || {}).picUrl })
                     if (resultPath) {
                         formData.my_file =  fs.createReadStream(resultPath)
@@ -75,6 +76,7 @@ function sendMediaContent(toUser: any, mediaId: any, serveAccessToken: any, type
 
 // 获取用户信息
 export async function getUserInfo({ serveAccessToken, uid, platFormName }: {serveAccessToken: string, uid: string, platFormName: string}): Promise<{ name: string, picUrl: string } | undefined> {
+    console.log(serveAccessToken, uid, platFormName)
     return new Promise((resolve) => {
         SuperAgent.get(`https://api.weixin.qq.com/cgi-bin/user/info?access_token=${serveAccessToken}&openid=${uid}&lang=zh_CN`).end((err, res) => {
             console.log(res.body)

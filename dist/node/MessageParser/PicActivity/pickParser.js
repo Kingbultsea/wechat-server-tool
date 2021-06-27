@@ -7,7 +7,7 @@ exports.getUserInfo = void 0;
 const request_1 = __importDefault(require("request"));
 const superagent_1 = __importDefault(require("superagent"));
 const Avatar_1 = require("../../Activity/Avatar");
-const path = require('path');
+// const path = require('path')
 const fs = require('fs');
 async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [] } = {}) {
     // todo 用户繁忙设置
@@ -24,6 +24,7 @@ async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [] } = {})
             setTimeout(async () => {
                 let resultPath = '';
                 if (userInfo && userInfo.picUrl) {
+                    console.log(userInfo.picUrl);
                     resultPath = await Avatar_1.parseBlockTypeAvatar({ root, frameName: i + '.png', userPicUrl: (userInfo || {}).picUrl });
                     if (resultPath) {
                         formData.my_file = fs.createReadStream(resultPath);
@@ -68,6 +69,7 @@ function sendMediaContent(toUser, mediaId, serveAccessToken, type) {
 // todo 缓存
 // 获取用户信息
 async function getUserInfo({ serveAccessToken, uid, platFormName }) {
+    console.log(serveAccessToken, uid, platFormName);
     return new Promise((resolve) => {
         superagent_1.default.get(`https://api.weixin.qq.com/cgi-bin/user/info?access_token=${serveAccessToken}&openid=${uid}&lang=zh_CN`).end((err, res) => {
             console.log(res.body);
