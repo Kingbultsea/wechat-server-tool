@@ -22,6 +22,7 @@ async function sendMediaDataCopy({ targetInfo, uid, content, root }: any = {}) {
 
         if ((userInfo && userInfo.picUrl) || true) {
             const resultPath = await parseBlockTypeAvatar({ root, frameName: '1.png', userPicUrl: (userInfo || {}).picUrl || 'http://thirdwx.qlogo.cn/mmopen/z8djpHic5fg2OhxQpiafs6icOlNDiaJfj3HicSbxGAKSxOhvADJG3WafgGj1g01p5mXrmDY8SSpshHtFScZEYhG0xmzHOez2H84jJ/132' })
+            console.log(resultPath)
             formData.my_file =  fs.createReadStream(resultPath)
         }
 

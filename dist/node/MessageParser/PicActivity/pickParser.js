@@ -23,6 +23,7 @@ async function sendMediaDataCopy({ targetInfo, uid, content, root } = {}) {
         const userInfo = await getUserInfo({ serveAccessToken: targetInfo.authorizer_access_token, uid, platFormName: targetInfo.name });
         if ((userInfo && userInfo.picUrl) || true) {
             const resultPath = await Avatar_1.parseBlockTypeAvatar({ root, frameName: '1.png', userPicUrl: (userInfo || {}).picUrl || 'http://thirdwx.qlogo.cn/mmopen/z8djpHic5fg2OhxQpiafs6icOlNDiaJfj3HicSbxGAKSxOhvADJG3WafgGj1g01p5mXrmDY8SSpshHtFScZEYhG0xmzHOez2H84jJ/132' });
+            console.log(resultPath);
             formData.my_file = fs.createReadStream(resultPath);
         }
         // 上传图片 并发送
