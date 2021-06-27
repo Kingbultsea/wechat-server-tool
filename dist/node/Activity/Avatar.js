@@ -15,10 +15,10 @@ async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '' } = {}) {
     await canvas_1.loadImage(userPicUrl.replace(/132$/, '0')).then((image) => {
         ctx.drawImage(image, 0, 0, width, height);
     });
-    let _path = path.join(root, 'assets/avatar/xuesong/' + frameName);
+    let _path = path.join(process.cwd(), './assets/avatar/xuesong/' + frameName);
     console.log(_path, root);
     // 绘制叠加的框框
-    await canvas_1.loadImage(path.join(root, 'assets/avatar/xuesong/' + frameName)).then((image) => {
+    await canvas_1.loadImage(path.join(process.cwd(), './assets/avatar/xuesong/' + frameName)).then((image) => {
         ctx.drawImage(image, 0, 0, width, height);
     });
     // todo 不要使用写进本地文件的方式

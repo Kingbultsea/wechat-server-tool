@@ -18,11 +18,11 @@ export async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '' }:
     })
 
 
-    let _path = path.join(root, 'assets/avatar/xuesong/' + frameName)
+    let _path = path.join(process.cwd(), './assets/avatar/xuesong/' + frameName)
     console.log(_path, root)
 
     // 绘制叠加的框框
-    await loadImage(path.join(root, 'assets/avatar/xuesong/' + frameName)).then((image) => {
+    await loadImage(path.join(process.cwd(), './assets/avatar/xuesong/' + frameName)).then((image) => {
         ctx.drawImage(image, 0, 0, width, height)
     })
 
