@@ -16,12 +16,13 @@ async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '' } = {}) {
         ctx.drawImage(image, 0, 0, width, height);
     });
     // 绘制叠加的框框
-    await canvas_1.loadImage(path.join(process.cwd(), './assets/avatar/xuesong/' + frameName)).then((image) => {
+    await canvas_1.loadImage(path.join(root, './assets/avatar/xuesong/' + frameName)).then((image) => {
         ctx.drawImage(image, 0, 0, width, height);
     });
     // todo 不要使用写进本地文件的方式
     return new Promise((resolve) => {
         const hash = util_1.randomString(6);
+        console.log(hash);
         // @ts-ignore
         fs_1.promises.writeFile(path.join(root, `./assets/avatar/${hash}.png`), canvas.toBuffer('image/jpeg', { quality: 1 }), (err) => {
             if (err) {
