@@ -23,7 +23,9 @@ const ParsePlatFormMessagePlugins: Plugin = ({ Router, encrypt }) => {
 
         const Content = (/<Content\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/Content>/gm.exec(result) || [])![1]
         const FromUserName = (/<FromUserName\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/FromUserName>/gm.exec(result) || [])![1]
+
         const Log = _Log(`收到来自${target.name}(${platFormId})的消息：`)
+
         Log(Content)
 
         ctx.response.body = 'success'
@@ -31,7 +33,7 @@ const ParsePlatFormMessagePlugins: Plugin = ({ Router, encrypt }) => {
         // todo 消息插件
 
         // 图片活动
-        sendMediaDataCopy({ targetInfo: target, uid: FromUserName, content: result })
+        sendMediaDataCopy({ targetInfo: target, uid: FromUserName, content: Content })
     })
 }
 
