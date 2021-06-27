@@ -14,7 +14,7 @@ const Log = Log_1.default('Message from 自身平台：');
 exports.EnctypeTicket = DATA_json_1.default && DATA_json_1.default.self && DATA_json_1.default.self.Encrypt;
 Log(`读取本地DATA文件，获取EnctypeTicket: ${exports.EnctypeTicket}`);
 // 微信第三方自身授权
-const SelfWeChatPlugin = ({ app, Router, root }) => {
+const SelfWeChatPlugin = ({ app, Router, root, encrypt }) => {
     if (app) {
         app.use(async (ctx, next) => { });
     }
@@ -23,8 +23,9 @@ const SelfWeChatPlugin = ({ app, Router, root }) => {
         const bodyXML = await util_2.getPostData(ctx);
         let match = null;
         if (match = /<Encrypt\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/Encrypt>/gm.exec(bodyXML)) {
-            exports.EnctypeTicket = match[1];
+            exports.EnctypeTicket = encrypt.decode(match[1]);
             console.log(exports.EnctypeTicket);
+            exports.EnctypeTicket = /<ComponentVerifyTicket\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/ComponentVerifyTicket>/gm.exec(exports.EnctypeTicket);
             // update
             // todo 抓获setter
             DATA_json_1.default.self.Encrypt = exports.EnctypeTicket;

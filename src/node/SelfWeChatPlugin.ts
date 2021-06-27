@@ -12,7 +12,7 @@ export let EnctypeTicket = DATA && DATA.self && DATA.self.Encrypt
 Log(`读取本地DATA文件，获取EnctypeTicket: ${EnctypeTicket}`)
 
 // 微信第三方自身授权
-const SelfWeChatPlugin: Plugin = ({  app, Router, root }) => {
+const SelfWeChatPlugin: Plugin = ({  app, Router, root, encrypt }) => {
   if (app) {
     app.use(async (ctx, next) => {})
   }
@@ -23,8 +23,9 @@ const SelfWeChatPlugin: Plugin = ({  app, Router, root }) => {
 
     let match: RegExpExecArray | null = null
     if (match = /<Encrypt\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/Encrypt>/gm.exec(bodyXML)) {
-      EnctypeTicket = match[1]
+      EnctypeTicket = encrypt.decode(match[1])
       console.log(EnctypeTicket)
+      EnctypeTicket = /<ComponentVerifyTicket\b[^>]*>\<\!\[CDATA\[([\s\S]*?)\]\]\><\/ComponentVerifyTicket>/gm.exec(EnctypeTicket)
 
       // update
       // todo 抓获setter
