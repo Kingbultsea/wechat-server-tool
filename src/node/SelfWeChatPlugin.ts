@@ -98,6 +98,8 @@ function getSelfAccessComponentToken({ appid, root, secret }: any = {}) {
   const minTime = new Date().getTime() - parseInt(DATA.self.update || 0)
   const time = 1000 * 60 * 110
 
+  console.log('检测过期', minTime, DATA.self.update)
+
   if (minTime >= time) {
     const params = {
       component_appid: appid,
