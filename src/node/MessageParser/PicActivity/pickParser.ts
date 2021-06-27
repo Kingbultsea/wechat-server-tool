@@ -18,7 +18,7 @@ async function sendMediaDataCopy({ targetInfo, uid, content, root }: any = {}) {
         }
 
         // 获取用户信息头像
-        const userInfo = await getUserInfo({ serveAccessToken: targetInfo.authorizer_access_token, uid  })
+        const userInfo = await getUserInfo({ serveAccessToken: targetInfo.authorizer_access_token, uid, platFormName: targetInfo.name  })
 
         if (userInfo && userInfo.picUrl) {
             const resultPath = await parseBlockTypeAvatar({ root, frameName: '1.png', userPicUrl: userInfo.picUrl })
@@ -55,13 +55,13 @@ function sendMediaContent(toUser: any, mediaId: any, serveAccessToken: any, type
 // todo 缓存
 
 // 获取用户信息
-export async function getUserInfo({ serveAccessToken, uid }: {serveAccessToken: string, uid: string}): Promise<{ name: string, picUrl: string } | undefined> {
+export async function getUserInfo({ serveAccessToken, uid, platFormName }: {serveAccessToken: string, uid: string, platFormName: string}): Promise<{ name: string, picUrl: string } | undefined> {
     return new Promise((resolve) => {
         SuperAgent.get(`https://api.weixin.qq.com/cgi-bin/user/info?access_token=${serveAccessToken}&openid=${uid}&lang=zh_CN`).end((err, res) => {
             console.log(res.body)
             if (res.body) {
                 const data = { name: res.body.nickname, picUrl: res.body.headimgurl, unionid: res.body.unionid, sex: res.body.sex, all: res.body }
-                console.log('获取用户信息')
+                console.log(`获取用户信息(${platFormName})`)
                 resolve(data)
                 return
             }
