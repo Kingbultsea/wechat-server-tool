@@ -2,6 +2,19 @@
 import request from 'request'
 import SuperAgent from 'superagent'
 import { parseBlockTypeAvatar } from '../../Activity/Avatar'
+import LRUCache from 'lru-cache'
+
+interface UserInfoCache  {
+    name: string,
+    picUrl: string,
+    unionid: string,
+    sex: string,
+    all: any
+}
+
+export const userInfoCache = new LRUCache<string, UserInfoCache>({
+    max: 65535
+})
 
 // const path = require('path')
 const fs = require('fs')
@@ -79,16 +92,27 @@ function sendMediaContent(toUser: any, mediaId: any, serveAccessToken: any, type
     })
 }
 
-// todo 缓存
-
 // 获取用户信息
 export async function getUserInfo({ serveAccessToken, uid, platFormName }: {serveAccessToken: string, uid: string, platFormName: string}): Promise<{ name: string, picUrl: string } | undefined> {
     console.log(serveAccessToken, uid, platFormName)
     return new Promise((resolve) => {
+        let cache = userInfoCache.get(uid)
+        if (cache) {
+            resolve(cache)
+            return
+        }
         SuperAgent.get(`https://api.weixin.qq.com/cgi-bin/user/info?access_token=${serveAccessToken}&openid=${uid}&lang=zh_CN`).end((err, res) => {
-            console.log(res.body)
+            if (!res) {
+                console.log('获取用户信息没有相应')
+                return
+            }
             if (res.body) {
+                console.log(res.body)
                 const data = { name: res.body.nickname, picUrl: res.body.headimgurl, unionid: res.body.unionid, sex: res.body.sex, all: res.body }
+                if (res.body.unionid) {
+                    // todo 怕传的是指引
+                    userInfoCache.set(res.body.unionid, data)
+                }
                 console.log(`获取用户信息(${platFormName})`)
                 resolve(data)
                 return
