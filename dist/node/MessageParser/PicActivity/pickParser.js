@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getUserInfo = void 0;
+// @ts-ignore
 const request_1 = __importDefault(require("request"));
 const superagent_1 = __importDefault(require("superagent"));
 const Avatar_1 = require("../../Activity/Avatar");
@@ -18,10 +19,11 @@ async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [], dir } 
         };
         // 获取用户信息头像
         const userInfo = await getUserInfo({ serveAccessToken: targetInfo.authorizer_access_token, uid, platFormName: targetInfo.name });
-        activityFlow({ userInfo, formData, targetInfo, uid, resolve, frameName, index: 0, root, dir });
+        activityFlow({ userInfo, formData, targetInfo, uid, resolve, frameName, index: 0, root, dir, pairage: true });
+        activityFlow({ userInfo, formData, targetInfo, uid, resolve, frameName, index: 1, root, dir, pairage: false });
     });
 }
-async function activityFlow({ userInfo, formData, targetInfo, uid, resolve, frameName, index = 0, root, dir } = {}) {
+async function activityFlow({ userInfo, formData, targetInfo, uid, resolve, frameName, index = 0, root, dir, pairage } = {}) {
     let resultPath = '';
     if (userInfo && userInfo.picUrl) {
         resultPath = await Avatar_1.parseBlockTypeAvatar({ root, frameName: frameName[index] + '.png', userPicUrl: (userInfo || {}).picUrl, dir });
@@ -50,9 +52,9 @@ async function activityFlow({ userInfo, formData, targetInfo, uid, resolve, fram
         console.log(body);
         if (JSON.parse(body).media_id) {
             // 发送消息给用户
-            await sendMediaContent(uid, JSON.parse(body).media_id, targetInfo.authorizer_access_token, 'image');
+            sendMediaContent(uid, JSON.parse(body).media_id, targetInfo.authorizer_access_token, 'image');
             if (frameName.length > index + 1) {
-                activityFlow({ userInfo, formData, targetInfo, uid, resolve, frameName, index: index + 1, root, dir });
+                activityFlow({ userInfo, formData, targetInfo, uid, resolve, frameName, index: pairage ? (2 * index) : (2 * index) + 1, root, dir });
             }
         }
         resolve(null);

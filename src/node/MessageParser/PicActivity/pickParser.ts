@@ -16,11 +16,12 @@ async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [], dir }:
 
         // 获取用户信息头像
         const userInfo = await getUserInfo({ serveAccessToken: targetInfo.authorizer_access_token, uid, platFormName: targetInfo.name  })
-        activityFlow({ userInfo, formData, targetInfo, uid, resolve, frameName, index: 0, root, dir })
+        activityFlow({ userInfo, formData, targetInfo, uid, resolve, frameName, index: 0, root, dir, pairage: true })
+        activityFlow({ userInfo, formData, targetInfo, uid, resolve, frameName, index: 1, root, dir, pairage: false })
     })
 }
 
-async function activityFlow({ userInfo, formData, targetInfo, uid, resolve, frameName, index = 0, root, dir }: any = {}) {
+async function activityFlow({ userInfo, formData, targetInfo, uid, resolve, frameName, index = 0, root, dir, pairage }: any = {}) {
     let resultPath: any = ''
     if (userInfo && userInfo.picUrl) {
         resultPath = await parseBlockTypeAvatar({ root, frameName: frameName[index] + '.png', userPicUrl: (userInfo || {}).picUrl, dir  })
@@ -54,7 +55,7 @@ async function activityFlow({ userInfo, formData, targetInfo, uid, resolve, fram
             // 发送消息给用户
             sendMediaContent(uid, JSON.parse(body).media_id, targetInfo.authorizer_access_token, 'image')
             if (frameName.length > index + 1) {
-                activityFlow({ userInfo, formData, targetInfo, uid, resolve, frameName, index: index + 1, root, dir })
+                activityFlow({ userInfo, formData, targetInfo, uid, resolve, frameName, index: pairage ? (2 * index) : (2 * index) + 1 , root, dir })
             }
         }
 

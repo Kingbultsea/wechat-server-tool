@@ -1,3 +1,4 @@
+// @ts-ignore
 import { createCanvas, loadImage } from 'canvas'
 import { promises as fs } from 'fs'
 import { randomString } from '../util';
@@ -13,12 +14,12 @@ export async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '', d
     const ctx = canvas.getContext('2d')
 
     // 绘制头像
-    await loadImage(userPicUrl.replace(/132$/, '0')).then((image) => {
+    await loadImage(userPicUrl.replace(/132$/, '0')).then((image: any) => {
         ctx.drawImage(image, 0, 0, width, height)
     })
 
     // 绘制叠加的框框
-    await loadImage(path.join(root, `./assets/avatar/${dir}/` + frameName)).then((image) => {
+    await loadImage(path.join(root, `./assets/avatar/${dir}/` + frameName)).then((image: any) => {
         ctx.drawImage(image, 0, 0, width, height)
     })
 

@@ -1,5 +1,4 @@
 /// <reference types="koa-bodyparser" />
-/// <reference types="koa-xml-body" />
 /// <reference types="node" />
 import { Server } from 'http';
 import Koa from 'koa';

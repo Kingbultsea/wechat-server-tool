@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.parseBlockTypeAvatar = void 0;
+// @ts-ignore
 const canvas_1 = require("canvas");
 const fs_1 = require("fs");
 const util_1 = require("../util");
