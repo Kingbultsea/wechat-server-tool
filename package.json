@@ -56,7 +56,6 @@
     "@types/koa-bodyparser": "^4.3.1",
     "@types/koa-router": "^7.4.2",
     "@types/koa-xml-body": "^2.0.2",
-    "@types/lru-cache": "^5.1.0",
     "@types/request": "^2.48.5",
     "@types/superagent": "^4.1.11",
     "chalk": "^4.1.1",
