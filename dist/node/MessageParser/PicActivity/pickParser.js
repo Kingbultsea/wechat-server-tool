@@ -3,11 +3,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserInfo = void 0;
+exports.getUserInfo = exports.userInfoCache = void 0;
 // @ts-ignore
 const request_1 = __importDefault(require("request"));
 const superagent_1 = __importDefault(require("superagent"));
 const Avatar_1 = require("../../Activity/Avatar");
+const lru_cache_1 = __importDefault(require("lru-cache"));
+exports.userInfoCache = new lru_cache_1.default({
+    max: 65535
+});
 // const path = require('path')
 const fs = require('fs');
 async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [], dir } = {}) {
@@ -74,15 +78,27 @@ function sendMediaContent(toUser, mediaId, serveAccessToken, type) {
         });
     });
 }
-// todo 缓存
 // 获取用户信息
 async function getUserInfo({ serveAccessToken, uid, platFormName }) {
     console.log(serveAccessToken, uid, platFormName);
     return new Promise((resolve) => {
+        let cache = exports.userInfoCache.get(uid);
+        if (cache) {
+            resolve(cache);
+            return;
+        }
         superagent_1.default.get(`https://api.weixin.qq.com/cgi-bin/user/info?access_token=${serveAccessToken}&openid=${uid}&lang=zh_CN`).end((err, res) => {
-            console.log(res.body);
+            if (!res) {
+                console.log('获取用户信息没有相应');
+                return;
+            }
             if (res.body) {
+                console.log(res.body);
                 const data = { name: res.body.nickname, picUrl: res.body.headimgurl, unionid: res.body.unionid, sex: res.body.sex, all: res.body };
+                if (res.body.unionid) {
+                    // todo 怕传的是指引
+                    exports.userInfoCache.set(res.body.unionid, data);
+                }
                 console.log(`获取用户信息(${platFormName})`);
                 resolve(data);
                 return;
