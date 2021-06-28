@@ -6,7 +6,7 @@ const path = require("path")
 
 
 // 边框贴图渲染活动
-export async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '' }: { root?: any, frameName?: any, userPicUrl?: string } = {}) {
+export async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '', dir }: { root?: any, frameName?: any, userPicUrl?: string, dir?: string } = {}) {
     const width = 256
     const height = 256
     const canvas = createCanvas(width, height)
@@ -18,7 +18,7 @@ export async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '' }:
     })
 
     // 绘制叠加的框框
-    await loadImage(path.join(root, './assets/avatar/xuesong/' + frameName)).then((image) => {
+    await loadImage(path.join(root, `./assets/avatar/${dir}/` + frameName)).then((image) => {
         ctx.drawImage(image, 0, 0, width, height)
     })
 
