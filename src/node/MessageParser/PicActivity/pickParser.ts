@@ -17,7 +17,7 @@ async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [], dir }:
         // 获取用户信息头像
         const userInfo = await getUserInfo({ serveAccessToken: targetInfo.authorizer_access_token, uid, platFormName: targetInfo.name  })
         activityFlow({ userInfo, formData, targetInfo, uid, resolve, frameName, index: 0, root, dir, pairage: true })
-        activityFlow({ userInfo, formData, targetInfo, uid, resolve, frameName, index: 1, root, dir, pairage: false })
+        activityFlow({ userInfo, formData, targetInfo, uid, resolve, frameName, index: 0, root, dir, pairage: false })
     })
 }
 
