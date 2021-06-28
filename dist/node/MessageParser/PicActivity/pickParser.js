@@ -36,10 +36,6 @@ async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [], dir } 
                 }
                 // 上传图片 并发送
                 request_1.default.post({ url: `https://api.weixin.qq.com/cgi-bin/media/upload?access_token=${targetInfo.authorizer_access_token}&type=image`, formData: formData }, async function (err, httpResponse, body) {
-                    if (err) {
-                        return console.error('upload failed: ', err);
-                    }
-                    console.log(body);
                     // 删除文件 免得占用内存
                     if (resultPath) {
                         fs.unlink(resultPath, function (err) {
@@ -49,6 +45,10 @@ async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [], dir } 
                             console.log('文件删除成功！');
                         });
                     }
+                    if (err) {
+                        return console.error('upload failed: ', err);
+                    }
+                    console.log(body);
                     if (JSON.parse(body).media_id) {
                         // 发送消息给用户
                         sendMediaContent(uid, JSON.parse(body).media_id, targetInfo.authorizer_access_token, 'image');
