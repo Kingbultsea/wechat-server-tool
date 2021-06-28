@@ -9,7 +9,7 @@ const superagent_1 = __importDefault(require("superagent"));
 const Avatar_1 = require("../../Activity/Avatar");
 // const path = require('path')
 const fs = require('fs');
-async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [] } = {}) {
+async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [], dir } = {}) {
     // todo 用户繁忙设置
     return new Promise(async (resolve) => {
         let formData = {
@@ -25,7 +25,7 @@ async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [] } = {})
                 let resultPath = '';
                 if (userInfo && userInfo.picUrl) {
                     console.log(userInfo.picUrl, '查看url');
-                    resultPath = await Avatar_1.parseBlockTypeAvatar({ root, frameName: i + '.png', userPicUrl: (userInfo || {}).picUrl });
+                    resultPath = await Avatar_1.parseBlockTypeAvatar({ root, frameName: i + '.png', userPicUrl: (userInfo || {}).picUrl, dir });
                     if (resultPath) {
                         formData.my_file = fs.createReadStream(resultPath);
                     }

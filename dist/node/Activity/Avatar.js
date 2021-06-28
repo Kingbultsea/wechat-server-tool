@@ -6,7 +6,7 @@ const fs_1 = require("fs");
 const util_1 = require("../util");
 const path = require("path");
 // 边框贴图渲染活动
-async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '' } = {}) {
+async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '', dir } = {}) {
     const width = 256;
     const height = 256;
     const canvas = canvas_1.createCanvas(width, height);
@@ -16,7 +16,7 @@ async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '' } = {}) {
         ctx.drawImage(image, 0, 0, width, height);
     });
     // 绘制叠加的框框
-    await canvas_1.loadImage(path.join(root, './assets/avatar/xuesong/' + frameName)).then((image) => {
+    await canvas_1.loadImage(path.join(root, `./assets/avatar/${dir}/` + frameName)).then((image) => {
         ctx.drawImage(image, 0, 0, width, height);
     });
     // todo 不要使用写进本地文件的方式

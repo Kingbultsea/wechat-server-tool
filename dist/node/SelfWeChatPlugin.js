@@ -80,7 +80,7 @@ exports.getPreCode = getPreCode;
 // 好像每次刷新都只有一次吧
 function getSelfAccessComponentToken({ appid, root, secret } = {}) {
     const minTime = new Date().getTime() - parseInt(DATA_json_1.default.self.update || 0);
-    const time = 1000 * 60 * 60;
+    const time = 1000 * 60 * 50;
     console.log('检测过期', minTime, DATA_json_1.default.self.update);
     if (minTime >= time) {
         const params = {
@@ -107,7 +107,7 @@ function getSelfAccessComponentToken({ appid, root, secret } = {}) {
 function refleash({ appid, root } = {}) {
     DATA_json_1.default.thirdPart.forEach((v, index) => {
         const minTime = new Date().getTime() - parseInt(v.update);
-        const time = 1000 * 60 * 110;
+        const time = 1000 * 60 * 60;
         const params = {
             component_appid: appid,
             authorizer_appid: v.appid,
@@ -133,6 +133,6 @@ function refleash({ appid, root } = {}) {
     // 1小时请求一次
     setTimeout(() => {
         refleash({ appid, root });
-    }, 1000 * 60 * 60);
+    }, 1000 * 60 * 70);
 }
 exports.default = SelfWeChatPlugin;
