@@ -52,7 +52,7 @@ async function activityFlow({ userInfo, formData, targetInfo, uid, resolve, fram
         if (JSON.parse(body).media_id) {
             // 发送消息给用户
             await sendMediaContent(uid, JSON.parse(body).media_id, targetInfo.authorizer_access_token, 'image')
-            if (frameName.length < index) {
+            if (frameName.length > index + 1) {
                 activityFlow({ userInfo, formData, targetInfo, uid, resolve, frameName, index: index + 1, root, dir })
             }
         }
