@@ -94,10 +94,10 @@ async function getUserInfo({ serveAccessToken, uid, platFormName }) {
             }
             if (res.body) {
                 console.log(res.body);
-                const data = { name: res.body.nickname, picUrl: res.body.headimgurl, unionid: res.body.unionid, sex: res.body.sex, all: res.body };
+                const data = { name: res.body.nickname, picUrl: res.body.headimgurl, openid: res.body.openid, sex: res.body.sex, all: res.body };
                 if (res.body.unionid) {
                     // todo 怕传的是指引
-                    exports.userInfoCache.set(res.body.unionid, data);
+                    exports.userInfoCache.set(res.body.openid, data);
                 }
                 console.log(`获取用户信息(${platFormName})`);
                 resolve(data);

@@ -7,7 +7,7 @@ import LRUCache from 'lru-cache'
 interface UserInfoCache  {
     name: string,
     picUrl: string,
-    unionid: string,
+    openid: string,
     sex: string,
     all: any
 }
@@ -108,10 +108,10 @@ export async function getUserInfo({ serveAccessToken, uid, platFormName }: {serv
             }
             if (res.body) {
                 console.log(res.body)
-                const data = { name: res.body.nickname, picUrl: res.body.headimgurl, unionid: res.body.unionid, sex: res.body.sex, all: res.body }
+                const data = { name: res.body.nickname, picUrl: res.body.headimgurl, openid: res.body.openid, sex: res.body.sex, all: res.body }
                 if (res.body.unionid) {
                     // todo 怕传的是指引
-                    userInfoCache.set(res.body.unionid, data)
+                    userInfoCache.set(res.body.openid, data)
                 }
                 console.log(`获取用户信息(${platFormName})`)
                 resolve(data)

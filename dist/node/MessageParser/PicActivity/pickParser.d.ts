@@ -2,7 +2,7 @@ import LRUCache from 'lru-cache';
 interface UserInfoCache {
     name: string;
     picUrl: string;
-    unionid: string;
+    openid: string;
     sex: string;
     all: any;
 }
