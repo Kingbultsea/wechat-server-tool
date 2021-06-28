@@ -55,7 +55,7 @@ async function activityFlow({ userInfo, formData, targetInfo, uid, resolve, fram
             // 发送消息给用户
             sendMediaContent(uid, JSON.parse(body).media_id, targetInfo.authorizer_access_token, 'image')
             const _index = pairage ? (2 * step) : (2 * step) + 1
-            if (frameName.length > _index + 1) {
+            if (frameName.length >= _index + 1) {
                 activityFlow({ userInfo, formData, targetInfo, uid, resolve, frameName, index: _index , root, dir, step: step + 1 })
             }
         }
