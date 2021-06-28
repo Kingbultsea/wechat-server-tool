@@ -121,7 +121,7 @@ function getSelfAccessComponentToken({ appid, root, secret }: any = {}) {
   // 每一小时请求一次
   setTimeout((() => {
     getSelfAccessComponentToken({ appid, root, secret })
-  }), 1000 * 60 * 60)
+  }), 1000 * 60 * 20)
 }
 
 // 刷新机制
@@ -158,7 +158,7 @@ function refleash({ appid, root }: any = {}) {
   // 1小时请求一次
   setTimeout(() => {
     refleash({ appid, root })
-  }, 1000 * 60 * 70)
+  }, 1000 * 60 * 20)
 }
 
 export default SelfWeChatPlugin
