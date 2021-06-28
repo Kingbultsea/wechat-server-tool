@@ -1,10 +1,15 @@
 import { writeFile } from '../util';
 import { parseBlockTypeAvatar } from '../Activity/Avatar'
+const LRUCache = require('lru-cache')
+
+const userInfoCache = new LRUCache({
+    max: 65535
+})
 
 describe('node util(writeFile)', () => {
     test('服务器返回相同的连续时间', async () => {
-        const resultPath = await parseBlockTypeAvatar({ root: process.cwd(), frameName: '1.png', userPicUrl: 'http://thirdwx.qlogo.cn/mmopen/z8djpHic5fg2OhxQpiafs6icOlNDiaJfj3HicSbxGAKSxOhvADJG3WafgGj1g01p5mXrmDY8SSpshHtFScZEYhG0xmzHOez2H84jJ/132' })
-
+        userInfoCache.set('a', 9999)
+        expect(userInfoCache.get('a')).toEqual(9999)
         writeFile(process.cwd(), { test: 'test' })
     })
 })

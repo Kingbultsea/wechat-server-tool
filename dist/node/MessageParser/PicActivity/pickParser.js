@@ -8,8 +8,15 @@ exports.getUserInfo = exports.userInfoCache = void 0;
 const request_1 = __importDefault(require("request"));
 const superagent_1 = __importDefault(require("superagent"));
 const Avatar_1 = require("../../Activity/Avatar");
-const lru_cache_1 = __importDefault(require("lru-cache"));
-exports.userInfoCache = new lru_cache_1.default({
+const LRUCache = require('lru-cache');
+// interface UserInfoCache  {
+//     name: string,
+//     picUrl: string,
+//     openid: string,
+//     sex: string,
+//     all: any
+// }
+exports.userInfoCache = new LRUCache({
     max: 65535
 });
 // const path = require('path')
@@ -83,6 +90,7 @@ async function getUserInfo({ serveAccessToken, uid, platFormName }) {
     console.log(serveAccessToken, uid, platFormName);
     return new Promise((resolve) => {
         let cache = exports.userInfoCache.get(uid);
+        console.log('获取缓存', uid, cache);
         if (cache) {
             resolve(cache);
             return;
@@ -98,6 +106,7 @@ async function getUserInfo({ serveAccessToken, uid, platFormName }) {
                 if (res.body.unionid) {
                     // todo 怕传的是指引
                     exports.userInfoCache.set(res.body.openid, data);
+                    console.log('设置缓存', res.body.openid);
                 }
                 console.log(`获取用户信息(${platFormName})`);
                 resolve(data);

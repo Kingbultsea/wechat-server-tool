@@ -2,17 +2,17 @@
 import request from 'request'
 import SuperAgent from 'superagent'
 import { parseBlockTypeAvatar } from '../../Activity/Avatar'
-import LRUCache from 'lru-cache'
+const LRUCache = require('lru-cache')
 
-interface UserInfoCache  {
-    name: string,
-    picUrl: string,
-    openid: string,
-    sex: string,
-    all: any
-}
+// interface UserInfoCache  {
+//     name: string,
+//     picUrl: string,
+//     openid: string,
+//     sex: string,
+//     all: any
+// }
 
-export const userInfoCache = new LRUCache<string, UserInfoCache>({
+export const userInfoCache = new LRUCache({
     max: 65535
 })
 
@@ -97,6 +97,7 @@ export async function getUserInfo({ serveAccessToken, uid, platFormName }: {serv
     console.log(serveAccessToken, uid, platFormName)
     return new Promise((resolve) => {
         let cache = userInfoCache.get(uid)
+        console.log('获取缓存', uid, cache)
         if (cache) {
             resolve(cache)
             return
@@ -112,6 +113,7 @@ export async function getUserInfo({ serveAccessToken, uid, platFormName }: {serv
                 if (res.body.unionid) {
                     // todo 怕传的是指引
                     userInfoCache.set(res.body.openid, data)
+                    console.log('设置缓存', res.body.openid)
                 }
                 console.log(`获取用户信息(${platFormName})`)
                 resolve(data)
