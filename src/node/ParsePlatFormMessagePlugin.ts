@@ -32,7 +32,6 @@ const ParsePlatFormMessagePlugins: Plugin = ({ Router, encrypt, root }) => {
         ctx.response.body = 'success'
 
         // todo 消息插件
-
         if ((target.appid === 'wx7630866bd98a50de' || target.appid === 'wx0ea308250417bd30') && ['百年', '100年', '头像', '我要头像', '党旗', '建党'].includes(Content)) {
             // 图片活动
             sendMediaDataCopy({ targetInfo: target, uid: FromUserName, content: Content, root, frameName: ['1', '2', '4', '5', '6','7','8', '10'], dir: 'sanwei' })

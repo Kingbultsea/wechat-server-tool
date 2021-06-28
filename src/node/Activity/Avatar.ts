@@ -7,8 +7,8 @@ const path = require("path")
 
 // 边框贴图渲染活动
 export async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '', dir }: { root?: any, frameName?: any, userPicUrl?: string, dir?: string } = {}) {
-    const width = 256
-    const height = 256
+    const width = 512
+    const height = 512
     const canvas = createCanvas(width, height)
     const ctx = canvas.getContext('2d')
 
