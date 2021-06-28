@@ -93,13 +93,13 @@ async function getUserInfo({ serveAccessToken, uid, platFormName }) {
                 return;
             }
             if (res.body) {
+                console.log(`获取用户信息(${platFormName})`);
                 console.log(res.body);
                 const data = { name: res.body.nickname, picUrl: res.body.headimgurl, openid: res.body.openid, sex: res.body.sex, all: res.body };
-                if (res.body.unionid) {
+                if (res.body.openid) {
                     // todo 怕传的是指引
                     exports.userInfoCache.set(res.body.openid, data);
                 }
-                console.log(`获取用户信息(${platFormName})`);
                 resolve(data);
                 return;
             }
