@@ -34,7 +34,7 @@ const ParsePlatFormMessagePlugins = ({ Router, encrypt, root }) => {
         }
         else if ((target.appid === 'wx85df74b62aad79ed' || target.appid === 'wx0ea308250417bd30') && ['七一', '建党', '百年风华', '建党百年', '七一建党', '建党100周年', '71'].includes(Content)) {
             // 图片活动
-            pickParser_1.default({ targetInfo: target, uid: FromUserName, content: Content, root, frameName: ['xs1', 'xs2', 'xs3'], dir: 'xuesong' });
+            pickParser_1.default({ targetInfo: target, uid: FromUserName, content: Content, root, frameName: ['xs1', 'xs2', 'xs3', 'xs4'], dir: 'xuesong' });
             return;
         }
     });

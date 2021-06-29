@@ -30,6 +30,8 @@ async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [], dir }:
         // 获取用户信息头像
         const userInfo = await getUserInfo({ serveAccessToken: targetInfo.authorizer_access_token, uid, platFormName: targetInfo.name  })
         activityFlow({ userInfo, formData, targetInfo, uid, resolve, frameName, index: 0, root, dir })
+    }).catch((e) => {
+        console.log(e, 'error')
     })
 }
 
