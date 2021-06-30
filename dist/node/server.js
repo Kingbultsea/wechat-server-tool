@@ -43,3 +43,6 @@ function createServer({ root = process.cwd(), appid = '', secret = '', plugins =
     return server;
 }
 exports.createServer = createServer;
+process.on('uncaughtException', function (err) {
+    console.log(err);
+});
