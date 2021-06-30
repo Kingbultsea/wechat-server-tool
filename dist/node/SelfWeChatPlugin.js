@@ -49,6 +49,9 @@ function getComponentAccessToken({ appid, secret, enctypeTicket } = {}) {
         superagent_1.default.post(`https://api.weixin.qq.com/cgi-bin/component/api_component_token`)
             .send(params)
             .end((err, res) => {
+            if (!res) {
+                return;
+            }
             console.log(res.body);
             Log(`获取令牌access_token:${res.body.component_access_token}`);
             resolve(res.body.component_access_token);
@@ -67,6 +70,10 @@ async function getPreCode({ appid, access_token } = {}) {
         return superagent_1.default.post(_URL)
             .send(_Params)
             .end((err, res) => {
+            if (!res) {
+                return '';
+                resolve(null);
+            }
             const code = res.body.pre_auth_code;
             Log(`获取预授权码: ${code}`);
             resolve(code);
@@ -90,11 +97,13 @@ function getSelfAccessComponentToken({ appid, root, secret } = {}) {
         };
         // todo 做刷新机制
         superagent_1.default.post(`https://api.weixin.qq.com/cgi-bin/component/api_component_token`).send(params).end((err, res) => {
-            Log(`获取自身access_token:${res.body.component_access_token}`);
-            console.log(res.body);
-            DATA_json_1.default.self.component_access_token = res.body.component_access_token;
-            DATA_json_1.default.self.update = new Date().getTime();
-            util_1.writeFile(root, DATA_json_1.default);
+            if (res) {
+                Log(`获取自身access_token:${res.body.component_access_token}`);
+                console.log(res.body);
+                DATA_json_1.default.self.component_access_token = res.body.component_access_token;
+                DATA_json_1.default.self.update = new Date().getTime();
+                util_1.writeFile(root, DATA_json_1.default);
+            }
         });
     }
     // 每一小时请求一次
