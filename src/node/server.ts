@@ -72,3 +72,7 @@ export function createServer({
 
   return server
 }
+
+process.on('uncaughtException', function(err){
+    console.log(err)
+})

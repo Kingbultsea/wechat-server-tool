@@ -64,6 +64,10 @@ function Authorization(
           authorization_code: authorization_code
         })
         .end(async (err, res) => {
+          if (!res) {
+            return
+          }
+
           if (res.body.hasOwnProperty('errcode')) {
             Log(`无效的authorization_code：${ACCESS_TOKEN}`)
             Log(`本次授权失败`)
@@ -90,6 +94,9 @@ function Authorization(
                   authorizer_appid: AUTHORIZATION_INFO.authorizer_appid
                 })
                 .then((err) => {
+                  if (!err) {
+                    return
+                  }
                   resolve(err.body.authorizer_info)
                 })
           })
