@@ -62,6 +62,10 @@ export function getComponentAccessToken({
     )
       .send(params)
       .end((err, res) => {
+        if (!res) {
+          return
+        }
+
         console.log(res.body)
         Log(`获取令牌access_token:${res.body.component_access_token}`)
         resolve(res.body.component_access_token)
@@ -83,6 +87,10 @@ export async function getPreCode({
     return SuperAgent.post(_URL)
         .send(_Params)
         .end((err, res) => {
+          if (!res) {
+            return ''
+            resolve(null)
+          }
           const code: string = res.body.pre_auth_code
           Log(`获取预授权码: ${code}`)
           resolve(code)
@@ -110,11 +118,13 @@ function getSelfAccessComponentToken({ appid, root, secret }: any = {}) {
     // todo 做刷新机制
 
     SuperAgent.post(`https://api.weixin.qq.com/cgi-bin/component/api_component_token`).send(params).end((err, res) => {
-      Log(`获取自身access_token:${ res.body.component_access_token}`)
-      console.log(res.body)
-      DATA.self.component_access_token = res.body.component_access_token
-      DATA.self.update = new Date().getTime()
-      writeFile(root, DATA)
+      if (res) {
+        Log(`获取自身access_token:${ res.body.component_access_token}`)
+        console.log(res.body)
+        DATA.self.component_access_token = res.body.component_access_token
+        DATA.self.update = new Date().getTime()
+        writeFile(root, DATA)
+      }
     })
   }
 
