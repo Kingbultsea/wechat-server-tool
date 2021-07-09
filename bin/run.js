@@ -1,10 +1,27 @@
 #!/usr/bin/env node
 const argv = require('minimist')(process.argv.slice(2))
-
-console.log(argv)
+const path = require('path')
 
 try {
-  const server = require('../dist/node').createServer(argv)
+  const json = require(path.join(process.cwd(), './config.json'))
+
+  if (
+    ['appid', 'secret', 'encodingAESKey', 'token'].some((e) => {
+      if (json && json.wechat && !json.wechat[e]) {
+        return true
+      } else if (!(json && json.wechat) && !argv[e]) {
+        return true
+      }
+      return false
+    })
+  ) {
+    console.error('请正确配置appid secret plugins encodingAESKey token')
+    return
+  }
+
+  console.log(json)
+
+  const server = require('../dist/node').createServer(json.wechat || argv)
   let port = argv.port || 3000
 
   server.on('error', (e) => {

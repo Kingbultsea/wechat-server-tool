@@ -1,9 +1,11 @@
 // 处理第三方平台的信息
-import { Plugin } from './server';
+import { Plugin } from '../server';
 import { DATA } from './SelfWeChatPlugin'
-import { getData } from './util';
-import _Log from '../util/Log'
-import sendMediaDataCopy from './MessageParser/PicActivity/pickParser'
+import { getData } from '../util';
+import _Log from '../../util/Log'
+
+// 需插件引入
+import sendMediaDataCopy from '../Activity/Avatar'
 
 const ParsePlatFormMessagePlugins: Plugin = ({ Router, encrypt, root }) => {
     // 监听第三方平台信息

@@ -1,13 +1,13 @@
 import SuperAgent from 'superagent'
-import _Log from '../util/Log'
-import { Plugin } from './server'
+import _Log from '../../util/Log'
+import { Plugin } from '../server'
 import {
   EnctypeTicket,
   getComponentAccessToken,
   getPreCode,
   DATA
 } from './SelfWeChatPlugin'
-import { writeFile } from './util';
+import { writeFile } from '../util';
 
 const Log = _Log('Message from 第三方：')
 

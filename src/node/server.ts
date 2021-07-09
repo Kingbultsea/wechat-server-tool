@@ -1,14 +1,26 @@
 import http, { Server } from 'http'
 import Koa from 'koa'
-import SelfWeChatPlugin from './SelfWeChatPlugin'
-import ThirdPartWeChatPlugins from './ThirdPartWeChatPlugins'
+import SelfWeChatPlugin from './plugins/SelfWeChatPlugin'
+import ThirdPartWeChatPlugins from './plugins/ThirdPartWeChatPlugins'
 import _Router from 'koa-router'
 import _BodyParser from 'koa-bodyparser'
 import Encrypt from './Encrypt'
+import chokidar, { FSWatcher } from 'chokidar'
+import ParsePlatFormMessagePlugins from './plugins/ParsePlatFormMessagePlugin';
 
-// import _xmlParser from 'koa-xml-body'
-// import { app } from '@api/index'
-import ParsePlatFormMessagePlugins from './ParsePlatFormMessagePlugin';
+import LRUCache from 'lru-cache'
+
+interface UserInfoCache  {
+    name: string,
+    picUrl: string,
+    openid: string,
+    sex: string,
+    all: any
+}
+
+export const userInfoCache = new LRUCache<string, UserInfoCache>({
+    max: 65535
+})
 
 export type Plugin = (ctx: PluginContext) => void
 export const Router = new _Router()
@@ -20,6 +32,8 @@ export interface ServerConfig {
   plugins?: Plugin[]
   appid?: string
   secret?: string
+  encodingAESKey?: string
+  token?: string
 }
 
 export interface PluginContext {
@@ -29,7 +43,8 @@ export interface PluginContext {
   app?: Koa
   type: 'express' | 'koa'
   Router: typeof Router
-  root?: string
+  root?: string,
+    watcher: FSWatcher
 }
 
 export const internalPlugins: Plugin[] = [SelfWeChatPlugin, ThirdPartWeChatPlugins, ParsePlatFormMessagePlugins]
@@ -38,14 +53,17 @@ export function createServer({
   root = process.cwd(),
   appid = '',
   secret = '',
-  plugins = []
+  plugins = [],
+  encodingAESKey,
+  token
 }: ServerConfig = {}): Server {
   ROOT = root
-
   const app = new Koa()
+  const watcher = chokidar.watch(root, {
+      ignored: [/node_modules/]
+  })
 
   app.use(Router.routes())
-  // app.use(_xmlParser())
   app.use(_BodyParser())
   app.use(require('koa-static')(root))
 
@@ -54,19 +72,20 @@ export function createServer({
   // @ts-ignore
   const encrypt = new Encrypt({
       appId: appid,
-      encodingAESKey: 'eUbVREqK4jh9XHeYTZPHRTCzFz8PDWL2nieCZzganJv',
-      token: 'kingbultsea'
+      encodingAESKey,
+      token
   })
 
-  ;[...plugins, ...internalPlugins].forEach((m) =>
+  ;[...internalPlugins, ...plugins].forEach((m) =>
     m({
-        encrypt,
+      encrypt,
       appid,
       secret,
       app,
       type: 'koa',
       Router,
-      root
+      root,
+      watcher
     })
   )
 

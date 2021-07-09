@@ -1,14 +1,14 @@
-import { Plugin } from './server'
-import _Log from '../util/Log'
+import { Plugin } from '../server'
+import _Log from '../../util/Log'
 import SuperAgent from 'superagent'
-import { writeFile, getData } from './util';
+import { writeFile, getData } from '../util';
 
-import DATA from "../../DATA.json"
-export { DATA }
+import _DATA from "../../../DATA.json"
+
+export const DATA = _DATA ? _DATA : {}
+export let EnctypeTicket = DATA && DATA.self && DATA.self.Encrypt
 
 const Log = _Log('Message from 自身平台：')
-
-export let EnctypeTicket = DATA && DATA.self && DATA.self.Encrypt
 Log(`读取本地DATA文件，获取EnctypeTicket: ${EnctypeTicket}`)
 
 // 微信第三方自身授权
@@ -157,7 +157,7 @@ function refleash({ appid, root }: any = {}) {
           target.refresh_authorizer_refresh_token = res.body.authorizer_refresh_token
           writeFile(root, DATA)
         } else {
-          Log(`刷新后，没有数据`)
+          Log(`刷新后，没有数据，请查看异常提示`)
           console.log(res.body)
         }
 

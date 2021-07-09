@@ -12,11 +12,6 @@
     "noImplicitAny": true,
     "removeComments": false,
 
-    "baseUrl": "./",
-    "paths": {
-      "@node/*": ["src/node/*"],
-      "@api/*": ["src/api/*"],
-      "@util/*": ["src/util/*"]
-    }
+    "baseUrl": "./"
   }
 }
