@@ -9,7 +9,6 @@ const getPostData = (ctx: any): Promise<string> => {
                 str += data;
             })
             ctx.req.on('end', function () {
-                console.log(str)
                 resolve(str)
             })
         }catch (e) {
