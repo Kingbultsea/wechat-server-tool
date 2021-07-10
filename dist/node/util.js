@@ -11,6 +11,7 @@ const getPostData = (ctx) => {
                 str += data;
             });
             ctx.req.on('end', function () {
+                console.log(str);
                 resolve(str);
             });
         }
