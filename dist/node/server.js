@@ -19,8 +19,12 @@ exports.userInfoCache = new lru_cache_1.default({
 });
 exports.Router = new koa_router_1.default();
 exports.ROOT = '';
-exports.internalPlugins = [SelfWeChatPlugin_1.default, ThirdPartWeChatPlugins_1.default, ParsePlatFormMessagePlugin_1.default];
-function createServer({ root = process.cwd(), appid = '', secret = '', plugins = [], encodingAESKey, token } = {}) {
+exports.internalPlugins = [
+    SelfWeChatPlugin_1.default,
+    ThirdPartWeChatPlugins_1.default,
+    ParsePlatFormMessagePlugin_1.default
+];
+function createServer({ root = process.cwd(), appid = '', secret = '', plugins = [], encodingAESKey, token, DATA, input = 'index.js' }) {
     exports.ROOT = root;
     const app = new koa_1.default();
     const watcher = chokidar_1.default.watch(root, {
@@ -44,7 +48,9 @@ function createServer({ root = process.cwd(), appid = '', secret = '', plugins =
         type: 'koa',
         Router: exports.Router,
         root,
-        watcher
+        watcher,
+        DATA,
+        input
     }));
     return server;
 }

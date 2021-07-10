@@ -1,3 +1,3 @@
 import { Plugin } from '../server';
-declare const ThirdPartWeChatPlugins: Plugin;
-export default ThirdPartWeChatPlugins;
+declare const ThirdPartWeChatPlugin: Plugin;
+export default ThirdPartWeChatPlugin;

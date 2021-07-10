@@ -27,6 +27,21 @@ export const Router = new _Router()
 
 export let ROOT = ''
 
+export interface DataType {
+    self: {
+        Encrypt: string
+    },
+    thirdPart: {
+        appid: string
+        authorizer_access_token: string
+        refresh_authorizer_refresh_token: string
+        update: number
+        create: number
+        qrcode_url: string
+        name: string
+    }[]
+}
+
 export interface ServerConfig {
   root?: string
   plugins?: Plugin[]
@@ -34,6 +49,8 @@ export interface ServerConfig {
   secret?: string
   encodingAESKey?: string
   token?: string
+    DATA: DataType
+    input: string
 }
 
 export interface PluginContext {
@@ -41,13 +58,19 @@ export interface PluginContext {
   appid: string
   secret: string
   app?: Koa
-  type: 'express' | 'koa'
+  type: 'koa'
   Router: typeof Router
-  root?: string,
+  root?: string
     watcher: FSWatcher
+    DATA: DataType
+    input: string
 }
 
-export const internalPlugins: Plugin[] = [SelfWeChatPlugin, ThirdPartWeChatPlugins, ParsePlatFormMessagePlugins]
+export const internalPlugins: Plugin[] = [
+    SelfWeChatPlugin,
+    ThirdPartWeChatPlugins,
+    ParsePlatFormMessagePlugins
+]
 
 export function createServer({
   root = process.cwd(),
@@ -55,8 +78,10 @@ export function createServer({
   secret = '',
   plugins = [],
   encodingAESKey,
-  token
-}: ServerConfig = {}): Server {
+  token,
+  DATA,
+    input = 'index.js'
+}: ServerConfig): Server {
   ROOT = root
   const app = new Koa()
   const watcher = chokidar.watch(root, {
@@ -85,7 +110,9 @@ export function createServer({
       type: 'koa',
       Router,
       root,
-      watcher
+      watcher,
+      DATA,
+        input
     })
   )
 

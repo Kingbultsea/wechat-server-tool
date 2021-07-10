@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const fs = require('fs').promises
 const argv = require('minimist')(process.argv.slice(2))
 const path = require('path')
 
@@ -19,11 +20,35 @@ try {
     return
   }
 
-  console.log(json)
+  const config = json.wechat || argv
 
-  const server = require('../dist/node').createServer(json.wechat || argv)
+  try {
+    // 磁盘数据
+    config.DATA = require(path.join(process.cwd(), json.data))
+  } catch (e) {
+    // 无则创建
+    if (!config.DATA) {
+      const temp = {
+        self: {
+          Encrypt: ''
+        },
+        thirdPart: []
+      }
+
+      config.DATA = temp
+
+      fs.writeFile(
+        path.join(process.cwd(), 'DATA.json'),
+        JSON.stringify(temp)
+      )
+    }
+  }
+
+  console.log('测试', process)
+
+  const server = require('../dist/node').createServer(config)
+
   let port = argv.port || 3000
-
   server.on('error', (e) => {
     if (e.code === 'EADDRINUSE') {
       console.log(`port ${port} is in use, trying another one...`)

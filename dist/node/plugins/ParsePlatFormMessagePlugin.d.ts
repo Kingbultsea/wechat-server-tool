@@ -1,3 +1,3 @@
 import { Plugin } from '../server';
-declare const ParsePlatFormMessagePlugins: Plugin;
-export default ParsePlatFormMessagePlugins;
+declare const ParsePlatFormMessagePlugin: Plugin;
+export default ParsePlatFormMessagePlugin;

@@ -1,21 +1,22 @@
 import { Plugin } from '../server'
 import _Log from '../../util/Log'
 import SuperAgent from 'superagent'
-import { writeFile, getData } from '../util';
+import { writeFile, getData } from '../util'
 
-import _DATA from "../../../DATA.json"
-
-export const DATA = _DATA ? _DATA : {}
-export let EnctypeTicket = DATA && DATA.self && DATA.self.Encrypt
+export let EnctypeTicket = ''
 
 const Log = _Log('Message from 自身平台：')
 Log(`读取本地DATA文件，获取EnctypeTicket: ${EnctypeTicket}`)
 
 // 微信第三方自身授权
-const SelfWeChatPlugin: Plugin = ({  app, Router, root, encrypt, appid, secret }) => {
+const SelfWeChatPlugin: Plugin = ({  app, Router, root, encrypt, appid, secret, DATA }) => {
   if (app) {
-    app.use(async (ctx, next) => {})
+    app.use(async (ctx, next) => {
+
+    })
   }
+
+  EnctypeTicket = DATA && DATA.self && DATA.self.Encrypt
 
   // 每10分钟会有请求进来
   Router.post('/wechat_open_platform/auth/callback', async (ctx: any, res: any) => {
@@ -35,9 +36,9 @@ const SelfWeChatPlugin: Plugin = ({  app, Router, root, encrypt, appid, secret }
     }
   })
 
-  getSelfAccessComponentToken({ appid, root, secret })
+  getSelfAccessComponentToken({ appid, root, secret, DATA })
 
-  refleash({ appid, root })
+  refleash({ appid, root, DATA })
 }
 
 // 获取自身平台的令牌
@@ -100,13 +101,9 @@ export async function getPreCode({
 }
 
 // 获取账号自身的AccessComponentToken 用于刷新
-// todo也需要刷新机制
-// 好像每次刷新都只有一次吧
-function getSelfAccessComponentToken({ appid, root, secret }: any = {}) {
+function getSelfAccessComponentToken({ appid, root, secret, DATA }: any = {}) {
   const minTime = new Date().getTime() - parseInt(DATA.self.update || 0)
   const time = 1000 * 60 * 50
-
-  console.log('检测过期', minTime, DATA.self.update)
 
   if (minTime >= time) {
     const params = {
@@ -115,15 +112,17 @@ function getSelfAccessComponentToken({ appid, root, secret }: any = {}) {
       component_verify_ticket: DATA.self.Encrypt
     }
 
-    // todo 做刷新机制
-
     SuperAgent.post(`https://api.weixin.qq.com/cgi-bin/component/api_component_token`).send(params).end((err, res) => {
       if (res) {
-        Log(`获取自身access_token:${ res.body.component_access_token}`)
-        console.log(res.body)
-        DATA.self.component_access_token = res.body.component_access_token
-        DATA.self.update = new Date().getTime()
-        writeFile(root, DATA)
+        if (res.body.component_access_token) {
+          Log(`获取access_token:${ res.body.component_access_token }`)
+          DATA.self.component_access_token = res.body.component_access_token
+          DATA.self.update = new Date().getTime()
+          writeFile(root, DATA)
+        } else {
+          Log('获取失败，请查看异常提示')
+          console.log(res.body)
+        }
       }
     })
   }
@@ -136,7 +135,7 @@ function getSelfAccessComponentToken({ appid, root, secret }: any = {}) {
 
 // 刷新机制
 // todo 删除
-function refleash({ appid, root }: any = {}) {
+function refleash({ appid, root, DATA }: any = {}) {
   DATA.thirdPart.forEach((v: any, index: number) => {
     const minTime = new Date().getTime() - parseInt(v.update)
     const time = 1000 * 60 * 60
@@ -157,7 +156,7 @@ function refleash({ appid, root }: any = {}) {
           target.refresh_authorizer_refresh_token = res.body.authorizer_refresh_token
           writeFile(root, DATA)
         } else {
-          Log(`刷新后，没有数据，请查看异常提示`)
+          Log(`${target.name}刷新后，没有数据，请查看异常提示`)
           console.log(res.body)
         }
 

@@ -8,7 +8,11 @@ const Log_1 = __importDefault(require("../../util/Log"));
 const SelfWeChatPlugin_1 = require("./SelfWeChatPlugin");
 const util_1 = require("../util");
 const Log = Log_1.default('Message from 第三方：');
-const ThirdPartWeChatPlugins = ({ appid, secret, Router, root }) => {
+const ThirdPartWeChatPlugin = ({ app, appid, secret, Router, root, DATA }) => {
+    if (app) {
+        app.use(async (ctx, next) => {
+        });
+    }
     let ACCESS_TOKEN = '';
     // step1 发送第三方的预授权码
     Router.get('/wechat_open_platform/preauthcode', async (ctx, res) => {
@@ -32,11 +36,11 @@ const ThirdPartWeChatPlugins = ({ appid, secret, Router, root }) => {
             ctx.response.body = 'error';
             return;
         }
-        Authorization(ctx.query.ac, ACCESS_TOKEN, appid, root);
+        Authorization(ctx.query.ac, ACCESS_TOKEN, appid, root, DATA);
         ctx.response.body = 'success';
     });
 };
-function Authorization(authorization_code, ACCESS_TOKEN, appid, root) {
+function Authorization(authorization_code, ACCESS_TOKEN, appid, root, DATA) {
     Log(`授权开始，authorization_code: ${authorization_code}`);
     return new Promise((resolve) => {
         superagent_1.default.post(`https://api.weixin.qq.com/cgi-bin/component/api_query_auth?component_access_token=${ACCESS_TOKEN}`)
@@ -73,7 +77,7 @@ function Authorization(authorization_code, ACCESS_TOKEN, appid, root) {
             });
             Log(`${platFormInfo.nick_name}第三方授权完成，将凭借refresh_authorizer_refresh_token，每一个小时刷新一次authorizer_access_token`);
             // 写入&更新第三方平台的信息
-            setupPlatFormData({ AUTHORIZATION_INFO, authorizer_access_token, refresh_authorizer_refresh_token, platFormInfo, root });
+            setupPlatFormData({ AUTHORIZATION_INFO, authorizer_access_token, refresh_authorizer_refresh_token, platFormInfo, root, DATA });
             // 返回第三方平台的id
             resolve(AUTHORIZATION_INFO.authorizer_appid);
         });
@@ -81,7 +85,7 @@ function Authorization(authorization_code, ACCESS_TOKEN, appid, root) {
 }
 // todo 类型
 // 写入或更新第三方平台的信息
-function setupPlatFormData({ AUTHORIZATION_INFO, authorizer_access_token, refresh_authorizer_refresh_token, platFormInfo, root } = {}) {
+function setupPlatFormData({ AUTHORIZATION_INFO, authorizer_access_token, refresh_authorizer_refresh_token, platFormInfo, root, DATA } = {}) {
     let targetIndex = null;
     const thirdPlatForm = {
         appid: AUTHORIZATION_INFO.authorizer_appid,
@@ -92,8 +96,8 @@ function setupPlatFormData({ AUTHORIZATION_INFO, authorizer_access_token, refres
         qrcode_url: platFormInfo.qrcode_url,
         name: platFormInfo.nick_name
     };
-    for (let i = 0; i < SelfWeChatPlugin_1.DATA.thirdPart.length; i++) {
-        const old = SelfWeChatPlugin_1.DATA.thirdPart[i];
+    for (let i = 0; i < DATA.thirdPart.length; i++) {
+        const old = DATA.thirdPart[i];
         if (old.appid === AUTHORIZATION_INFO.authorizer_appid) {
             targetIndex = i;
             thirdPlatForm.create = old.create;
@@ -101,12 +105,12 @@ function setupPlatFormData({ AUTHORIZATION_INFO, authorizer_access_token, refres
         }
     }
     if (!targetIndex) {
-        SelfWeChatPlugin_1.DATA.thirdPart.push(thirdPlatForm);
+        DATA.thirdPart.push(thirdPlatForm);
     }
     else {
-        SelfWeChatPlugin_1.DATA.thirdPart[targetIndex] = thirdPlatForm;
+        DATA.thirdPart[targetIndex] = thirdPlatForm;
     }
     // todo 数据库保存平台的信息 与刷新token
-    util_1.writeFile(root, SelfWeChatPlugin_1.DATA);
+    util_1.writeFile(root, DATA);
 }
-exports.default = ThirdPartWeChatPlugins;
+exports.default = ThirdPartWeChatPlugin;

@@ -1,13 +1,44 @@
 // 处理第三方平台的信息
 import { Plugin } from '../server';
-import { DATA } from './SelfWeChatPlugin'
 import { getData } from '../util';
 import _Log from '../../util/Log'
+
+const madge = require('madge');
+const path = require("path")
 
 // 需插件引入
 import sendMediaDataCopy from '../Activity/Avatar'
 
-const ParsePlatFormMessagePlugins: Plugin = ({ Router, encrypt, root }) => {
+const ParsePlatFormMessagePlugin: Plugin = ({ app, Router, encrypt, root, DATA, input, watcher }) => {
+    let inputMth: Function
+
+    try {
+        const Log = _Log(`热更新：`)
+        watcher.on('change', (file) => {
+            madge(path.join(root, input)).then((res: { tree: Record<string, any[]> }) => {
+                console.log(res.tree)
+                if (Object.keys(res.tree).includes(
+                    path.relative(root, file)
+                )) {
+                    Log(`文件${file}改动，将重加载入口方法`)
+                    // 消息处理
+                    inputMth = require(path.join(root, input))
+                }
+            });
+        })
+
+        // 消息处理
+        inputMth = require(path.join(root, input))
+    } catch (e) {
+        console.log(e)
+    }
+
+    if (app) {
+        app.use(async (ctx, next) => {
+
+        })
+    }
+
     // 监听第三方平台信息
     Router.post(`/wechat_open_platform/:id/message`, async (ctx) => {
         const platFormId = ctx.params.id
@@ -33,17 +64,18 @@ const ParsePlatFormMessagePlugins: Plugin = ({ Router, encrypt, root }) => {
 
         ctx.response.body = 'success'
 
-        // todo 消息插件
+        // todo 消息插件  target content FromUserName
+        if (inputMth && typeof inputMth === 'function') {
+            inputMth()
+        }
         if ((target.appid === 'wx7630866bd98a50de' || target.appid === 'wx0ea308250417bd30') && ['百年', '100年', '头像', '我要头像', '党旗', '建党'].includes(Content)) {
             // 图片活动
             sendMediaDataCopy({ targetInfo: target, uid: FromUserName, content: Content, root, frameName: ['1', '2', '3', '6', '7','8', '10'], dir: 'sanwei' })
-            return
         } else if ((target.appid === 'wx85df74b62aad79ed' || target.appid === 'wx0ea308250417bd30') && ['七一', '建党', '百年风华', '建党百年', '七一建党', '建党100周年', '71'].includes(Content)) {
             // 图片活动
             sendMediaDataCopy({ targetInfo: target, uid: FromUserName, content: Content, root, frameName: ['xs1', 'xs2', 'xs3', 'xs4'], dir: 'xuesong' })
-            return
         }
     })
 }
 
-export default ParsePlatFormMessagePlugins
+export default ParsePlatFormMessagePlugin

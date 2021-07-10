@@ -8,7 +8,7 @@ import { getUserInfo, sendMediaContent } from '../MessageParser'
 const fs = require('fs')
 const path = require("path")
 
-// 边框贴图渲染活动
+// 边框贴图渲染
 export async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '', dir }: { root?: any, frameName?: any, userPicUrl?: string, dir?: string } = {}) {
     const width = 512
     const height = 512
@@ -55,23 +55,16 @@ export async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '', d
     return promise
 }
 
-async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [], dir }: any = {}) {
-    // todo 用户繁忙设置
-    return new Promise(async (resolve) => {
-        let formData = {
-            my_field: 'my_value',
-            my_file:  '' // fs.createReadStream(path.join(process.cwd(), `./test.jpg`))
-        }
+async function activityFlow({ targetInfo, uid, resolve, frameName, root, dir, index = 0 }: any = {}) {
+    let formData = {
+        my_field: 'my_value',
+        my_file:  ''
+    }
 
-        // 获取用户信息头像
-        const userInfo = await getUserInfo({ serveAccessToken: targetInfo.authorizer_access_token, uid, platFormName: targetInfo.name  })
-        activityFlow({ userInfo, formData, targetInfo, uid, resolve, frameName, index: 0, root, dir })
-    }).catch((e) => {
-        console.log(e, 'error')
-    })
-}
+    // 获取用户信息头像
+    const userInfo = await getUserInfo({ serveAccessToken: targetInfo.authorizer_access_token, uid, platFormName: targetInfo.name  })
+    activityFlow({ userInfo, formData, targetInfo, uid, frameName, index: 0, root, dir })
 
-async function activityFlow({ userInfo, formData, targetInfo, uid, resolve, frameName, index = 0, root, dir }: any = {}) {
     let resultPath: any = ''
     if (userInfo && userInfo.picUrl) {
         resultPath = await parseBlockTypeAvatar({ root, frameName: frameName[index] + '.png', userPicUrl: (userInfo || {}).picUrl, dir  })
@@ -111,4 +104,4 @@ async function activityFlow({ userInfo, formData, targetInfo, uid, resolve, fram
     })
 }
 
-export default sendMediaDataCopy
+export default activityFlow

@@ -5,13 +5,19 @@ import {
   EnctypeTicket,
   getComponentAccessToken,
   getPreCode,
-  DATA
 } from './SelfWeChatPlugin'
-import { writeFile } from '../util';
+import { writeFile } from '../util'
+import { DataType } from '../server'
 
 const Log = _Log('Message from 第三方：')
 
-const ThirdPartWeChatPlugins: Plugin = ({ appid, secret, Router, root }) => {
+const ThirdPartWeChatPlugin: Plugin = ({ app, appid, secret, Router, root, DATA }) => {
+  if (app) {
+    app.use(async (ctx, next) => {
+
+    })
+  }
+
   let ACCESS_TOKEN = ''
 
   // step1 发送第三方的预授权码
@@ -42,7 +48,7 @@ const ThirdPartWeChatPlugins: Plugin = ({ appid, secret, Router, root }) => {
       return
     }
 
-    Authorization(ctx.query.ac as string, ACCESS_TOKEN, appid, root!)
+    Authorization(ctx.query.ac as string, ACCESS_TOKEN, appid, root!, DATA!)
     ctx.response.body = 'success'
   })
 }
@@ -51,7 +57,8 @@ function Authorization(
   authorization_code: string,
   ACCESS_TOKEN: string,
   appid: string,
-  root: string
+  root: string,
+  DATA: DataType
 ): Promise<string> {
   Log(`授权开始，authorization_code: ${authorization_code}`)
 
@@ -106,7 +113,7 @@ function Authorization(
           )
 
           // 写入&更新第三方平台的信息
-          setupPlatFormData({ AUTHORIZATION_INFO, authorizer_access_token, refresh_authorizer_refresh_token, platFormInfo, root })
+          setupPlatFormData({ AUTHORIZATION_INFO, authorizer_access_token, refresh_authorizer_refresh_token, platFormInfo, root, DATA })
 
           // 返回第三方平台的id
           resolve(AUTHORIZATION_INFO.authorizer_appid)
@@ -116,7 +123,7 @@ function Authorization(
 
 // todo 类型
 // 写入或更新第三方平台的信息
-function setupPlatFormData({ AUTHORIZATION_INFO, authorizer_access_token, refresh_authorizer_refresh_token, platFormInfo, root }: any = {}) {
+function setupPlatFormData({ AUTHORIZATION_INFO, authorizer_access_token, refresh_authorizer_refresh_token, platFormInfo, root, DATA }: any = {}) {
   let targetIndex: null | number = null
   const thirdPlatForm = {
     appid: AUTHORIZATION_INFO.authorizer_appid,
@@ -147,4 +154,4 @@ function setupPlatFormData({ AUTHORIZATION_INFO, authorizer_access_token, refres
   writeFile(root, DATA)
 }
 
-export default ThirdPartWeChatPlugins
+export default ThirdPartWeChatPlugin

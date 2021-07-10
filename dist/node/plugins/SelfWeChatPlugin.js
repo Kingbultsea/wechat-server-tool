@@ -3,28 +3,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getPreCode = exports.getComponentAccessToken = exports.EnctypeTicket = exports.DATA = void 0;
+exports.getPreCode = exports.getComponentAccessToken = exports.EnctypeTicket = void 0;
 const Log_1 = __importDefault(require("../../util/Log"));
 const superagent_1 = __importDefault(require("superagent"));
 const util_1 = require("../util");
-const DATA_json_1 = __importDefault(require("../../../DATA.json"));
-exports.DATA = DATA_json_1.default ? DATA_json_1.default : {};
-exports.EnctypeTicket = exports.DATA && exports.DATA.self && exports.DATA.self.Encrypt;
+exports.EnctypeTicket = '';
 const Log = Log_1.default('Message from 自身平台：');
 Log(`读取本地DATA文件，获取EnctypeTicket: ${exports.EnctypeTicket}`);
 // 微信第三方自身授权
-const SelfWeChatPlugin = ({ app, Router, root, encrypt, appid, secret }) => {
+const SelfWeChatPlugin = ({ app, Router, root, encrypt, appid, secret, DATA }) => {
     if (app) {
-        app.use(async (ctx, next) => { });
+        app.use(async (ctx, next) => {
+        });
     }
+    exports.EnctypeTicket = DATA && DATA.self && DATA.self.Encrypt;
     // 每10分钟会有请求进来
     Router.post('/wechat_open_platform/auth/callback', async (ctx, res) => {
         const { result: _EnctypeTicket, bodyXML } = await util_1.getData(ctx, encrypt, 'ComponentVerifyTicket');
         if (_EnctypeTicket) {
             exports.EnctypeTicket = _EnctypeTicket;
             // todo 抓获setter
-            exports.DATA.self.Encrypt = exports.EnctypeTicket;
-            util_1.writeFile(root, exports.DATA);
+            DATA.self.Encrypt = exports.EnctypeTicket;
+            util_1.writeFile(root, DATA);
             Log(`微信端接收EnctypeTicket：${exports.EnctypeTicket}`);
             ctx.response.body = 'success';
         }
@@ -32,8 +32,8 @@ const SelfWeChatPlugin = ({ app, Router, root, encrypt, appid, secret }) => {
             Log(`微信端接收EnctypeTicket异常: ${bodyXML}`);
         }
     });
-    getSelfAccessComponentToken({ appid, root, secret });
-    refleash({ appid, root });
+    getSelfAccessComponentToken({ appid, root, secret, DATA });
+    refleash({ appid, root, DATA });
 };
 // 获取自身平台的令牌
 function getComponentAccessToken({ appid, secret, enctypeTicket } = {}) {
@@ -83,26 +83,27 @@ async function getPreCode({ appid, access_token } = {}) {
 }
 exports.getPreCode = getPreCode;
 // 获取账号自身的AccessComponentToken 用于刷新
-// todo也需要刷新机制
-// 好像每次刷新都只有一次吧
-function getSelfAccessComponentToken({ appid, root, secret } = {}) {
-    const minTime = new Date().getTime() - parseInt(exports.DATA.self.update || 0);
+function getSelfAccessComponentToken({ appid, root, secret, DATA } = {}) {
+    const minTime = new Date().getTime() - parseInt(DATA.self.update || 0);
     const time = 1000 * 60 * 50;
-    console.log('检测过期', minTime, exports.DATA.self.update);
     if (minTime >= time) {
         const params = {
             component_appid: appid,
             component_appsecret: secret,
-            component_verify_ticket: exports.DATA.self.Encrypt
+            component_verify_ticket: DATA.self.Encrypt
         };
-        // todo 做刷新机制
         superagent_1.default.post(`https://api.weixin.qq.com/cgi-bin/component/api_component_token`).send(params).end((err, res) => {
             if (res) {
-                Log(`获取自身access_token:${res.body.component_access_token}`);
-                console.log(res.body);
-                exports.DATA.self.component_access_token = res.body.component_access_token;
-                exports.DATA.self.update = new Date().getTime();
-                util_1.writeFile(root, exports.DATA);
+                if (res.body.component_access_token) {
+                    Log(`获取access_token:${res.body.component_access_token}`);
+                    DATA.self.component_access_token = res.body.component_access_token;
+                    DATA.self.update = new Date().getTime();
+                    util_1.writeFile(root, DATA);
+                }
+                else {
+                    Log('获取失败，请查看异常提示');
+                    console.log(res.body);
+                }
             }
         });
     }
@@ -113,8 +114,8 @@ function getSelfAccessComponentToken({ appid, root, secret } = {}) {
 }
 // 刷新机制
 // todo 删除
-function refleash({ appid, root } = {}) {
-    exports.DATA.thirdPart.forEach((v, index) => {
+function refleash({ appid, root, DATA } = {}) {
+    DATA.thirdPart.forEach((v, index) => {
         const minTime = new Date().getTime() - parseInt(v.update);
         const time = 1000 * 60 * 60;
         const params = {
@@ -123,17 +124,17 @@ function refleash({ appid, root } = {}) {
             authorizer_refresh_token: v.refresh_authorizer_refresh_token // 授权方的刷新令牌
         };
         if (v.appid && (minTime >= time)) {
-            const target = exports.DATA.thirdPart[index];
+            const target = DATA.thirdPart[index];
             Log(`刷新${target.name}的accessToken`);
-            superagent_1.default.post(`https://api.weixin.qq.com/cgi-bin/component/api_authorizer_token?component_access_token=${exports.DATA.self.component_access_token}`).send(params).end(async (err, res) => {
+            superagent_1.default.post(`https://api.weixin.qq.com/cgi-bin/component/api_authorizer_token?component_access_token=${DATA.self.component_access_token}`).send(params).end(async (err, res) => {
                 if (res.body.authorizer_access_token) {
                     target.update = new Date().getTime();
                     target.authorizer_access_token = res.body.authorizer_access_token;
                     target.refresh_authorizer_refresh_token = res.body.authorizer_refresh_token;
-                    util_1.writeFile(root, exports.DATA);
+                    util_1.writeFile(root, DATA);
                 }
                 else {
-                    Log(`刷新后，没有数据，请查看异常提示`);
+                    Log(`${target.name}刷新后，没有数据，请查看异常提示`);
                     console.log(res.body);
                 }
             });

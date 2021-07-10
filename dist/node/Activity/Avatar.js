@@ -12,7 +12,7 @@ const request_1 = __importDefault(require("request"));
 const MessageParser_1 = require("../MessageParser");
 const fs = require('fs');
 const path = require("path");
-// 边框贴图渲染活动
+// 边框贴图渲染
 async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '', dir } = {}) {
     const width = 512;
     const height = 512;
@@ -54,21 +54,14 @@ async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '', dir } = 
     return promise;
 }
 exports.parseBlockTypeAvatar = parseBlockTypeAvatar;
-async function sendMediaDataCopy({ targetInfo, uid, root, frameName = [], dir } = {}) {
-    // todo 用户繁忙设置
-    return new Promise(async (resolve) => {
-        let formData = {
-            my_field: 'my_value',
-            my_file: '' // fs.createReadStream(path.join(process.cwd(), `./test.jpg`))
-        };
-        // 获取用户信息头像
-        const userInfo = await MessageParser_1.getUserInfo({ serveAccessToken: targetInfo.authorizer_access_token, uid, platFormName: targetInfo.name });
-        activityFlow({ userInfo, formData, targetInfo, uid, resolve, frameName, index: 0, root, dir });
-    }).catch((e) => {
-        console.log(e, 'error');
-    });
-}
-async function activityFlow({ userInfo, formData, targetInfo, uid, resolve, frameName, index = 0, root, dir } = {}) {
+async function activityFlow({ targetInfo, uid, resolve, frameName, root, dir, index = 0 } = {}) {
+    let formData = {
+        my_field: 'my_value',
+        my_file: ''
+    };
+    // 获取用户信息头像
+    const userInfo = await MessageParser_1.getUserInfo({ serveAccessToken: targetInfo.authorizer_access_token, uid, platFormName: targetInfo.name });
+    activityFlow({ userInfo, formData, targetInfo, uid, frameName, index: 0, root, dir });
     let resultPath = '';
     if (userInfo && userInfo.picUrl) {
         resultPath = await parseBlockTypeAvatar({ root, frameName: frameName[index] + '.png', userPicUrl: (userInfo || {}).picUrl, dir });
@@ -104,4 +97,4 @@ async function activityFlow({ userInfo, formData, targetInfo, uid, resolve, fram
         resolve(null);
     });
 }
-exports.default = sendMediaDataCopy;
+exports.default = activityFlow;
