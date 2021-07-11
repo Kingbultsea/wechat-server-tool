@@ -8,6 +8,7 @@ import Encrypt from './Encrypt'
 import chokidar, { FSWatcher } from 'chokidar'
 import ParsePlatFormMessagePlugins from './plugins/ParsePlatFormMessagePlugin';
 
+// @ts-ignore
 import LRUCache from 'lru-cache'
 
 export interface UserInfo  {
