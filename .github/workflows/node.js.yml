@@ -4,9 +4,8 @@
 name: Node.js CI
 
 on:
-  push:
-    branches: 
-    - /((^tags\/v[0-9]+\.[0-9]+\.[0-9]+)|(^v[0-9]+\.[0-9]+\.[0-9]+((-(beta|rc|alpha|test|pre)-?[0-9]+))?$))/
+  release:
+    types: [published]
 
 jobs:
   build:
@@ -26,7 +25,7 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm run build --if-present
-  
+
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
