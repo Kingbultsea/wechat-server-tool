@@ -1,10 +1,14 @@
 #!/usr/bin/env node
 const fs = require('fs').promises
 const argv = require('minimist')(process.argv.slice(2))
+console.log(process.argv)
 const path = require('path')
 
 try {
   const json = require(path.join(process.cwd(), './config.json'))
+  if (argv.test) {
+    global.__TEST__ = true
+  }
 
   if (
     ['appid', 'secret', 'encodingAESKey', 'token'].some((e) => {
@@ -43,8 +47,6 @@ try {
       )
     }
   }
-
-  console.log('测试', process)
 
   const server = require('../dist/node').createServer(config)
 

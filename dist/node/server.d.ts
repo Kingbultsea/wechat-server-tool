@@ -6,14 +6,14 @@ import Koa from 'koa';
 import _Router from 'koa-router';
 import { FSWatcher } from 'chokidar';
 import LRUCache from 'lru-cache';
-interface UserInfoCache {
+export interface UserInfo {
     name: string;
     picUrl: string;
     openid: string;
     sex: string;
     all: any;
 }
-export declare const userInfoCache: LRUCache<string, UserInfoCache>;
+export declare const userInfoCache: LRUCache<string, UserInfo>;
 export declare type Plugin = (ctx: PluginContext) => void;
 export declare const Router: _Router<any, {}>;
 export declare let ROOT: string;
@@ -55,4 +55,3 @@ export interface PluginContext {
 }
 export declare const internalPlugins: Plugin[];
 export declare function createServer({ root, appid, secret, plugins, encodingAESKey, token, DATA, input }: ServerConfig): Server;
-export {};

@@ -4,5 +4,5 @@ export declare function parseBlockTypeAvatar({ root, frameName, userPicUrl, dir 
     userPicUrl?: string;
     dir?: string;
 }): Promise<unknown>;
-declare function activityFlow({ targetInfo, uid, resolve, frameName, root, dir, index }?: any): Promise<void>;
-export default activityFlow;
+declare function avatarPlugins({ targetInfo, uid, frameName, root, dir, index }?: any): Promise<"" | undefined>;
+export default avatarPlugins;

@@ -8,14 +8,13 @@ const Log_1 = __importDefault(require("../../util/Log"));
 const madge = require('madge');
 const path = require("path");
 // 需插件引入
-const Avatar_1 = __importDefault(require("../Activity/Avatar"));
+// import avatarPlugins from '../Activity/Avatar'
 const ParsePlatFormMessagePlugin = ({ app, Router, encrypt, root, DATA, input, watcher }) => {
     let inputMth;
     try {
         const Log = Log_1.default(`热更新：`);
         watcher.on('change', (file) => {
             madge(path.join(root, input)).then((res) => {
-                console.log(res.tree);
                 if (Object.keys(res.tree).includes(path.relative(root, file))) {
                     Log(`文件${file}改动，将重加载入口方法`);
                     // 消息处理
@@ -53,15 +52,7 @@ const ParsePlatFormMessagePlugin = ({ app, Router, encrypt, root, DATA, input, w
         ctx.response.body = 'success';
         // todo 消息插件  target content FromUserName
         if (inputMth && typeof inputMth === 'function') {
-            inputMth();
-        }
-        if ((target.appid === 'wx7630866bd98a50de' || target.appid === 'wx0ea308250417bd30') && ['百年', '100年', '头像', '我要头像', '党旗', '建党'].includes(Content)) {
-            // 图片活动
-            Avatar_1.default({ targetInfo: target, uid: FromUserName, content: Content, root, frameName: ['1', '2', '3', '6', '7', '8', '10'], dir: 'sanwei' });
-        }
-        else if ((target.appid === 'wx85df74b62aad79ed' || target.appid === 'wx0ea308250417bd30') && ['七一', '建党', '百年风华', '建党百年', '七一建党', '建党100周年', '71'].includes(Content)) {
-            // 图片活动
-            Avatar_1.default({ targetInfo: target, uid: FromUserName, content: Content, root, frameName: ['xs1', 'xs2', 'xs3', 'xs4'], dir: 'xuesong' });
+            inputMth({ target, Content, FromUserName, root });
         }
     });
 };

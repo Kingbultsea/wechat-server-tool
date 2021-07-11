@@ -7,7 +7,7 @@ const madge = require('madge');
 const path = require("path")
 
 // 需插件引入
-import sendMediaDataCopy from '../Activity/Avatar'
+// import avatarPlugins from '../Activity/Avatar'
 
 const ParsePlatFormMessagePlugin: Plugin = ({ app, Router, encrypt, root, DATA, input, watcher }) => {
     let inputMth: Function
@@ -16,7 +16,6 @@ const ParsePlatFormMessagePlugin: Plugin = ({ app, Router, encrypt, root, DATA, 
         const Log = _Log(`热更新：`)
         watcher.on('change', (file) => {
             madge(path.join(root, input)).then((res: { tree: Record<string, any[]> }) => {
-                console.log(res.tree)
                 if (Object.keys(res.tree).includes(
                     path.relative(root, file)
                 )) {
@@ -66,14 +65,7 @@ const ParsePlatFormMessagePlugin: Plugin = ({ app, Router, encrypt, root, DATA, 
 
         // todo 消息插件  target content FromUserName
         if (inputMth && typeof inputMth === 'function') {
-            inputMth()
-        }
-        if ((target.appid === 'wx7630866bd98a50de' || target.appid === 'wx0ea308250417bd30') && ['百年', '100年', '头像', '我要头像', '党旗', '建党'].includes(Content)) {
-            // 图片活动
-            sendMediaDataCopy({ targetInfo: target, uid: FromUserName, content: Content, root, frameName: ['1', '2', '3', '6', '7','8', '10'], dir: 'sanwei' })
-        } else if ((target.appid === 'wx85df74b62aad79ed' || target.appid === 'wx0ea308250417bd30') && ['七一', '建党', '百年风华', '建党百年', '七一建党', '建党100周年', '71'].includes(Content)) {
-            // 图片活动
-            sendMediaDataCopy({ targetInfo: target, uid: FromUserName, content: Content, root, frameName: ['xs1', 'xs2', 'xs3', 'xs4'], dir: 'xuesong' })
+            inputMth({ target, Content, FromUserName, root })
         }
     })
 }

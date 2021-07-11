@@ -10,7 +10,7 @@ import ParsePlatFormMessagePlugins from './plugins/ParsePlatFormMessagePlugin';
 
 import LRUCache from 'lru-cache'
 
-interface UserInfoCache  {
+export interface UserInfo  {
     name: string,
     picUrl: string,
     openid: string,
@@ -18,7 +18,7 @@ interface UserInfoCache  {
     all: any
 }
 
-export const userInfoCache = new LRUCache<string, UserInfoCache>({
+export const userInfoCache = new LRUCache<string, UserInfo>({
     max: 65535
 })
 

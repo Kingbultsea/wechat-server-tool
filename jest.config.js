@@ -6,6 +6,7 @@ module.exports = {
     __VERSION__: require('./package.json').version,
     __NODE_JS__: true,
   },
+  testTimeout: 50000,
   moduleNameMapper: {
     '^@/(.*?)$': '<rootDir>/src/$1'
   },

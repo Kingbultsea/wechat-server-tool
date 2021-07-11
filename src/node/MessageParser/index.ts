@@ -1,5 +1,5 @@
 import SuperAgent from 'superagent';
-import { userInfoCache } from '../server';
+import { userInfoCache, UserInfo } from '../server';
 
 // 发送媒体信息给用户
 export function sendMediaContent(toUser: any, mediaId: any, serveAccessToken: any, type: any) { // type voice video image
@@ -19,8 +19,20 @@ export function sendMediaContent(toUser: any, mediaId: any, serveAccessToken: an
 }
 
 // 获取用户信息
-export async function getUserInfo({ serveAccessToken, uid, platFormName }: {serveAccessToken: string, uid: string, platFormName: string}): Promise<{ name: string, picUrl: string } | undefined> {
+export async function getUserInfo({ serveAccessToken, uid, platFormName }
+: {serveAccessToken: string, uid: string, platFormName: string})
+    : Promise<UserInfo | undefined> {
     return new Promise((resolve) => {
+        if (global.__TEST__) {
+            resolve({
+                name: 'foo',
+                picUrl: 'https://res.psy-1.com/Fr0Rww96T0CK_lG0y36fm-IE75XD',
+                openid: 'foo',
+                sex: '1',
+                all: {}
+            })
+            return
+        }
         let cache = userInfoCache.get(uid)
         if (cache) {
             resolve(cache)

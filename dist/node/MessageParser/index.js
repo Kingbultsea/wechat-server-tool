@@ -25,6 +25,16 @@ exports.sendMediaContent = sendMediaContent;
 // 获取用户信息
 async function getUserInfo({ serveAccessToken, uid, platFormName }) {
     return new Promise((resolve) => {
+        if (global.__TEST__) {
+            resolve({
+                name: 'foo',
+                picUrl: 'https://res.psy-1.com/Fr0Rww96T0CK_lG0y36fm-IE75XD',
+                openid: 'foo',
+                sex: '1',
+                all: {}
+            });
+            return;
+        }
         let cache = server_1.userInfoCache.get(uid);
         if (cache) {
             resolve(cache);

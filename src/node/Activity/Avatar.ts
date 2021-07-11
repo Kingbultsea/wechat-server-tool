@@ -20,8 +20,9 @@ export async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '', d
         ctx.drawImage(image, 0, 0, width, height)
     })
 
-    // 绘制叠加的框框
-    await loadImage(path.join(root, `./assets/avatar/${dir}/` + frameName)).then((image: any) => {
+    const data = fs.readFileSync(path.join(root, `./assets/avatar/${dir}/` + frameName))
+    // // 绘制叠加的框框
+    await loadImage(data).then((image: any) => {
         ctx.drawImage(image, 0, 0, width, height)
     })
 
@@ -29,7 +30,6 @@ export async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '', d
     const promise = new Promise((resolve) => {
         const hash = randomString(6)
         let done: boolean = false
-        console.log(hash)
         setTimeout(() => {
             if (!done) {
                 resolve(undefined)
@@ -40,12 +40,10 @@ export async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '', d
         fs.writeFile(path.join(root, `./assets/avatar/${hash}.png`), canvas.toBuffer('image/jpeg', { quality: 1 }), (err: any) => {
             done = true
             if (err) {
-                // console.log(err)
+                console.log(err)
                 resolve(undefined)
                 return
             }
-            resolve(path.join(root, `./assets/avatar/${hash}.png`))
-        }).finally(() => {
             resolve(path.join(root, `./assets/avatar/${hash}.png`))
         })
     }).catch((e) => {
@@ -55,7 +53,8 @@ export async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '', d
     return promise
 }
 
-async function activityFlow({ targetInfo, uid, resolve, frameName, root, dir, index = 0 }: any = {}) {
+async function avatarPlugins({ targetInfo, uid, frameName, root, dir, index = 0 }: any = {}) {
+    console.log('图片渲染活动')
     let formData = {
         my_field: 'my_value',
         my_file:  ''
@@ -63,10 +62,12 @@ async function activityFlow({ targetInfo, uid, resolve, frameName, root, dir, in
 
     // 获取用户信息头像
     const userInfo = await getUserInfo({ serveAccessToken: targetInfo.authorizer_access_token, uid, platFormName: targetInfo.name  })
-    activityFlow({ userInfo, formData, targetInfo, uid, frameName, index: 0, root, dir })
+
+    console.log(userInfo)
 
     let resultPath: any = ''
     if (userInfo && userInfo.picUrl) {
+        console.log('userInfo')
         resultPath = await parseBlockTypeAvatar({ root, frameName: frameName[index] + '.png', userPicUrl: (userInfo || {}).picUrl, dir  })
         if (resultPath) {
             formData.my_file =  fs.createReadStream(resultPath)
@@ -74,6 +75,11 @@ async function activityFlow({ targetInfo, uid, resolve, frameName, root, dir, in
             console.log('没有用户信息，不进行头像渲染')
             return
         }
+    }
+
+    if (global.__TEST__) {
+        // 测试模式下 不需要上传图片并发送给用户
+        return ''
     }
 
     // 上传图片 并发送
@@ -96,12 +102,10 @@ async function activityFlow({ targetInfo, uid, resolve, frameName, root, dir, in
             // 发送消息给用户
             sendMediaContent(uid, JSON.parse(body).media_id, targetInfo.authorizer_access_token, 'image')
             if (frameName.length > index + 1) {
-                activityFlow({ userInfo, formData, targetInfo, uid, resolve, frameName, index: index + 1, root, dir })
+                avatarPlugins({ userInfo, formData, targetInfo, uid, frameName, index: index + 1, root, dir })
             }
         }
-
-        resolve(null)
     })
 }
 
-export default activityFlow
+export default avatarPlugins
