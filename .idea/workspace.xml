@@ -2,54 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="796fabeb-21f3-4470-b60d-f0816991cf5f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/node.js.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/node.js.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/run.js" beforeDir="false" afterPath="$PROJECT_DIR$/bin/run.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/Activity/Avatar.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/Encrypt.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/MessageParser/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/api/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/api/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/client.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/client.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/Activity/Avatar.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/Activity/Avatar.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/Encrypt.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/Encrypt.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/MessageParser/PicActivity/pickParser.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/MessageParser/PicActivity/pickParser.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/MessageParser/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/MessageParser/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/ParsePlatFormMessage.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/ParsePlatFormMessage.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/ParsePlatFormMessagePlugin.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/ParsePlatFormMessagePlugin.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/SelfWeChatPlugin.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/SelfWeChatPlugin.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/ThirdPartWeChatPlugins.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/ThirdPartWeChatPlugins.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/plugins/ParsePlatFormMessagePlugin.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/plugins/ParsePlatFormMessagePlugin.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/plugins/SelfWeChatPlugin.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/plugins/SelfWeChatPlugin.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/plugins/ThirdPartWeChatPlugins.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/plugins/ThirdPartWeChatPlugins.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/server.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/server.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/util.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/util.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/plugins/ParsePlatFormMessagePlugin.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/plugins/SelfWeChatPlugin.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/plugins/ThirdPartWeChatPlugins.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/server.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/server.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/util.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/util/Log.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/util/Log.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/node/root.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/node/root.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/node/util.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/node/util.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
