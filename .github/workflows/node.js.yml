@@ -4,9 +4,9 @@
 name: Node.js CI
 
 on:
-  push: 
-    tags: 
-      - /((^v[0-9]+\.[0-9]+\.[0-9]+)|(^v[0-9]+\.[0-9]+\.[0-9]+((-(beta|rc|alpha|test|pre)-?[0-9]+))?$))/
+  push:
+    tags:
+      - v*.*.*
 
 jobs:
   build:
