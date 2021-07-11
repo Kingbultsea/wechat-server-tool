@@ -11,7 +11,7 @@ const getPostData = (ctx: any): Promise<string> => {
             ctx.req.on('end', function () {
                 resolve(str)
             })
-        }catch (e) {
+        } catch (e) {
             reject(e)
         }
     })
@@ -19,9 +19,8 @@ const getPostData = (ctx: any): Promise<string> => {
 
 const writeFile = (ROOT: string = process.cwd(), data: Record<any, any>) => {
     let dataJSON = JSON.stringify(data)
-
     fs.writeFile(
-        path.join(ROOT, 'DATA.json'),
+        path.join(ROOT, global.__CONFIG__.input),
         dataJSON
     )
 }

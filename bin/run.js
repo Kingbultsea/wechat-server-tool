@@ -26,6 +26,8 @@ try {
 
   const config = json.wechat || argv
 
+  global.__config__ = config
+
   try {
     // 磁盘数据
     config.DATA = require(path.join(process.cwd(), json.data))

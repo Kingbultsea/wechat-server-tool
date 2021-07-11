@@ -22,7 +22,7 @@ const getPostData = (ctx) => {
 exports.getPostData = getPostData;
 const writeFile = (ROOT = process.cwd(), data) => {
     let dataJSON = JSON.stringify(data);
-    fs_1.promises.writeFile(path.join(ROOT, 'DATA.json'), dataJSON);
+    fs_1.promises.writeFile(path.join(ROOT, global.__CONFIG__.input), dataJSON);
 };
 exports.writeFile = writeFile;
 const getData = async (ctx, encrypt, tagName) => {

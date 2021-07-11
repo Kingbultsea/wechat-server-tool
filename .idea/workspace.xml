@@ -2,35 +2,54 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="796fabeb-21f3-4470-b60d-f0816991cf5f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/test/project/assets/avatar/sanwei/1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/assets/avatar/sanwei/10.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/assets/avatar/sanwei/2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/assets/avatar/sanwei/3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/assets/avatar/sanwei/6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/assets/avatar/sanwei/7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/assets/avatar/sanwei/8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/assets/avatar/xuesong/xs1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/assets/avatar/xuesong/xs2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/assets/avatar/xuesong/xs3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/assets/avatar/xuesong/xs4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/assets/avatar/zYJ3hD.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/run.js" beforeDir="false" afterPath="$PROJECT_DIR$/bin/run.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/Activity/Avatar.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/dist/node/Activity/Avatar.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/Activity/Avatar.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/node/Activity/Avatar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/MessageParser/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/dist/node/MessageParser/index.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/MessageParser/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/node/MessageParser/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/plugins/ParsePlatFormMessagePlugin.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/node/plugins/ParsePlatFormMessagePlugin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/node/server.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/dist/node/server.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jest.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/jest.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/node/Activity/Avatar.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/node/Activity/Avatar.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/node/MessageParser/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/node/MessageParser/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/node/plugins/ParsePlatFormMessagePlugin.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/node/plugins/ParsePlatFormMessagePlugin.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/node/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/node/server.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/test/project.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/foo.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/project/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/Activity/Avatar.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/Encrypt.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/MessageParser/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/api/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/api/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/client.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/client.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/Activity/Avatar.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/Activity/Avatar.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/Encrypt.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/Encrypt.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/MessageParser/PicActivity/pickParser.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/MessageParser/PicActivity/pickParser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/MessageParser/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/MessageParser/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/ParsePlatFormMessage.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/ParsePlatFormMessage.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/ParsePlatFormMessagePlugin.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/ParsePlatFormMessagePlugin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/SelfWeChatPlugin.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/SelfWeChatPlugin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/ThirdPartWeChatPlugins.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/ThirdPartWeChatPlugins.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/plugins/ParsePlatFormMessagePlugin.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/plugins/ParsePlatFormMessagePlugin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/plugins/SelfWeChatPlugin.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/plugins/SelfWeChatPlugin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/plugins/ThirdPartWeChatPlugins.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/plugins/ThirdPartWeChatPlugins.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/server.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/server.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/util.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/node/util.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/plugins/ParsePlatFormMessagePlugin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/plugins/SelfWeChatPlugin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/plugins/ThirdPartWeChatPlugins.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/server.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/server.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/util.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/util/Log.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/util/Log.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/node/root.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/node/root.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/node/util.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/node/util.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -263,20 +282,20 @@
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
     <state x="1657" y="392" key="SettingsEditor/0.0.3440.1400@0.0.3440.1400" timestamp="1625892600031" />
-    <state x="88" y="0" width="1511" height="832" key="dock-window-1" timestamp="1625991572662">
+    <state x="122" y="0" width="1514" height="829" key="dock-window-1" timestamp="1626013630371">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state x="88" y="0" width="1511" height="832" key="dock-window-1/0.0.3440.1400@0.0.3440.1400" timestamp="1625991572662" />
+    <state x="122" y="0" width="1514" height="829" key="dock-window-1/0.0.3440.1400@0.0.3440.1400" timestamp="1626013630371" />
     <state x="962" y="715" width="755" height="625" key="dock-window-1/2560.0.1600.880/0.0.2560.1400@0.0.2560.1400" timestamp="1624846105558" />
     <state x="281" y="246" width="1511" height="1147" key="dock-window-2" timestamp="1625826475154">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
     <state x="281" y="246" width="1511" height="1147" key="dock-window-2/0.0.3440.1400@0.0.3440.1400" timestamp="1625826475154" />
-    <state x="1199" y="420" width="667" height="566" key="find.popup" timestamp="1625946000039">
+    <state x="1199" y="420" width="667" height="566" key="find.popup" timestamp="1626012223230">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
     <state x="892" y="420" width="667" height="566" key="find.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1625053275896" />
-    <state x="1199" y="420" width="667" height="566" key="find.popup/0.0.3440.1400@0.0.3440.1400" timestamp="1625946000039" />
+    <state x="1199" y="420" width="667" height="566" key="find.popup/0.0.3440.1400@0.0.3440.1400" timestamp="1626012223230" />
     <state x="892" y="420" width="667" height="566" key="find.popup/2560.0.1600.880/0.0.2560.1400@0.0.2560.1400" timestamp="1624849334481" />
     <state x="1858" y="334" width="672" height="677" key="run.anything.popup" timestamp="1625947618424">
       <screen x="0" y="0" width="3440" height="1400" />
