@@ -1,5 +1,5 @@
 {
-  "name": "wechat-activity",
+  "name": "wx-serve",
   "version": "0.2.0",
   "description": "微信工具",
   "main": "dist/node/index.js",
