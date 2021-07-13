@@ -2,42 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="796fabeb-21f3-4470-b60d-f0816991cf5f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/project/DATA.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/assets/avatar/sanwei/1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/assets/avatar/sanwei/10.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/assets/avatar/sanwei/2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/assets/avatar/sanwei/3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/assets/avatar/sanwei/6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/assets/avatar/sanwei/7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/assets/avatar/sanwei/8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/assets/avatar/xuesong/xs1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/assets/avatar/xuesong/xs2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/assets/avatar/xuesong/xs3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/assets/avatar/xuesong/xs4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/assets/avatar/zYJ3hD.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/temp/1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/temp/10.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/temp/2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/temp/3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/temp/6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/temp/7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/temp/8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/temp/DATA.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/temp/config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/temp/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/temp/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/temp/xs1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/temp/xs2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/temp/xs3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/temp/xs4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/project/temp/zYJ3hD.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/run.js" beforeDir="false" afterPath="$PROJECT_DIR$/bin/run.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/node/Activity/Avatar.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/node/Activity/Avatar.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,7 +144,7 @@
       <workItem from="1625826465828" duration="12050000" />
       <workItem from="1625890212141" duration="23554000" />
       <workItem from="1625991569611" duration="5917000" />
-      <workItem from="1626187477151" duration="3277000" />
+      <workItem from="1626187477151" duration="3298000" />
     </task>
     <servers />
   </component>
