@@ -10,13 +10,14 @@
   },
   "files": [
     "bin",
-    "dist"
+    "dist",
+    "temp"
   ],
   "bin": {
     "bult": "bin/run.js"
   },
   "scripts": {
-    "run": "node ./bin/run.js --appid wxf9f1ff58b00d1c5a --secret 39585fab2beb1768b736649ee0b0823b --encodingAESKey eUbVREqK4jh9XHeYTZPHRTCzFz8PDWL2nieCZzganJv --token kingbultsea  --port 8089",
+    "run": "node ./bin/run.js --port 8089",
     "dev": "run-p dev-node",
     "dev-client": "tsc -w --p src/client",
     "dev-node": "tsc -w --p src/node",
@@ -66,6 +67,7 @@
     "prettier": "^2.3.1",
     "ts-jest": "^27.0.3",
     "vercel": "^23.0.0",
+    "wx-serve": "^0.2.0",
     "yorkie": "^2.0.0"
   }
 }

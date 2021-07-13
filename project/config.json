@@ -1,0 +1,10 @@
+{
+  "wechat": {
+    "appid": "",
+    "secret": "",
+    "encodingAESKey": "",
+    "token": ""
+  },
+  "data": "./DATA.json",
+  "input": "./index.js"
+}

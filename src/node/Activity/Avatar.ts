@@ -9,7 +9,7 @@ const fs = require('fs')
 const path = require("path")
 
 // 边框贴图渲染
-export async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '', dir }: { root?: any, frameName?: any, userPicUrl?: string, dir?: string } = {}) {
+export async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '', dir = '' }: { root?: any, frameName?: any, userPicUrl?: string, dir?: string } = {}) {
     const width = 512
     const height = 512
     const canvas = createCanvas(width, height)
@@ -20,7 +20,7 @@ export async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '', d
         ctx.drawImage(image, 0, 0, width, height)
     })
 
-    const data = fs.readFileSync(path.join(root, `./assets/avatar/${dir}/` + frameName))
+    const data = fs.readFileSync(path.join(root, dir + frameName))
     // // 绘制叠加的框框
     await loadImage(data).then((image: any) => {
         ctx.drawImage(image, 0, 0, width, height)
@@ -37,14 +37,14 @@ export async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '', d
         }, 5000)
 
         // @ts-ignore
-        fs.writeFile(path.join(root, `./assets/avatar/${hash}.png`), canvas.toBuffer('image/jpeg', { quality: 1 }), (err: any) => {
+        fs.writeFile(path.join(root, `${dir}${hash}.png`), canvas.toBuffer('image/jpeg', { quality: 1 }), (err: any) => {
             done = true
             if (err) {
                 console.log(err)
                 resolve(undefined)
                 return
             }
-            resolve(path.join(root, `./assets/avatar/${hash}.png`))
+            resolve(path.join(root, `${dir}${hash}.png`))
         })
     }).catch((e) => {
         console.log(e)
@@ -90,7 +90,6 @@ async function avatarPlugins({ targetInfo, uid, frameName, root, dir, index = 0 
                 if(err){
                     throw err;
                 }
-                console.log('文件删除成功！');
             })
         }
 
