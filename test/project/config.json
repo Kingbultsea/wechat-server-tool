@@ -1,9 +1,9 @@
 {
   "wechat": {
-    "appid": "wxf9f1ff58b00d1c5a",
-    "secret": "39585fab2beb1768b736649ee0b0823b",
-    "encodingAESKey": "eUbVREqK4jh9XHeYTZPHRTCzFz8PDWL2nieCZzganJv",
-    "token": "kingbultsea"
+    "appid": "",
+    "secret": "",
+    "encodingAESKey": "",
+    "token": ""
   },
   "data": "./DATA.json",
   "input": "./index.js"
