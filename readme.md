@@ -101,7 +101,6 @@ function sendContent(toUser: any, content: any, serveAccessToken: any, type: 'vo
 
 ```serveAccessToken```: 目标平台的serveAccessToken（入口```target```参数可取）
 
-``````
 
 ## TODO
 [] 完善测试action
