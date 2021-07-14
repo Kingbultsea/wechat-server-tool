@@ -104,4 +104,7 @@ function sendContent(toUser: any, content: any, serveAccessToken: any, type: 'vo
 
 ## TODO
 [] 完善测试action
+
 [√] 消息API兼容
+
+[] 开源交友插件
