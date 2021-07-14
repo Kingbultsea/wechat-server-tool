@@ -1,5 +1,5 @@
 <p align="center">
-<a href="https://vuejs.org" target="_blank" rel="noopener noreferrer"><img width="100" src="https://res.psy-1.com/FogKJommRPgWUbHTReBBEzGeZsgz">
+<a href="https://vuejs.org" target="_blank" rel="noopener noreferrer"><img width="100" src="https://res.psy-1.com/FvTT425ug8QRGSj06vjbfKXjwpUe">
 </a></p>
 
 <p align="center">
