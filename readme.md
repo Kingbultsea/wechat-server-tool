@@ -52,15 +52,21 @@ wx-serve --port 3000
 ```json
 {
   "wechat": {
-    "appid": "", // appid 微信平台
-    "secret": "", // secret 微信平台
-    "encodingAESKey": "", // encodingAESKey 微信平台
-    "token": "" // token 微信平台
+    "appid": "微信平台提供",
+    "secret": "微信平台提供",
+    "encodingAESKey": "微信平台提供",
+    "token": "微信平台提供"
   },
-  "data": "./DATA.json", // 储存运行状态信息的文件
-  "input": "./index.js" // 插件入口
+  "data": "./DATA.json",
+  "input": "./index.js"
 }
 ```
+
+```wechat```: 微信配置提供
+
+```data```: 储存运行状态信息的文件
+
+```input```: 插件入口
 
 ## 插件入口参数
 ```typescript
