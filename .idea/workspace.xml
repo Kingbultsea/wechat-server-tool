@@ -2,7 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="796fabeb-21f3-4470-b60d-f0816991cf5f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/run.js" beforeDir="false" afterPath="$PROJECT_DIR$/bin/run.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/project/temp/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/project/temp/10.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/project/temp/2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/project/temp/3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/project/temp/6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/project/temp/7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/project/temp/8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/project/temp/DATA.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/project/temp/config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/project/temp/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/project/temp/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/project/temp/xs1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/project/temp/xs2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/project/temp/xs3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/project/temp/xs4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/project/temp/zYJ3hD.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +162,8 @@
       <workItem from="1625826465828" duration="12050000" />
       <workItem from="1625890212141" duration="23554000" />
       <workItem from="1625991569611" duration="5917000" />
-      <workItem from="1626187477151" duration="3298000" />
+      <workItem from="1626187477151" duration="3419000" />
+      <workItem from="1626229045611" duration="2141000" />
     </task>
     <servers />
   </component>
@@ -236,10 +255,10 @@
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
     <state x="1657" y="392" key="SettingsEditor/0.0.3440.1400@0.0.3440.1400" timestamp="1625892600031" />
-    <state x="122" y="0" width="1514" height="829" key="dock-window-1" timestamp="1626187478179">
+    <state x="122" y="0" width="1514" height="829" key="dock-window-1" timestamp="1626229055324">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state x="122" y="0" width="1514" height="829" key="dock-window-1/0.0.3440.1400@0.0.3440.1400" timestamp="1626187478179" />
+    <state x="122" y="0" width="1514" height="829" key="dock-window-1/0.0.3440.1400@0.0.3440.1400" timestamp="1626229055324" />
     <state x="962" y="715" width="755" height="625" key="dock-window-1/2560.0.1600.880/0.0.2560.1400@0.0.2560.1400" timestamp="1624846105558" />
     <state x="281" y="246" width="1511" height="1147" key="dock-window-2" timestamp="1625826475154">
       <screen x="0" y="0" width="3440" height="1400" />

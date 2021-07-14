@@ -89,19 +89,22 @@ try {
 }
 
 async function createTemp() {
+  console.time('Done')
   const projectDir = path.join(__dirname, '../project')
   const tempDir = path.join(process.cwd(), 'temp')
-
+  await fs.mkdir(tempDir)
   await circleCopy(projectDir, tempDir)
-  console.log('模板创建成功')
+  console.log('\033[42;30m DONE \033[40;32m Create ' + tempDir + ' successfully\033[0m')
+  console.timeEnd('Done')
 }
 
 async function circleCopy(projectDir, tempDir) {
   for (const file of await fs.readdir(projectDir)) {
     if (!file.toString().includes('.')) {
-      await circleCopy(path.join(projectDir, file), tempDir)
+      const dir = path.join(tempDir, file)
+      await fs.mkdir(dir)
+      await circleCopy(path.join(projectDir, file), dir)
     } else {
-      console.log(`创建${path.join(tempDir, file)}`)
       await fs.copyFile(
         path.join(projectDir, file),
         path.join(tempDir, file)
