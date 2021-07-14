@@ -6,7 +6,11 @@ const path = require('path')
 try {
   // todo 创建模板
   if (process.argv.includes('create')) {
-    createTemp()
+    if (!argv.appid || !argv.url) {
+      console.log('\x1B[31m%s\x1B[0m', '请配置appid或url参数')
+      return
+    }
+    createTemp({ appid: argv.appid, url: argv.url })
   } else {
     let json
 
@@ -88,28 +92,37 @@ try {
   console.log(e)
 }
 
-async function createTemp() {
+async function createTemp({appid, url}) {
   console.time('Done')
   const projectDir = path.join(__dirname, '../project')
   const tempDir = path.join(process.cwd(), 'temp')
   await fs.mkdir(tempDir)
-  await circleCopy(projectDir, tempDir)
+  await circleCopy(projectDir, tempDir, appid, url)
   console.log('\033[42;30m DONE \033[40;32m Create ' + tempDir + ' successfully\033[0m')
   console.timeEnd('Done')
 }
 
-async function circleCopy(projectDir, tempDir) {
+async function circleCopy(projectDir, tempDir, appid, url) {
   for (const file of await fs.readdir(projectDir)) {
     if (!file.toString().includes('.')) {
       const dir = path.join(tempDir, file)
       await fs.mkdir(dir)
-      await circleCopy(path.join(projectDir, file), dir)
+      await circleCopy(path.join(projectDir, file), dir, appid, url)
     } else {
-      await fs.copyFile(
-        path.join(projectDir, file),
-        path.join(tempDir, file)
-      )
+      if (/.html$/.exec(file)) {
+        await rewriteIndexHtml({tempDir, file: file.toString(), projectDir, appid, url})
+      } else {
+        await fs.copyFile(
+          path.join(projectDir, file),
+          path.join(tempDir, file)
+        )
+      }
     }
   }
 }
 
+async function rewriteIndexHtml({tempDir, file, projectDir, appid, url}) {
+  let source = (await fs.readFile(path.join(projectDir, file))).toString()
+  source = source.replace('$component_appid$', appid).replace('$redirect_uri$', url)
+  await fs.writeFile(path.join(tempDir, file), source)
+}

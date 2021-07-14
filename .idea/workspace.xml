@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="796fabeb-21f3-4470-b60d-f0816991cf5f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/自行更改文件名称与内容验证微信.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/run.js" beforeDir="false" afterPath="$PROJECT_DIR$/bin/run.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +41,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js.last.introduce.type" value="CONST" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/project/assets" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/project" />
     <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/node_modules/jest" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="prettierjs.PrettierConfiguration.Package" value="E:\外包项目\微信服务\node_modules\prettier" />
@@ -46,17 +50,17 @@
     <property name="ts.external.directory.path" value="E:\outSide项目\微信服务\node_modules\typescript\lib" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\outSide项目\微信服务\src\node\plugins" />
-      <recent name="E:\outSide项目\微信服务\src\node\MessageParser" />
-      <recent name="E:\外包项目\微信服务\src" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\outSide项目\微信服务\project" />
       <recent name="E:\outSide项目\微信服务\project\assets" />
       <recent name="E:\outSide项目\微信服务" />
       <recent name="E:\outSide项目\微信服务\test\project\assets\avatar\xuesong" />
       <recent name="E:\outSide项目\微信服务\test\project" />
-      <recent name="E:\outSide项目\微信服务\test\project\pic" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\outSide项目\微信服务\src\node\plugins" />
+      <recent name="E:\outSide项目\微信服务\src\node\MessageParser" />
+      <recent name="E:\外包项目\微信服务\src" />
     </key>
   </component>
   <component name="RunManager" selected="Jest.jest.config.js">
@@ -145,7 +149,7 @@
       <workItem from="1625890212141" duration="23554000" />
       <workItem from="1625991569611" duration="5917000" />
       <workItem from="1626187477151" duration="3419000" />
-      <workItem from="1626229045611" duration="2906000" />
+      <workItem from="1626229045611" duration="4678000" />
     </task>
     <servers />
   </component>
@@ -237,15 +241,15 @@
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
     <state x="1657" y="392" key="SettingsEditor/0.0.3440.1400@0.0.3440.1400" timestamp="1625892600031" />
-    <state x="122" y="0" width="1514" height="829" key="dock-window-1" timestamp="1626229055324">
+    <state x="1942" y="0" width="1514" height="767" key="dock-window-1" timestamp="1626232406276">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state x="122" y="0" width="1514" height="829" key="dock-window-1/0.0.3440.1400@0.0.3440.1400" timestamp="1626229055324" />
+    <state x="1942" y="0" width="1514" height="767" key="dock-window-1/0.0.3440.1400@0.0.3440.1400" timestamp="1626232406276" />
     <state x="962" y="715" width="755" height="625" key="dock-window-1/2560.0.1600.880/0.0.2560.1400@0.0.2560.1400" timestamp="1624846105558" />
-    <state x="281" y="246" width="1511" height="1147" key="dock-window-2" timestamp="1625826475154">
+    <state x="1942" y="0" width="1514" height="767" key="dock-window-2" timestamp="1626232661604">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state x="281" y="246" width="1511" height="1147" key="dock-window-2/0.0.3440.1400@0.0.3440.1400" timestamp="1625826475154" />
+    <state x="1942" y="0" width="1514" height="767" key="dock-window-2/0.0.3440.1400@0.0.3440.1400" timestamp="1626232661604" />
     <state x="1199" y="420" width="667" height="566" key="find.popup" timestamp="1626022878883">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
