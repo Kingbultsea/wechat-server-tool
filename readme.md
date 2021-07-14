@@ -48,7 +48,53 @@ wx-serve --port 3000
 
 微信公众号窗口发送任意信息，可以获得一张图片，服务运行成功。
 
+## config.json
+```json
+{
+  "wechat": {
+    "appid": "", // appid 微信平台
+    "secret": "", // secret 微信平台
+    "encodingAESKey": "", // encodingAESKey 微信平台
+    "token": "" // token 微信平台
+  },
+  "data": "./DATA.json", // 储存运行状态信息的文件
+  "input": "./index.js" // 插件入口
+}
+```
+
+## 插件入口参数
+```typescript
+function input({ target, Content, FromUserName, root, rawContent }) {
+}
+```
+
+```target```: 第三方平台信息
+
+```Content```: 用户发送的消息内容
+
+```FromUserName```: 用户平台id
+
+```root```: 命令行运行路径
+
+```rawContent```: 用户发送的消息内容XML
+
 ## API
+### sendContent
+```typescript
+function sendContent(toUser: any, content: any, serveAccessToken: any, type: 'voice' | 'video' | 'image' | 'text') { // type voice video image
+}
+```
+
+```toUser```: 用户平台id (入口```FromUserName```参数)
+
+```type```: 消息类型
+
+```content```: 内容|媒体ID
+
+```serveAccessToken```: 目标平台的serveAccessToken（入口```target```参数可取）
+
+``````
 
 ## TODO
-[] 完善测试ci
+[] 完善测试action
+[√] 消息API兼容
