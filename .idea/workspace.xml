@@ -3,24 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="796fabeb-21f3-4470-b60d-f0816991cf5f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/run.js" beforeDir="false" afterPath="$PROJECT_DIR$/bin/run.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/DATA.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/config.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/xs1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/xs2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/xs3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/xs4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/zYJ3hD.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DATA.json" beforeDir="false" afterPath="$PROJECT_DIR$/project/DATA.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,7 +146,7 @@
       <workItem from="1625890212141" duration="23554000" />
       <workItem from="1625991569611" duration="5917000" />
       <workItem from="1626187477151" duration="3419000" />
-      <workItem from="1626229045611" duration="2141000" />
+      <workItem from="1626229045611" duration="2860000" />
     </task>
     <servers />
   </component>
