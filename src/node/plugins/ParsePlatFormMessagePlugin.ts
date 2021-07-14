@@ -65,7 +65,7 @@ const ParsePlatFormMessagePlugin: Plugin = ({ app, Router, encrypt, root, DATA, 
 
         // todo 消息插件  target content FromUserName
         if (inputMth && typeof inputMth === 'function') {
-            inputMth({ target, Content, FromUserName, root })
+            inputMth({ target, Content, FromUserName, root, rawContent: result })
         }
     })
 }
