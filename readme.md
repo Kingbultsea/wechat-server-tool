@@ -39,7 +39,8 @@ npm install wx-serve --save
 
 https://open.weixin.qq.com/
 
-注册成功后，配置参数即可，无需其他操作。
+注册成功后，配置参数，在域名上运行wx-serve即可，可以自动监听入口依赖文件的改变。
+（注意不会监听```config.json```的变动，如需改变，请重新开启服务）
 
 **step**:1
 ```shell script
