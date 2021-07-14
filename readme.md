@@ -7,7 +7,7 @@
   <a href="https://github.com/Kingbultsea/wechat-server-tool/actions/workflows/node.js.yml"><img src="https://github.com/Kingbultsea/wechat-server-tool/actions/workflows/node.js.yml/badge.svg?branch=npm" alt=""></a>
 </p>
 
-wx-serve是一个基于微信第三方公众号而搭建的框架，目的在于解决快速开发与部署微信服务，让开发者可以专注于插件的开发之中。
+**wx-serve** 是一个基于微信第三方公众号而搭建的框架，目的在于解决快速开发与部署微信服务，让开发者可以专注于插件的开发之中。
 
 ![](https://res.psy-1.com/Fvhwh76XUZjkdieubH-3ptkF9woy)
 
@@ -35,13 +35,26 @@ npm install wx-serve --save
 ```
 
 ## Usgae
+在使用该服务前，请先在微信开放平台上进行注册
+
+https://open.weixin.qq.com/
+
+注册成功后，配置参数即可，无需其他操作。
+
+**step**:1
 ```shell script
 wx-serve create --appid yourAppid --url yourUrl
 ```
+
+**step2**: 
+
 创建模板，修改```config.json```，根据微信配置输入appid，secret，encodingAESKey，token。
+
+**step3**: 
 
 修改文件```自行更改文件名称与内容验证微信```(该文件用于微信域名验证)
 
+**step4**:
 ```shell script
 wx-serve --port 3000
 ```
