@@ -2,16 +2,25 @@ import SuperAgent from 'superagent';
 import { userInfoCache, UserInfo } from '../server';
 
 // 发送媒体信息给用户
-export function sendMediaContent(toUser: any, mediaId: any, serveAccessToken: any, type: any) { // type voice video image
+export function sendContent(toUser: any, content: any, serveAccessToken: any, type: 'voice' | 'video' | 'image' | 'text') { // type voice video image
     return new Promise((resolve) => {
         const serviceData = {
             'touser': toUser,
             'msgtype': type,
             [type]:
                 {
-                    'media_id': mediaId
+                    'media_id': content
                 }
         }
+
+        if (type === 'text') {
+            serviceData[type] = {
+                'text': {
+                    content: content
+                }
+            }
+        }
+
         SuperAgent.post(`https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=${serveAccessToken}`).send(serviceData).end(() => {
             resolve(null)
         })

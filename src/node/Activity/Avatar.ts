@@ -3,7 +3,7 @@ import { createCanvas, loadImage } from 'canvas'
 import { randomString } from '../util';
 // @ts-ignore
 import request from 'request'
-import { getUserInfo, sendMediaContent } from '../MessageParser'
+import { getUserInfo, sendContent } from '../MessageParser'
 
 const fs = require('fs')
 const path = require("path")
@@ -99,7 +99,7 @@ async function avatarPlugins({ targetInfo, uid, frameName, root, dir, index = 0 
 
         if (JSON.parse(body).media_id) {
             // 发送消息给用户
-            sendMediaContent(uid, JSON.parse(body).media_id, targetInfo.authorizer_access_token, 'image')
+            sendContent(uid, JSON.parse(body).media_id, targetInfo.authorizer_access_token, 'image')
             if (frameName.length > index + 1) {
                 avatarPlugins({ userInfo, formData, targetInfo, uid, frameName, index: index + 1, root, dir })
             }
