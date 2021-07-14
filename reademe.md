@@ -38,6 +38,8 @@ wx-serve create --appid yourAppid --url yourUrl
 ```
 创建模板，修改```config.json```，根据微信配置输入appid，secret，encodingAESKey，token。
 
+修改文件```自行更改文件名称与内容验证微信```(该文件用于微信域名验证)
+
 ```shell script
 wx-serve --port 3000
 ```
