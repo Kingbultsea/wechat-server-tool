@@ -14,7 +14,7 @@
     "temp"
   ],
   "bin": {
-    "bult": "bin/run.js"
+    "wx-serve": "bin/run.js"
   },
   "scripts": {
     "run": "node ./bin/run.js --port 8089",
