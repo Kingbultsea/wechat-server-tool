@@ -2,58 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="796fabeb-21f3-4470-b60d-f0816991cf5f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2994169387.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/2994169387.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/api/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/avatar/sanwei/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/avatar/sanwei/10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/avatar/sanwei/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/avatar/sanwei/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/avatar/sanwei/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/avatar/sanwei/7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/avatar/sanwei/8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/avatar/xuesong/xs1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/avatar/xuesong/xs2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/avatar/xuesong/xs3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/avatar/xuesong/xs4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/assets/avatar/sanwei/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/assets/avatar/sanwei/10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/assets/avatar/sanwei/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/assets/avatar/sanwei/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/assets/avatar/sanwei/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/assets/avatar/sanwei/7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/assets/avatar/sanwei/8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/assets/avatar/xuesong/xs1.png" beforeDir="false" afterPath="$PROJECT_DIR$/project/assets/avatar/xuesong/xs1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/assets/avatar/xuesong/xs2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/assets/avatar/xuesong/xs3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/assets/avatar/xuesong/xs4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/assets/avatar/zYJ3hD.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/project/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/project/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/node/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/node/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/test/project/config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/project/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/test/project/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/DATA.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/assets/avatar/sanwei/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/assets/avatar/sanwei/10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/assets/avatar/sanwei/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/assets/avatar/sanwei/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/assets/avatar/sanwei/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/assets/avatar/sanwei/7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/assets/avatar/sanwei/8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/assets/avatar/xuesong/xs1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/assets/avatar/xuesong/xs2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/assets/avatar/xuesong/xs3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/assets/avatar/xuesong/xs4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/assets/avatar/zYJ3hD.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/config.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/project/temp/自行更改文件名称与内容验证微信.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -198,7 +147,7 @@
       <workItem from="1625991569611" duration="5917000" />
       <workItem from="1626187477151" duration="3419000" />
       <workItem from="1626229045611" duration="13499000" />
-      <workItem from="1626255349825" duration="1224000" />
+      <workItem from="1626255349825" duration="1276000" />
     </task>
     <servers />
   </component>
