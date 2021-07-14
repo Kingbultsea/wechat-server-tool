@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="796fabeb-21f3-4470-b60d-f0816991cf5f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/project/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/自行更改文件名称与内容验证微信.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/reademe.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/watch-bob.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/run.js" beforeDir="false" afterPath="$PROJECT_DIR$/bin/run.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/project.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/test/project.spec.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +57,7 @@
       <recent name="E:\outSide项目\微信服务\test\project" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\outSide项目\微信服务" />
       <recent name="E:\outSide项目\微信服务\src\node\plugins" />
       <recent name="E:\outSide项目\微信服务\src\node\MessageParser" />
       <recent name="E:\外包项目\微信服务\src" />
@@ -149,7 +149,7 @@
       <workItem from="1625890212141" duration="23554000" />
       <workItem from="1625991569611" duration="5917000" />
       <workItem from="1626187477151" duration="3419000" />
-      <workItem from="1626229045611" duration="4678000" />
+      <workItem from="1626229045611" duration="11961000" />
     </task>
     <servers />
   </component>

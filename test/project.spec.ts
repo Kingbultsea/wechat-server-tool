@@ -24,7 +24,6 @@ describe('hmr', () => {
         // 等待服务运行
         await new Promise<void>((resolve) => {
             server.stdout.on('data', (data) => {
-                console.log(data.toString())
                 if (data.toString().match('Running')) {
                     resolve()
                 }
@@ -40,7 +39,5 @@ P7ecf78oMa9e22u8dv6DNyAsh4oUz304Mh53I4ZgtwDBSq9NbRx+l/MY6rT2zIKJeFBInFJ9Q8Y3zT4k
 </xml>`, { headers: { 'Content-Type': 'text/xml' } }).then((res) => {
     expect(res.data).toEqual('success')
         })
-
-        debugger
     })
 })
