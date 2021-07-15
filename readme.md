@@ -43,20 +43,20 @@ https://open.weixin.qq.com/
 
 （注意不会监听```config.json```的变动，如需改变，请重新开启服务）
 
-**step**:1
+**step1创建模板**:
 ```shell script
 wx-serve create --appid yourAppid --url yourUrl
 ```
 
-**step2**: 
+**step2修改config**: 
 
-创建模板，修改```config.json```，根据微信配置输入appid，secret，encodingAESKey，token。
+创建模板后，修改```config.json```，根据微信配置输入appid，secret，encodingAESKey，token。
 
-**step3**: 
+**step3修改txt验证**: 
 
 修改文件```自行更改文件名称与内容验证微信```(该文件用于微信域名验证)
 
-**step4**:
+**step4开启服务**:
 ```shell script
 wx-serve --port 3000
 ```
