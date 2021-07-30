@@ -1,6 +1,6 @@
 {
   "name": "wx-serve",
-  "version": "0.7.7",
+  "version": "0.7.8",
   "description": "微信工具",
   "main": "dist/node/index.js",
   "types": "dist/node/index.d.ts",
