@@ -1,6 +1,6 @@
 {
   "name": "wx-serve",
-  "version": "0.7.5",
+  "version": "0.7.6",
   "description": "微信工具",
   "main": "dist/node/index.js",
   "types": "dist/node/index.d.ts",
@@ -17,6 +17,7 @@
     "wx-serve": "bin/run.js"
   },
   "scripts": {
+    "semantic-release": "semantic-release",
     "run": "node ./bin/run.js --port 8089",
     "dev": "run-p dev-node",
     "dev-client": "tsc -w --p src/client",
