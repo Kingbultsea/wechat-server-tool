@@ -1,6 +1,6 @@
 {
   "name": "wx-serve",
-  "version": "0.6.4",
+  "version": "0.7.0",
   "description": "微信工具",
   "main": "dist/node/index.js",
   "types": "dist/node/index.d.ts",
@@ -11,7 +11,7 @@
   "files": [
     "bin",
     "dist",
-    "temp"
+    "project"
   ],
   "bin": {
     "wx-serve": "bin/run.js"
