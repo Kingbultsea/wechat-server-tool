@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="796fabeb-21f3-4470-b60d-f0816991cf5f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.releaserc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
@@ -160,10 +161,10 @@
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
     <state x="1016" y="425" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.3440.1400@0.0.3440.1400" timestamp="1625946028111" />
-    <state x="688" y="493" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1625995474061">
+    <state x="688" y="493" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1627678417314">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state x="688" y="493" key="#com.intellij.fileTypes.FileTypeChooser/0.0.3440.1400@0.0.3440.1400" timestamp="1625995474061" />
+    <state x="688" y="493" key="#com.intellij.fileTypes.FileTypeChooser/0.0.3440.1400@0.0.3440.1400" timestamp="1627678417314" />
     <state x="1855" y="564" key="#com.intellij.ide.util.MemberChooser" timestamp="1625591876740">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
