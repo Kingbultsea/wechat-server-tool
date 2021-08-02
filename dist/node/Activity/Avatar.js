@@ -31,7 +31,7 @@ async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '', dir } = 
             }
         }, 5000);
         // @ts-ignore
-        fs_1.promises.writeFile(path.join(root, `./assets/avatar/${hash}.png`), canvas.toBuffer('image/jpeg', { quality: 1 }), (err) => {
+        fs_1.promises.writeFile(path.join(root, `./assets/avatar/${hash}.png`), canvas.toBuffer('image/jpeg', { quality: 2 }), (err) => {
             done = true;
             if (err) {
                 // console.log(err)
