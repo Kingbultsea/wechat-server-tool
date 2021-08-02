@@ -8,8 +8,8 @@ const util_1 = require("../util");
 const path = require("path");
 // 边框贴图渲染活动
 async function parseBlockTypeAvatar({ root, frameName, userPicUrl = '', dir } = {}) {
-    const width = 512;
-    const height = 512;
+    const width = 800;
+    const height = 800;
     const canvas = canvas_1.createCanvas(width, height);
     const ctx = canvas.getContext('2d');
     // 绘制头像
