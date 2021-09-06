@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="796fabeb-21f3-4470-b60d-f0816991cf5f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+    <list default="true" id="b2e2b0f1-18b3-459a-bfae-c5972b3d224c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +108,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="796fabeb-21f3-4470-b60d-f0816991cf5f" name="Default Changelist" comment="" />
+      <changelist id="b2e2b0f1-18b3-459a-bfae-c5972b3d224c" name="Default Changelist" comment="" />
       <created>1623564911824</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -148,6 +148,12 @@
       <workItem from="1626187477151" duration="3419000" />
       <workItem from="1626229045611" duration="13499000" />
       <workItem from="1626255349825" duration="4847000" />
+      <workItem from="1627905141946" duration="2493000" />
+      <workItem from="1628142223101" duration="213000" />
+      <workItem from="1628161466254" duration="1810000" />
+      <workItem from="1628245493491" duration="1818000" />
+      <workItem from="1630301462204" duration="6000" />
+      <workItem from="1630908312376" duration="1674000" />
     </task>
     <servers />
   </component>
