@@ -36,6 +36,10 @@ const ParsePlatFormMessagePlugins: Plugin = ({ Router, encrypt, root }) => {
             // 图片活动
             sendMediaDataCopy({ targetInfo: target, uid: FromUserName, content: Content, root, frameName: ['1', '2', '3', '6', '7','8', '10'], dir: 'sanwei' })
             return
+        } else if (target.appid === 'wx0ea308250417bd30' && ['头像测试'].includes(Content)) {
+            // 图片活动
+            sendMediaDataCopy({ targetInfo: target, uid: FromUserName, content: Content, root, frameName: ['1', '2', '3'], dir: 'temp' })
+            return
         } else if ((target.appid === 'wx85df74b62aad79ed' || target.appid === 'wx0ea308250417bd30')) {
             if (['七一', '建党', '百年风华', '建党百年', '七一建党', '建党100周年', '71'].includes(Content)) {
                 // 图片活动
