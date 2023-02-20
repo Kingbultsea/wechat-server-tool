@@ -39,9 +39,11 @@ try {
       return
     }
 
-    const config = json || argv || {}
+    const config = json.wechat || argv || {}
 
     console.log(config, argv)
+
+    config.input = json.input
 
     global.__config__ = config
 
