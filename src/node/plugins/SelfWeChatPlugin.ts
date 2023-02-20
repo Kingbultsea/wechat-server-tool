@@ -187,7 +187,7 @@ function refleash({ appid, root, DATA }: any = {}) {
 
   // 1小时请求一次
   setTimeout(() => {
-    refleash({ appid, root })
+    refleash({ appid, root, DATA })
   }, 1000 * 60 * 20)
 }
 
