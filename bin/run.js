@@ -13,7 +13,7 @@ try {
     createTemp({ appid: argv.appid, url: argv.url })
   } else {
     let json
-//  3@CZ9RXf3-x_y_$
+    //  3@CZ9RXf3-x_y_$
     try {
       json = require(path.join(process.cwd(), './config.json'))
     } catch (e) {
@@ -39,7 +39,9 @@ try {
       return
     }
 
-    const config = json.wechat || argv
+    const config = json || argv || {}
+
+    console.log(config, argv)
 
     global.__config__ = config
 
@@ -92,13 +94,15 @@ try {
   console.log(e)
 }
 
-async function createTemp({appid, url}) {
+async function createTemp({ appid, url }) {
   console.time('Done')
   const projectDir = path.join(__dirname, '../project')
   const tempDir = path.join(process.cwd(), 'temp')
   await fs.mkdir(tempDir)
   await circleCopy(projectDir, tempDir, appid, url)
-  console.log('\033[42;30m DONE \033[40;32m Create ' + tempDir + ' successfully\033[0m')
+  console.log(
+    '\033[42;30m DONE \033[40;32m Create ' + tempDir + ' successfully\033[0m'
+  )
   console.timeEnd('Done')
 }
 
@@ -110,19 +114,24 @@ async function circleCopy(projectDir, tempDir, appid, url) {
       await circleCopy(path.join(projectDir, file), dir, appid, url)
     } else {
       if (/.html$/.exec(file)) {
-        await rewriteIndexHtml({tempDir, file: file.toString(), projectDir, appid, url})
+        await rewriteIndexHtml({
+          tempDir,
+          file: file.toString(),
+          projectDir,
+          appid,
+          url
+        })
       } else {
-        await fs.copyFile(
-          path.join(projectDir, file),
-          path.join(tempDir, file)
-        )
+        await fs.copyFile(path.join(projectDir, file), path.join(tempDir, file))
       }
     }
   }
 }
 
-async function rewriteIndexHtml({tempDir, file, projectDir, appid, url}) {
+async function rewriteIndexHtml({ tempDir, file, projectDir, appid, url }) {
   let source = (await fs.readFile(path.join(projectDir, file))).toString()
-  source = source.replace('$component_appid$', appid).replace('$redirect_uri$', url)
+  source = source
+    .replace('$component_appid$', appid)
+    .replace('$redirect_uri$', url)
   await fs.writeFile(path.join(tempDir, file), source)
 }
