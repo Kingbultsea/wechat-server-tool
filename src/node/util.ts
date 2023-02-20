@@ -20,7 +20,7 @@ const getPostData = (ctx: any): Promise<string> => {
 const writeFile = (ROOT: string = process.cwd(), data: Record<any, any>) => {
     let dataJSON = JSON.stringify(data)
     fs.writeFile(
-        path.join(ROOT, global.__CONFIG__.input),
+        path.join(ROOT, global.__CONFIG__.data),
         dataJSON
     )
 }
