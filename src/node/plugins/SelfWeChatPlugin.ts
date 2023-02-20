@@ -9,32 +9,45 @@ const Log = _Log('Message from 自身平台：')
 Log(`读取本地DATA文件，获取EnctypeTicket: ${EnctypeTicket}`)
 
 // 微信第三方自身授权
-const SelfWeChatPlugin: Plugin = ({  app, Router, root, encrypt, appid, secret, DATA }) => {
+const SelfWeChatPlugin: Plugin = ({
+  app,
+  Router,
+  root,
+  encrypt,
+  appid,
+  secret,
+  DATA
+}) => {
   if (app) {
-    app.use(async (ctx, next) => {
-
-    })
+    app.use(async (ctx, next) => {})
   }
 
   EnctypeTicket = DATA && DATA.self && DATA.self.Encrypt
 
   // 每10分钟会有请求进来
-  Router.post('/wechat_open_platform/auth/callback', async (ctx: any, res: any) => {
-    const { result: _EnctypeTicket, bodyXML } = await getData(ctx, encrypt, 'ComponentVerifyTicket')
+  Router.post(
+    '/wechat_open_platform/auth/callback',
+    async (ctx: any, res: any) => {
+      const { result: _EnctypeTicket, bodyXML } = await getData(
+        ctx,
+        encrypt,
+        'ComponentVerifyTicket'
+      )
 
-    if (_EnctypeTicket) {
-      EnctypeTicket = _EnctypeTicket
+      if (_EnctypeTicket) {
+        EnctypeTicket = _EnctypeTicket
 
-      // todo 抓获setter
-      DATA.self.Encrypt = EnctypeTicket
-      writeFile(root, DATA)
+        // todo 抓获setter
+        DATA.self.Encrypt = EnctypeTicket
+        writeFile(root, DATA)
 
-      Log(`微信端接收EnctypeTicket：${EnctypeTicket}`)
-      ctx.response.body = 'success'
-    } else {
-      Log(`微信端接收EnctypeTicket异常: ${bodyXML}`)
+        Log(`微信端接收EnctypeTicket：${EnctypeTicket}`)
+        ctx.response.body = 'success'
+      } else {
+        Log(`微信端接收EnctypeTicket异常: ${bodyXML}`)
+      }
     }
-  })
+  )
 
   getSelfAccessComponentToken({ appid, root, secret, DATA })
 
@@ -86,51 +99,55 @@ export async function getPreCode({
       component_appid: appid
     }
     return SuperAgent.post(_URL)
-        .send(_Params)
-        .end((err, res) => {
-          if (!res) {
-            return ''
-            resolve(null)
-          }
-          const code: string = res.body.pre_auth_code
-          Log(`获取预授权码: ${code}`)
-          resolve(code)
-          return code
-        })
+      .send(_Params)
+      .end((err, res) => {
+        if (!res) {
+          return ''
+          resolve(null)
+        }
+        const code: string = res.body.pre_auth_code
+        Log(`获取预授权码: ${code}`)
+        resolve(code)
+        return code
+      })
   })
 }
 
 // 获取账号自身的AccessComponentToken 用于刷新
 function getSelfAccessComponentToken({ appid, root, secret, DATA }: any = {}) {
-  const minTime = new Date().getTime() - parseInt(DATA.self.update || 0)
+  const gapTime = new Date().getTime() - parseInt(DATA.self.update || 0)
   const time = 1000 * 60 * 50
 
-  if (minTime >= time) {
+  if (gapTime >= time) {
     const params = {
       component_appid: appid,
       component_appsecret: secret,
       component_verify_ticket: DATA.self.Encrypt
     }
 
-    SuperAgent.post(`https://api.weixin.qq.com/cgi-bin/component/api_component_token`).send(params).end((err, res) => {
-      if (res) {
-        if (res.body.component_access_token) {
-          Log(`获取access_token:${ res.body.component_access_token }`)
-          DATA.self.component_access_token = res.body.component_access_token
-          DATA.self.update = new Date().getTime()
-          writeFile(root, DATA)
-        } else {
-          Log('获取失败，请查看异常提示')
-          console.log(res.body)
+    SuperAgent.post(
+      `https://api.weixin.qq.com/cgi-bin/component/api_component_token`
+    )
+      .send(params)
+      .end((err, res) => {
+        if (res) {
+          if (res.body.component_access_token) {
+            Log(`获取access_token:${res.body.component_access_token}`)
+            DATA.self.component_access_token = res.body.component_access_token
+            DATA.self.update = new Date().getTime()
+            writeFile(root, DATA)
+          } else {
+            Log('获取失败，请查看异常提示')
+            console.log(res.body, params)
+          }
         }
-      }
-    })
+      })
   }
 
   // 每一小时请求一次
-  setTimeout((() => {
-    getSelfAccessComponentToken({ appid, root, secret })
-  }), 1000 * 60 * 20)
+  setTimeout(() => {
+    getSelfAccessComponentToken({ appid, root, secret, DATA })
+  }, 1000 * 60 * 20)
 }
 
 // 刷新机制
@@ -146,21 +163,25 @@ function refleash({ appid, root, DATA }: any = {}) {
       authorizer_refresh_token: v.refresh_authorizer_refresh_token // 授权方的刷新令牌
     }
 
-    if (v.appid && (minTime >= time) ) {
+    if (v.appid && minTime >= time) {
       const target = DATA.thirdPart[index]
       Log(`刷新${target.name}的accessToken`)
-      SuperAgent.post(`https://api.weixin.qq.com/cgi-bin/component/api_authorizer_token?component_access_token=${DATA.self.component_access_token}`).send(params).end(async (err, res) => {
-        if (res.body.authorizer_access_token) {
-          target.update = new Date().getTime()
-          target.authorizer_access_token = res.body.authorizer_access_token
-          target.refresh_authorizer_refresh_token = res.body.authorizer_refresh_token
-          writeFile(root, DATA)
-        } else {
-          Log(`${target.name}刷新后，没有数据，请查看异常提示`)
-          console.log(res.body)
-        }
-
-      })
+      SuperAgent.post(
+        `https://api.weixin.qq.com/cgi-bin/component/api_authorizer_token?component_access_token=${DATA.self.component_access_token}`
+      )
+        .send(params)
+        .end(async (err, res) => {
+          if (res.body.authorizer_access_token) {
+            target.update = new Date().getTime()
+            target.authorizer_access_token = res.body.authorizer_access_token
+            target.refresh_authorizer_refresh_token =
+              res.body.authorizer_refresh_token
+            writeFile(root, DATA)
+          } else {
+            Log(`${target.name}刷新后，没有数据，请查看异常提示`)
+            console.log(res.body)
+          }
+        })
     }
   })
 

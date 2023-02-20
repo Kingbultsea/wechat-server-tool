@@ -45,7 +45,7 @@ try {
 
     config.input = json.input
 
-    global.__config__ = config
+    global.__CONFIG__ = config
 
     try {
       // 磁盘数据
