@@ -13,7 +13,7 @@ try {
     createTemp({ appid: argv.appid, url: argv.url })
   } else {
     let json
-
+//  3@CZ9RXf3-x_y_$
     try {
       json = require(path.join(process.cwd(), './config.json'))
     } catch (e) {

@@ -1,4 +1,4 @@
-var crypto = require('crypto')
+import crypto from 'crypto';
 
 var Encrypt = function (options: any) {
     this.checkParams(options)
