@@ -19,6 +19,7 @@ const getPostData = (ctx: any): Promise<string> => {
 
 const writeFile = (ROOT: string = process.cwd(), data: Record<any, any>) => {
     let dataJSON = JSON.stringify(data)
+    console.log(ROOT, global.__CONFIG__, '写入')
     fs.writeFile(
         path.join(ROOT, global.__CONFIG__.data),
         dataJSON

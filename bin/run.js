@@ -41,11 +41,11 @@ try {
 
     const config = json.wechat || argv || {}
 
-    console.log(config, argv)
-
     config.input = json.input
 
     config.data = json.data
+
+    console.log(config, argv, json)
 
     global.__CONFIG__ = config
 
