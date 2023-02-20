@@ -45,6 +45,8 @@ try {
 
     config.input = json.input
 
+    config.data = json.data
+
     global.__CONFIG__ = config
 
     try {
