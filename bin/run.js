@@ -1,6 +1,12 @@
 #!/usr/bin/env node
-const fs = require('fs').promises
-const argv = require('minimist')(process.argv.slice(2))
+import fs from 'fs/promises'
+import minimist from 'minimist'
+
+import Module from "node:module";
+
+const require = Module.createRequire(import.meta.url);
+
+const argv = minimist(process.argv.slice(2))
 const path = require('path')
 
 try {
@@ -8,7 +14,7 @@ try {
     // todo 创建模板
     if (process.argv.includes('create')) {
       if (!argv.appid || !argv.url) {
-        console.log('\x1B[31m%s\x1B[0m', '请配置appid或url参数')
+        console.log('请配置appid或url参数')
         return
       }
       createTemp({ appid: argv.appid, url: argv.url })
@@ -108,9 +114,9 @@ async function createTemp({ appid, url }) {
   const tempDir = path.join(process.cwd(), 'temp')
   await fs.mkdir(tempDir)
   await circleCopy(projectDir, tempDir, appid, url)
-  // console.log(
-  //   '\u033[42;30m DONE \u033[40;32m Create ' + tempDir + ' successfully\u033[0m'
-  // )
+  console.log(
+    'DONE Create ' + tempDir + ' successfully'
+  )
   console.timeEnd('Done')
 }
 

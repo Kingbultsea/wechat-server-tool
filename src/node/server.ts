@@ -11,6 +11,10 @@ import ParsePlatFormMessagePlugins from './plugins/ParsePlatFormMessagePlugin';
 // @ts-ignore
 import LRUCache from 'lru-cache'
 
+import Module from "node:module";
+
+const require = Module.createRequire(import.meta.url);
+
 export interface UserInfo  {
     name: string,
     picUrl: string,

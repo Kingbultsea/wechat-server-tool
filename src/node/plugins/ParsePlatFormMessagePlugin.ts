@@ -2,6 +2,9 @@
 import { Plugin } from '../server'
 import { getData } from '../util'
 import _Log from '../../util/Log'
+import Module from "node:module";
+
+const require = Module.createRequire(import.meta.url);
 
 const madge = require('madge')
 const path = require('path')
