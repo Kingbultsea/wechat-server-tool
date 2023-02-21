@@ -21,7 +21,8 @@ export function sendContent(toUser: any, content: any, serveAccessToken: any, ty
             }
         }
 
-        SuperAgent.post(`https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=${serveAccessToken}`).send(serviceData).end(() => {
+        SuperAgent.post(`https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=${serveAccessToken}`).send(serviceData).end((err, res) => {
+            console.log("消息发送回调结果: ", err, res?.body)
             resolve(null)
         })
     })
