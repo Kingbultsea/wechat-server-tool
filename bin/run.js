@@ -108,9 +108,9 @@ async function createTemp({ appid, url }) {
   const tempDir = path.join(process.cwd(), 'temp')
   await fs.mkdir(tempDir)
   await circleCopy(projectDir, tempDir, appid, url)
-  console.log(
-    '\u033[42;30m DONE \u033[40;32m Create ' + tempDir + ' successfully\u033[0m'
-  )
+  // console.log(
+  //   '\u033[42;30m DONE \u033[40;32m Create ' + tempDir + ' successfully\u033[0m'
+  // )
   console.timeEnd('Done')
 }
 
