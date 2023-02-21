@@ -1,7 +1,4 @@
 import _axios from 'axios'
-import Module from "node:module";
-
-const require = Module.createRequire(import.meta.url);
 
 const axios = _axios.create()
 

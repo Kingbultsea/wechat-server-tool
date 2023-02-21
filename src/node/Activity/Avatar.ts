@@ -4,9 +4,6 @@ import { randomString } from '../util';
 // @ts-ignore
 import request from 'request'
 import { getUserInfo, sendContent } from '../MessageParser'
-import Module from "node:module";
-
-const require = Module.createRequire(import.meta.url);
 
 const fs = require('fs')
 const path = require("path")

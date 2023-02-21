@@ -1,7 +1,4 @@
 import { promises as fs } from 'fs'
-import Module from "node:module";
-
-const require = Module.createRequire(import.meta.url);
 
 const path = require('path')
 

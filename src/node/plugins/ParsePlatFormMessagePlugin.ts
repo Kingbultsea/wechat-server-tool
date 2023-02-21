@@ -2,9 +2,6 @@
 import { Plugin } from '../server'
 import { getData } from '../util'
 import _Log from '../../util/Log'
-import Module from "node:module";
-
-const require = Module.createRequire(import.meta.url);
 
 const madge = require('madge')
 const path = require('path')
@@ -31,18 +28,14 @@ const ParsePlatFormMessagePlugin: Plugin = ({
           if (Object.keys(res.tree).includes(path.relative(root, file))) {
             Log(`文件${file}改动，将重加载入口方法`)
             // 消息处理
-            import(path.join(root, input)).then(({ default: defaultMth }) => {
-              inputMth = defaultMth
-            })
+            inputMth = require(path.join(root, input))
           }
         }
       )
     })
 
     // 消息处理
-    import(path.join(root, input)).then(({ default: defaultMth }) => {
-      inputMth = defaultMth
-    })
+    inputMth = require(path.join(root, input))
   } catch (e) {
     console.log(e)
   }
@@ -82,8 +75,15 @@ const ParsePlatFormMessagePlugin: Plugin = ({
 
     ctx.response.body = 'success'
 
+    console.log(inputMth)
+
     // todo 消息插件  target content FromUserName
     if (inputMth && typeof inputMth === 'function') {
+      inputMth({ target, Content, FromUserName, root, rawContent: result })
+    }
+
+    // @ts-ignore
+    if (inputMth?.default && typeof inputMth?.default === 'function') {
       inputMth({ target, Content, FromUserName, root, rawContent: result })
     }
   })
