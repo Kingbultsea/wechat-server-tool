@@ -21,13 +21,17 @@ const ParsePlatFormMessagePlugin: Plugin = ({ app, Router, encrypt, root, DATA, 
                 )) {
                     Log(`文件${file}改动，将重加载入口方法`)
                     // 消息处理
-                    inputMth = require(path.join(root, input))
+                    import(path.join(root, input)).then(({ default: defaultMth }) => {
+                        inputMth = defaultMth
+                    })
                 }
             });
         })
 
         // 消息处理
-        inputMth = require(path.join(root, input))
+        import(path.join(root, input)).then(({ default: defaultMth }) => {
+            inputMth = defaultMth
+        })
     } catch (e) {
         console.log(e)
     }
