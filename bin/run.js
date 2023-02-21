@@ -109,7 +109,7 @@ async function createTemp({ appid, url }) {
   await fs.mkdir(tempDir)
   await circleCopy(projectDir, tempDir, appid, url)
   console.log(
-    '\033[42;30m DONE \033[40;32m Create ' + tempDir + ' successfully\033[0m'
+    '\u033[42;30m DONE \u033[40;32m Create ' + tempDir + ' successfully\u033[0m'
   )
   console.timeEnd('Done')
 }
