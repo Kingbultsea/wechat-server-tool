@@ -114,7 +114,7 @@ function sendContent(toUser: any, content: any, serveAccessToken: any, type: 'vo
 
 ```content```: 内容|媒体ID
 
-```serveAccessToken```: 目标平台的serveAccessToken（入口```target```参数可取）
+```serveAccessToken```: 目标平台的serveAccessToken（入口```target.authorizer_access_token```参数可取）
 
 
 ## TODO
